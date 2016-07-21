@@ -4,9 +4,11 @@
   "config": {
     "port": "3000"
   },
-  "main": "index.js",
   "dependencies": {
     "express": "^4.14.0",
     "node-slack": "0.0.7"
+  },
+  "scripts" : {
+	"start": "node index.js"
   }
 }
