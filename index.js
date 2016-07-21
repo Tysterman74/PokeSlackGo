@@ -6,8 +6,8 @@ var app = express();
 
 app.post('/test', function (req, res) {
     sendSlackMessage("Hallo");
-    console.log("the req is:" req);
-    console.log("the res is:" res);
+    console.log("the req is:"+ req);
+    console.log("the res is:"+ res);
 });
 
 app.listen(process.env.PORT || 3000, function () {
