@@ -1,5 +1,12 @@
 {
-	"name": "poke-slack-go-package",
-	"version": "1.0.0",
-	"main": "index.js"
+  "name": "poke-slack-go-package",
+  "version": "1.0.0",
+  "config": {
+    "port": "3000"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "node-slack": "0.0.7"
+  }
 }
