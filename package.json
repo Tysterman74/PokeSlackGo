@@ -5,10 +5,11 @@
     "port": "3000"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "node-slack": "0.0.7"
   },
-  "scripts" : {
-	"start": "node index.js"
+  "scripts": {
+    "start": "node index.js"
   }
 }
