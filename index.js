@@ -4,6 +4,8 @@ var express = require('express');
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
 
+app.use(express.bodyParser());
+
 app.post('/test', function (req, res) {
 
     //var reply = slack.respond(req.body, function (hook) {
