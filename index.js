@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
 
-app.use(bodyParser);
+app.use(bodyParser.json());
 
 app.post('/test', function (req, res) {
 
