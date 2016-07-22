@@ -5,9 +5,16 @@ var slack = new Slack('https://hooks.slack.com/services/T1AC468DD/B1TKGJJF4/pxei
 var app = express();
 
 app.post('/test', function (req, res) {
-    sendSlackMessage("Hallo");
+
+    //var reply = slack.respond(req.body, function (hook) {
+    //
+    //    console.log(hook);
+    //});
+    //
+    //res.json(reply);
+    //sendSlackMessage("Hallo");
     //console.log("the req is:",req);
-    console.log("the res is:", res);
+    console.log(req.body);
 });
 
 app.listen(process.env.PORT || 3000, function () {
