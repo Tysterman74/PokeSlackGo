@@ -10,17 +10,17 @@ app.use(bodyParser.json());
 
 app.post('/test', bodyParser.json(), function (req, res) {
 
-    //var reply = slack.respond(req.body, function (hook) {
-    //
-    //    console.log(hook);
-    //});
-    //
-    //res.json(reply);
+    var reply = slack.respond(req.body, function (hook) {
+    
+        console.log(hook);
+    });
+    
+    res.json(reply);
     //sendSlackMessage("Hallo");
     //console.log("the req is:",req);
     //console.log("req", req);
-    console.log("headers", req.headers);
-    console.log(req.body);
+    //console.log("headers", req.headers);
+    //console.log(req.body);
 });
 
 app.listen(process.env.PORT || 3000, function () {
