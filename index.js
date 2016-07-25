@@ -18,7 +18,7 @@ app.post('/test', function (req, res) {
     //res.json(reply);
     //sendSlackMessage("Hallo");
     //console.log("the req is:",req);
-    console.log("req", req);
+    //console.log("req", req);
     console.log(req.body);
     console.log("error?", req.status);
 });
