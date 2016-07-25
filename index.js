@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
 
-app.use(bodyParser.raw());
+app.use(bodyParser.json());
 //var jsonParser = bodyParser.json();
 
 app.post('/test', function (req, res) {
@@ -18,7 +18,9 @@ app.post('/test', function (req, res) {
     //res.json(reply);
     //sendSlackMessage("Hallo");
     //console.log("the req is:",req);
+    console.log("req", req);
     console.log(req.body);
+    console.log("error?", req.status);
 });
 
 app.listen(process.env.PORT || 3000, function () {
