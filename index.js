@@ -19,8 +19,8 @@ app.post('/test', function (req, res) {
     //sendSlackMessage("Hallo");
     //console.log("the req is:",req);
     //console.log("req", req);
+    console.log("headers", req.headers);
     console.log(req.body);
-    console.log("error?", req.status);
 });
 
 app.listen(process.env.PORT || 3000, function () {
