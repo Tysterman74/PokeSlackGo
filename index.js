@@ -8,7 +8,7 @@ var app = express();
 app.use(bodyParser.json());
 //var jsonParser = bodyParser.json();
 
-app.post('/test', function (req, res) {
+app.post('/test', bodyParser, function (req, res) {
 
     //var reply = slack.respond(req.body, function (hook) {
     //
@@ -28,7 +28,6 @@ app.listen(process.env.PORT || 3000, function () {
 });
 
 function sendSlackMessage(message) {
-    //var slack = new Slack('https://hooks.slack.com/services/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', null);
     slack.send({
         text: message,
         channel: '#general',
