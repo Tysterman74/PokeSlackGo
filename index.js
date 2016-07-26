@@ -36,7 +36,7 @@ app.post('/pokemon', function (req, res) {
     
         //console.log(hook);
     });
-    sendSlackMessage("pokemon");
+    //sendSlackMessage("pokemon");
     
     //res.json(reply);
     //sendSlackMessage("Hallo");
