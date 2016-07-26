@@ -9,7 +9,8 @@ app.use(bodyParser.json());
 //var jsonParser = bodyParser.json();
 
 app.post('/test', bodyParser.json(), function (req, res) {
-
+    console.log("res body", res.body);
+    
     var reply = slack.respond(req.body, function (hook) {
     
         console.log(hook);
