@@ -5,10 +5,12 @@ var bodyParser = require('body-parser');
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
 
-app.configure(function () {
-    app.use(bodyParser.json());    
-})
+//app.configure(function () {
+//    app.use(bodyParser.json());    
+//})
 //var jsonParser = bodyParser.json();
+
+app.use(bodyParser.json());
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("listening.");
