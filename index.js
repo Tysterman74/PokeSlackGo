@@ -11,6 +11,7 @@ var app = express();
 //var jsonParser = bodyParser.json();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("listening.");
