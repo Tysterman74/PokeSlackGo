@@ -31,6 +31,22 @@ app.post('/test', function (req, res) {
     //console.log(req.body);
 });
 
+app.post('/pokemon', function (req, res) {
+    var reply = slack.respond(req.body, function (hook) {
+    
+        //console.log(hook);
+    });
+    sendSlackMessage("pokemon");
+    
+    //res.json(reply);
+    //sendSlackMessage("Hallo");
+    //console.log("the req is:",req);
+    //console.log("req", req);
+    //console.log("headers", req.headers);
+    //console.log(req.body);
+});
+
+
 function sendSlackMessage(message) {
     slack.send({
         text: message,
