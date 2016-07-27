@@ -1,4 +1,4 @@
-import "pkmn.js";
+import "pokemon.js";
 
 var Slack = require('node-slack');
 var express = require('express');
