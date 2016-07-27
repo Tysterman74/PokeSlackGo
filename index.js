@@ -20,9 +20,10 @@ app.listen(process.env.PORT || 3000, function () {
 
 app.post('/test', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
-    
-        console.log(hook);
+        
         pokedex.test();
+        console.log(hook);
+        
     });
     
     res.json(reply);
