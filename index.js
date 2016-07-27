@@ -1,3 +1,5 @@
+import "pkmn.js";
+
 var Slack = require('node-slack');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -21,6 +23,7 @@ app.post('/test', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
     
         console.log(hook);
+        pkmn();
     });
     
     res.json(reply);
