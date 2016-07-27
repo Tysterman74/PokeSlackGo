@@ -21,7 +21,7 @@ app.listen(process.env.PORT || 3000, function () {
 app.post('/test', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
         
-        pokedex.test();
+        
         console.log(hook.text);
         
     });
@@ -40,7 +40,7 @@ app.post('/pokemon', function (req, res) {
         //console.log(hook);
     });
     sendSlackMessage("Pokedex");
-    
+    pokedex.test();
     //res.json(reply);
     //sendSlackMessage("Hallo");
     //console.log("the req is:",req);
