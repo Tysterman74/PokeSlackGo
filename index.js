@@ -22,7 +22,7 @@ app.post('/test', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
         
         pokedex.test();
-        console.log(hook);
+        console.log(hook.text);
         
     });
     
