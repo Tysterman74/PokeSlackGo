@@ -2,9 +2,9 @@
 //it says pokemon ER NO it says pkmn
 
 module.exports = {
-function pkmn(){
+	pkmn:function(){
 	console.log("woooh yeah pkmn");
 	
-};
+	}
 
 }
