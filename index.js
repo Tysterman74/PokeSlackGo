@@ -23,7 +23,7 @@ app.post('/test', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
     
         console.log(hook);
-        pkmn();
+        //pkmn();
     });
     
     res.json(reply);
