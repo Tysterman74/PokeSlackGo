@@ -39,7 +39,7 @@ app.post('/pokemon', function (req, res) {
         var pkTest = pokedex.pokeParse(hook.text);
         console.log("you are " + pkTest[1]);
         var pokeChoice = pkTest[1].toString();
-        var pokeJudge = pokeDef(pokeChoice);
+        var pokeJudge = pokeHammer(pokeChoice);
         sendSlackMessage(pokeJudge);
     });
     
