@@ -27,9 +27,11 @@ module.exports = {
    	else if (p1 == "valor"){
    		return "team dumb";
    	}
-   	else (p1 == "instinct"){
+   	else if (p1 == "instinct"){
    		return "You're okay";
    	}
+   	else 
+   		return "YOU'RE NOTHING -MISS BITTERS";
    }
    
 }
