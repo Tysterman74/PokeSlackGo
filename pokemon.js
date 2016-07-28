@@ -12,8 +12,10 @@ module.exports = {
     test: function () {
         console.log("test");
     },
-    pokeParse: function ( t1 ){
-    	var parsed = t1.split(" ");
+    pokeParse: function ( t1){
+    	var lower = t1.toLowerCase();
+    	var parsed =lower.split(" ");
    	console.log(parsed);
    }
+   
 }
