@@ -20,7 +20,7 @@ module.exports = {
    	
    },
    
-   pokeDef: function ( p1){
+   pokeHammer: function ( p1){
    	if (p1 == "mystic"){
    		return "YEAH GO MYSTIC";
    	}
