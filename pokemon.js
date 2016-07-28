@@ -38,7 +38,7 @@ module.exports = {
    },
    
    pokeAddLoc: function (name1, lat, long){
-   	return "i dont know " + name1.toString() + " at " lat.toString() + "," + long.toString();
+   	return "i dont know " + name1 + " at " lat+ "," + long;
    },
    
    pokeCurLoc: function(){
