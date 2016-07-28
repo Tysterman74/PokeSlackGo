@@ -22,20 +22,20 @@ module.exports = {
    
    pokeHammer: function ( p1, l1){
    	if (p1[1] === "query"){
-   		pokeQuery(l1[2]);
-   		//this.pokeQuery(l1[2]);
+   		//pokeQuery(l1[2]);
+   		this.pokeQuery(l1[2]);
    	}
    	else if (p1[1] === "addlocation"){
-   		pokeAddLoc(l1[2],l1[3],l1[4]);
-   		//this.pokeAddLoc(l1[2],l1[3],l1[4]);
+   		//pokeAddLoc(l1[2],l1[3],l1[4]);
+   		this.pokeAddLoc(l1[2],l1[3],l1[4]);
    	}
    	else if (p1[1] === "currentlocations"){
-   		pokeCurLoc();
-   		//this.pokeCurLoc();
+   		//pokeCurLoc();
+   		this.pokeCurLoc();
    	}
    	else 
-   		pokeHelp();
-   		//this.pokeHelp();
+   		//pokeHelp();
+   		this.pokeHelp();
    },
    pokeQuery: function( name1){
    	return "i looked and " + name1 +" said no";
