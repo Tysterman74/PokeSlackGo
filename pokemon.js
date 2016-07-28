@@ -21,13 +21,13 @@ module.exports = {
    },
    
    pokeDef: function ( p1){
-   	if (p1[1].toString == "mystic"){
+   	if (p1 == "mystic"){
    		return "YEAH GO MYSTIC";
    	}
-   	else if (p1[1].toString == "valor"){
+   	else if (p1 == "valor"){
    		return "team dumb";
    	}
-   	else (p1[1].toString == "instinct"){
+   	else (p1 == "instinct"){
    		return "You're okay";
    	}
    }
