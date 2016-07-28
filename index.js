@@ -42,7 +42,7 @@ app.post('/pokemon', function (req, res) {
     sendSlackMessage("Pokedex");
     //pokedex.test();
     
-    //res.json(reply);
+    res.json(reply);
     //sendSlackMessage("Hallo");
     //console.log("the req is:",req);
     //console.log("req", req);
