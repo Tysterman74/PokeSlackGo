@@ -36,13 +36,13 @@ app.post('/test', function (req, res) {
 
 app.post('/pokemon', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
-        pokedex.pokeParse(hook.text);
+        //pokedex.pokeParse(hook.text);
         //console.log(hook);
     });
     sendSlackMessage("Pokedex");
     //pokedex.test();
     
-    res.json(reply);
+    //res.json(reply);
     //sendSlackMessage("Hallo");
     //console.log("the req is:",req);
     //console.log("req", req);
