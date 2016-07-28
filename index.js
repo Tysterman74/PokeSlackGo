@@ -24,6 +24,7 @@ app.listen(process.env.PORT || 3000, function () {
 
 //var db = new database();
 database.test();
+database.initializeDatabase();
 
 app.post('/test', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
