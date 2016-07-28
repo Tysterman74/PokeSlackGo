@@ -21,17 +21,34 @@ module.exports = {
    },
    
    pokeHammer: function ( p1){
-   	if (p1 == "mystic"){
-   		return "YEAH GO MYSTIC";
+   	if (p1[1] === "query"){
+   		this.pokeQuery(p1[2]);
    	}
-   	else if (p1 == "valor"){
-   		return "team dumb";
+   	else if (p1[1] === "addlocation"){
+   		this.pokeAddLoc(p1[2],p1[3],p1[4]);
    	}
-   	else if (p1 == "instinct"){
-   		return "You're okay";
+   	else if (p1[1] === "currentlocations"){
+   		this.pokeCurLoc();
    	}
    	else 
-   		return "YOU'RE NOTHING -MISS BITTERS";
+   		this.pokeHelp();
+   },
+   pokeQuery: function( name1){
+   	return "i looked and " + name1 +" said no";
+   },
+   
+   pokeAddLoc: function (name1, lat, long){
+   	return "i dont know " + name1.toString() + " at " lat.toString() + "," + long.toString();
+   },
+   
+   pokeCurLoc: function(){
+   	return "el oh el this is what we have";
+   },
+   
+   pokeHelp: function (){
+   	return "commands are: \nQuery (name) \nAddLocation (name) (lat) (long) \nCurrentLocations";
    }
+   
+   
    
 }
