@@ -37,8 +37,8 @@ app.post('/test', function (req, res) {
 app.post('/pokemon', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
         var pkTest = pokedex.pokeParse(hook.text);
-        //console.log(hook);
-        sendSlackMessage(pkTest);
+        console.log(pkTest);
+        //sendSlackMessage(pkTest);
     });
     
     //pokedex.test();
