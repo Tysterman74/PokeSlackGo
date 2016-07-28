@@ -21,7 +21,7 @@ app.listen(process.env.PORT || 3000, function () {
 app.post('/test', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
         
-        sendSlackMessage(hook);
+        sendSlackMessage(JSON.stringify(hook));
         console.log(hook.text);
         
     });
