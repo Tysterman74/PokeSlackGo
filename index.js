@@ -24,7 +24,7 @@ app.post('/test', function (req, res) {
         //sendSlackMessage(JSON.stringify(hook));
         //console.log(hook.text);
         return {
-          text: 'AND HIS NAME IS, ' + hgook.user_name,
+          text: 'AND HIS NAME IS, ' + hook.user_name,
           username: 'JohnCenaNotABot'
         };
     });
