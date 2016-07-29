@@ -7,6 +7,9 @@ module.exports = {
     },
     addLocation(locationName, latitude, longitude) {
         return addLocation(locationName, latitude, longitude);
+    },
+    getAllLocations(toRun) {
+        console.log("module export", getAllLocations());
     }
 }
 
@@ -38,29 +41,46 @@ function init() {
 
 function addLocation(locationName, latitude, longitude) {
     try {
-        db.get("SELECT * FROM Locations WHERE LocationName = $locationName", { $locationName: locationName }, function (e1, row) {
-            console.log("AddLocation Error", e1);
-            console.log("AddLocation Row", row);
+        db.serialize(function () {
+            db.get("SELECT * FROM Locations WHERE LocationName = $locationName", { $locationName: locationName }, function (e1, row) {
+                console.log("AddLocation Error", e1);
+                console.log("AddLocation Row", row);
 
-            //If no row is found, add it to the DB
-            if (!row) {
-                return db.run("INSERT INTO Locations (LocationName, Latitude, Longitude) VALUES ($locationName, $latitude, $longitude)", { $locationName: locationName, $latitude: latitude, $longitude: longitude }, function (e2) {
-                    console.log("e2", e2);
-                    if (e2) {
-                        throw "There has been an error with adding this location. Please try again.";
-                    }
-                });
-            }
-                //If row is found, return error statement
-            else {
-                throw "LocationName already exists!";
-            }
+                //If no row is found, add it to the DB
+                if (!row) {
+                    return db.run("INSERT INTO Locations (LocationName, Latitude, Longitude) VALUES ($locationName, $latitude, $longitude)", { $locationName: locationName, $latitude: latitude, $longitude: longitude }, function (e2) {
+                        console.log("e2", e2);
+                        if (e2) {
+                            return "There has been an error with adding this location. Please try again.";
+                        }
+                    });
+                }
+                    //If row is found, return error statement
+                else {
+                    return "LocationName already exists!";
+                }
+            });
+            return locationName + " has been added!";
         });
-
-        return locationName + " has been added!";
     }
     catch (err) {
+        
         return err;
+    }
+}
+
+function getAllLocations(toRun) {
+    try {
+        db.serialize(function () {
+            db.all("SELECT * FROM Locations", function (error, rows) {
+                //toRun(error, rows);
+                console.log("database AllLocations", rows);
+                return rows;
+            });
+        });
+    }
+    catch (err) {
+
     }
 }
 
