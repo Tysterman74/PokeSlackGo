@@ -22,15 +22,15 @@ module.exports = {
    
    pokeHammer: function ( l1){
    	var dbList;
-   	if (p1 === "query"){
+   	if (l1[1] === "query"){
    		//pokeQuery(l1[2]);
    		return l1[2];
    	}
-   	else if (p1 === "addlocation"){
+   	else if (l1[1] === "addlocation"){
    		//pokeAddLoc(l1[2],l1[3],l1[4]);
    		return dbList(1[2],l1[3],l1[4]);
    	}
-   	else if (p1 === "currentlocations"){
+   	else if (l1[1] === "currentlocations"){
    		//pokeCurLoc();
    		return this.pokeCurLoc();
    	}
