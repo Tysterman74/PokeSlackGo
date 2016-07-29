@@ -15,7 +15,7 @@ module.exports = {
    
     pokeParse: function ( t1){
     	var parsed = t1.split(" ");
-		parsed[0] = parsed[0].toLowerCase();
+		parsed[1] = parsed[1].toLowerCase();
    	return parsed;
    	
    },
