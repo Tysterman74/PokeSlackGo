@@ -2,6 +2,7 @@ var Slack = require('node-slack');
 var express = require('express');
 var bodyParser = require('body-parser');
 var database = require("./database");
+var pokedex = require('./pokemon');
 //var serveStatic = require('serve-static');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
