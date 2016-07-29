@@ -6,7 +6,7 @@ module.exports = {
         init();
     },
     addLocation(locationName, latitude, longitude) {
-        addLocation(locationName, latitude, longitude);
+        return addLocation(locationName, latitude, longitude);
     }
 }
 
@@ -37,19 +37,31 @@ function init() {
 }
 
 function addLocation(locationName, latitude, longitude) {
-    db.get("SELECT * FROM Locations WHERE LocationName = $locationName", { $locationName: locationName }, function (error, row) {
-        console.log("AddLocation Error", error);
-        console.log("AddLocation Row", row);
+    try {
+        db.get("SELECT * FROM Locations WHERE LocationName = $locationName", { $locationName: locationName }, function (e1, row) {
+            console.log("AddLocation Error", e1);
+            console.log("AddLocation Row", row);
 
-        //If no row is found, add it to the DB
-        if (!row) {
+            //If no row is found, add it to the DB
+            if (!row) {
+                return db.run("INSERT INTO Locations (LocationName, Latitude, Longitude) VALUES ($locationName, $latitude, $longitude)", { $locationName: locationName, $latitude: latitude, $longitude: longitude }, function (e2) {
+                    console.log("e2", e2);
+                    if (e2) {
+                        throw "There has been an error with adding this location. Please try again.";
+                    }
+                });
+            }
+                //If row is found, return error statement
+            else {
+                throw "LocationName already exists!";
+            }
+        });
 
-        }
-        //If row is found, return error statement
-        else {
-
-        }
-    });
+        return locationName + " has been added!";
+    }
+    catch (err) {
+        return err;
+    }
 }
 
 function createTables() {

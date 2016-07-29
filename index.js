@@ -7,7 +7,6 @@ var database = require("./database");
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
 
-var pokedex = require('./pokemon');
 //app.configure(function () {
 //    app.use(bodyParser.json());    
 //})
@@ -26,17 +25,13 @@ app.listen(process.env.PORT || 3000, function () {
 //var db = new database();
 database.test();
 database.initializeDatabase();
-database.addLocation('test', -22.235, 41.235);
+//var resultMsg = database.addLocation('test2', -22.235, 41.235);
+//console.log(resultMsg);
 
 app.post('/test', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
-        
-        //sendSlackMessage(JSON.stringify(hook));
-        //console.log(hook.text);
-        return {
-          text: 'AND HIS NAME IS, ' + hook.user_name,
-          username: 'JohnCenaNotABot'
-        };
+    
+        console.log(hook);
     });
     
     res.json(reply);
@@ -49,16 +44,12 @@ app.post('/test', function (req, res) {
 
 app.post('/pokemon', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
-        var pkTest = pokedex.pokeParse(hook.text);
-        console.log("you are " + pkTest[1]);
-        var pokeChoice = pkTest[1].toString();
-        var pokeJudge = pokedex.pokeHammer(pokeChoice,pkTest);
-        sendSlackMessage(pokeJudge);
+    
+        //console.log(hook);
     });
+    sendSlackMessage("Pokedex");
     
-    //pokedex.test();
-    
-    res.json(reply);
+    //res.json(reply);
     //sendSlackMessage("Hallo");
     //console.log("the req is:",req);
     //console.log("req", req);
