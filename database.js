@@ -51,20 +51,19 @@ function addLocation(locationName, latitude, longitude) {
                     return db.run("INSERT INTO Locations (LocationName, Latitude, Longitude) VALUES ($locationName, $latitude, $longitude)", { $locationName: locationName, $latitude: latitude, $longitude: longitude }, function (e2) {
                         console.log("e2", e2);
                         if (e2) {
-                            return "There has been an error with adding this location. Please try again.";
+                            throw new Error("There has been an error with adding this location. Please try again.");
                         }
                     });
                 }
                     //If row is found, return error statement
                 else {
-                    return "LocationName already exists!";
+                    throw new Error("LocationName already exists!");
                 }
             });
             return locationName + " has been added!";
         });
     }
     catch (err) {
-        
         return err;
     }
 }
