@@ -58,10 +58,15 @@ app.post('/pokemon', function (req, res) {
          console.log("you are " + pkTest[1]);
          var pokeChoice = pkTest[1].toString();
          var pokeJudge = pokedex.pokeHammer(pokeChoice,pkTest);
-         sendSlackMessage(pokeJudge);
+         //sendSlackMessage(pokeJudge);
+         
+         return {
+            text: pokeJudge,
+            username: 'poke-slack-go-bot'
+         };
     });
     
-    //res.json(reply);
+    res.json(reply);
     //sendSlackMessage("Hallo");
     //console.log("the req is:",req);
     //console.log("req", req);
