@@ -21,9 +21,12 @@ app.listen(process.env.PORT || 3000, function () {
 app.post('/test', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
         
-        sendSlackMessage(JSON.stringify(hook));
-        console.log(hook.text);
-        
+        //sendSlackMessage(JSON.stringify(hook));
+        //console.log(hook.text);
+        return {
+          text: 'AND HIS NAME IS, ' + hgook.user_name,
+          username: 'JohnCenaNotABot'
+        };
     });
     
     res.json(reply);
