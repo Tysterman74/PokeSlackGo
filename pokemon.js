@@ -20,17 +20,17 @@ module.exports = {
    	
    },
    
-   pokeHammer: function ( l1){
+   pokeHammer: function (p1, l1){
    	var dbList;
-   	if (l1[1] === "query"){
-   		//pokeQuery(l1[2]);
-   		return dbList(l1[2]);
+   	if (p1 === "query"){
+   		return this.pokeQuery(l1[2]);
+   		//return dbList(l1[2]);
    	}
-   	else if (l1[1] === "addlocation"){
-   		//pokeAddLoc(l1[2],l1[3],l1[4]);
-   		return dbList(1[2],l1[3],l1[4]);
+   	else if (p1 === "addlocation"){
+   		return this.pokeAddLoc(l1[2],l1[3],l1[4]);
+   		//return dbList(1[2],l1[3],l1[4]);
    	}
-   	else if (l1[1] === "currentlocations"){
+   	else if (p1 === "currentlocations"){
    		//pokeCurLoc();
    		return this.pokeCurLoc();
    	}
