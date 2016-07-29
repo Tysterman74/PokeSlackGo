@@ -26,7 +26,7 @@ app.listen(process.env.PORT || 3000, function () {
 //var db = new database();
 //database.test();
 database.initializeDatabase();
-//database.addLocation('test2', 12, 12);
+database.addLocation('test2', 12, 12);
 //database.getAllLocations(function (error, rows) {
 //    console.log(rows);
 //});
