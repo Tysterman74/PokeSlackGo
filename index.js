@@ -1,6 +1,8 @@
 var Slack = require('node-slack');
 var express = require('express');
 var bodyParser = require('body-parser');
+var database = require("./database");
+//var serveStatic = require('serve-static');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -11,12 +13,20 @@ var pokedex = require('./pokemon');
 //})
 //var jsonParser = bodyParser.json();
 
+//app.use(serveStatic(__dirname + '/js'));
+//app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("listening.");
+    //var db = new database();
 });
+
+//var db = new database();
+database.test();
+database.initializeDatabase();
+database.addLocation('test', -22.235, 41.235);
 
 app.post('/test', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
