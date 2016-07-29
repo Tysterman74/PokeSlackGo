@@ -36,6 +36,10 @@ app.post('/test', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
     
         console.log(hook);
+        return {
+           text: 'AND HIS NAME IS, ' + hook.user_name,
+           username: 'JohnCenaNotABot'
+        };
     });
     
     res.json(reply);
@@ -49,9 +53,12 @@ app.post('/test', function (req, res) {
 app.post('/pokemon', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
     
-        //console.log(hook);
+        var pkTest = pokedex.pokeParse(hook.text);
+         console.log("you are " + pkTest[1]);
+         var pokeChoice = pkTest[1].toString();
+         var pokeJudge = pokedex.pokeHammer(pokeChoice,pkTest);
+         sendSlackMessage(pokeJudge);
     });
-    sendSlackMessage("Pokedex");
     
     //res.json(reply);
     //sendSlackMessage("Hallo");
