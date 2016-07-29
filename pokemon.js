@@ -24,7 +24,7 @@ module.exports = {
    	var dbList;
    	if (l1[1] === "query"){
    		//pokeQuery(l1[2]);
-   		return l1[2];
+   		return dbList(l1[2]);
    	}
    	else if (l1[1] === "addlocation"){
    		//pokeAddLoc(l1[2],l1[3],l1[4]);
