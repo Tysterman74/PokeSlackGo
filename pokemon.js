@@ -12,8 +12,47 @@ module.exports = {
     test: function () {
         console.log("test");
     },
-    pokeParse: function ( t1 ){
-    	var parsed = t1.split(" ");
-   	console.log(parsed);
+   
+    pokeParse: function ( t1){
+    	var lower = t1.toLowerCase();
+    	var parsed =lower.split(" ");
+   	return parsed;
+   	
+   },
+   
+   pokeHammer: function ( p1, l1){
+   	if (p1 === "query"){
+   		//pokeQuery(l1[2]);
+   		return this.pokeQuery(l1[2]);
+   	}
+   	else if (p1 === "addlocation"){
+   		//pokeAddLoc(l1[2],l1[3],l1[4]);
+   		return this.pokeAddLoc(l1[2],l1[3],l1[4]);
+   	}
+   	else if (p1 === "currentlocations"){
+   		//pokeCurLoc();
+   		return this.pokeCurLoc();
+   	}
+   	else 
+   		//pokeHelp();
+   		return this.pokeHelp();
+   },
+   pokeQuery: function( name1){
+   	return "i looked and " + name1 +" said no";
+   },
+   
+   pokeAddLoc: function (name1, lat, long){
+   	return "i dont know " + name1 + " at "+ lat+ "," + long;
+   },
+   
+   pokeCurLoc: function(){
+   	return "el oh el this is what we have";
+   },
+   
+   pokeHelp: function (){
+   	return "commands are: \nQuery (name) \nAddLocation (name) (lat) (long) \nCurrentLocations";
    }
+   
+   
+   
 }
