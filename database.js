@@ -43,21 +43,31 @@ function addLocation(locationName, latitude, longitude) {
     try {
         db.serialize(function () {
             db.get("SELECT * FROM Locations WHERE LocationName = $locationName", { $locationName: locationName }, function (e1, row) {
-                console.log("AddLocation Error", e1);
-                console.log("AddLocation Row", row);
-
-                //If no row is found, add it to the DB
-                if (!row) {
-                    return db.run("INSERT INTO Locations (LocationName, Latitude, Longitude) VALUES ($locationName, $latitude, $longitude)", { $locationName: locationName, $latitude: latitude, $longitude: longitude }, function (e2) {
-                        console.log("e2", e2);
-                        if (e2) {
-                            throw new Error("There has been an error with adding this location. Please try again.");
-                        }
-                    });
+                try {
+                    console.log("AddLocation Error", e1);
+                    console.log("AddLocation Row", row);
+    
+                    //If no row is found, add it to the DB
+                    if (!row) {
+                        return db.run("INSERT INTO Locations (LocationName, Latitude, Longitude) VALUES ($locationName, $latitude, $longitude)", { $locationName: locationName, $latitude: latitude, $longitude: longitude }, function (e2) {
+                            try {
+                                console.log("e2", e2);
+                                if (e2) {
+                                    throw new Error("There has been an error with adding this location. Please try again.");
+                                }
+                            }
+                            catch (err) {
+                                
+                            }
+                        });
+                    }
+                        //If row is found, return error statement
+                    else {
+                        throw new Error("LocationName already exists!");
+                    }
                 }
-                    //If row is found, return error statement
-                else {
-                    throw new Error("LocationName already exists!");
+                catch (err) {
+                    
                 }
             });
             return locationName + " has been added!";
