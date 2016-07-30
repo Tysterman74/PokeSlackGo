@@ -5,11 +5,14 @@ module.exports = {
     initializeDatabase() {
         init();
     },
-    addLocation(locationName, latitude, longitude) {
-        return addLocation(locationName, latitude, longitude);
+    addLocation(locationName, latitude, longitude, callback) {
+        addLocation(locationName, latitude, longitude, callback);
     },
     getAllLocations(toRun) {
-        console.log("module export", getAllLocations());
+        getAllLocations(toRun);
+    },
+    queryLocation(locationName, callback) {
+        queryLocation(locationName, callback);
     }
 }
 
@@ -20,57 +23,36 @@ function init() {
     db = new sqlite.Database('myDb');
 
     db.serialize(function () {
-        //createTables();
+        createTables();
 
-        /*for (var i = 0; i < 10; i++) {
-            db.run("INSERT INTO TestTable VALUES ($id, $stuff)", {
-                $id: i,
-                $stuff: 'test ' + i
-            });
-        }*/
-
-        db.each("SELECT * FROM TestTable", function (err, row) {
-            console.log(row.id + ' ' + row.stuff);
-        });
-        //var statement = db.prepare("INSERT INTO TestTable VALUES ($id, $stuff)");
-
-
-        //statement.run("")
+        //db.each("SELECT * FROM TestTable", function (err, row) {
+        //    console.log(row.id + ' ' + row.stuff);
+        //});
     });
 }
 
-function addLocation(locationName, latitude, longitude) {
+function addLocation(locationName, latitude, longitude, callback) {
     try {
         db.serialize(function () {
             db.get("SELECT * FROM Locations WHERE LocationName = $locationName", { $locationName: locationName }, function (e1, row) {
-                try {
-                    console.log("AddLocation Error", e1);
-                    console.log("AddLocation Row", row);
+                console.log("AddLocation Error", e1);
+                console.log("AddLocation Row", row);
     
-                    //If no row is found, add it to the DB
-                    if (!row) {
-                        return db.run("INSERT INTO Locations (LocationName, Latitude, Longitude) VALUES ($locationName, $latitude, $longitude)", { $locationName: locationName, $latitude: latitude, $longitude: longitude }, function (e2) {
-                            try {
-                                console.log("e2", e2);
-                                if (e2) {
-                                    throw new Error("There has been an error with adding this location. Please try again.");
-                                }
-                            }
-                            catch (err) {
-                                
-                            }
-                        });
-                    }
-                        //If row is found, return error statement
-                    else {
-                        throw new Error("LocationName already exists!");
-                    }
+                //If no row is found, add it to the DB
+                if (!row) {
+                    return db.run("INSERT INTO Locations (LocationName, Latitude, Longitude) VALUES ($locationName, $latitude, $longitude)", { $locationName: locationName, $latitude: latitude, $longitude: longitude }, function (e2) {
+                        console.log("e2", e2);
+                        if (e2) {
+                            callback("There has been an error with adding this location. Please try again.");
+                        }
+                    });
                 }
-                catch (err) {
-                    
+                    //If row is found, return error statement
+                else {
+                    callback("LocationName already exists!");
                 }
             });
-            return locationName + " has been added!";
+            callback(locationName + " has been added!");
         });
     }
     catch (err) {
@@ -82,9 +64,20 @@ function getAllLocations(toRun) {
     try {
         db.serialize(function () {
             db.all("SELECT * FROM Locations", function (error, rows) {
-                //toRun(error, rows);
-                console.log("database AllLocations", rows);
-                return rows;
+                toRun(error, rows);
+            });
+        });
+    }
+    catch (err) {
+
+    }
+}
+
+function queryLocation(locationName, callback) {
+    try {
+        db.serialize(function () {
+            db.get("SELECT * FROM Locations WHERE LocationName = $LocationName", { $LocationName: locationName }, function (error, row) {
+                callback(error, row);
             });
         });
     }
