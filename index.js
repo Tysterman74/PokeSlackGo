@@ -113,7 +113,7 @@ app.post('/down', function (req, res) {
 			   "color": 'danger',
 			   "title": 'Click here to view server issues',
 			   "title_link": 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-			   "text": 'This is an emergency!\nPlease advise!\n'
+			   "text": 'This is an emergency!\nPlease advise!!\n'
 		   }
 		   ]
         };
