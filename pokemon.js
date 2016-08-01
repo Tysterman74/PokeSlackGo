@@ -26,18 +26,20 @@ module.exports = {
    		//return this.pokeQuery(l1[2]);
    		dbList.push(l1[2]);
    		console.log("you're passing query" + dbList);
-   		return dbList.push(l1[2]); //returns the query name
+   		return dbList; //returns the query name
    	}
    	else if (p1 === "addlocation"){
    		//return this.pokeAddLoc(l1[2],l1[3],l1[4]);
+   		dbList.push(l1[2],l1[3],l1[4]);
    		console.log("you're passing location" + dbList);
-   		return dbList.push(11[2],l1[3],l1[4]); // returns name, lat, long
+   		return dbList; // returns name, lat, long
    	}
    	else if (p1 === "currentlocations"){
    		//pokeCurLoc();
    		//return this.pokeCurLoc();
+   		dblist.push(l1[1]);
    		console.log("you're passing current location" + dbList);
-   		return dbList.push(l1[1]); //returns the call to ask for locations
+   		return dbList; //returns the call to ask for locations
    	}
    	else 
    		//pokeHelp();
