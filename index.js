@@ -101,6 +101,32 @@ app.post('/pokemon', function (req, res) {
     //console.log(req.body);
 });
 
+app.post('/down', function (req, res) {
+    var reply = slack.respond(req.body, function (hook) {
+    
+        console.log(hook);
+        return {
+           username: 'SlackBots',
+		   icon_emoji: ':slack:',
+		   attachments: [
+		   {
+			   "fallback": 'Server is down!',
+			   "color": 'danger',
+			   "title": 'Click here to view server issues',
+			   "title_link": 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+			   "text": 'This is an emergency!\nPlease advise!\n'
+		   }
+		   ]
+        };
+    });
+    
+    res.json(reply);
+    //sendSlackMessage("Hallo");
+    //console.log("the req is:",req);
+    //console.log("req", req);
+    //console.log("headers", req.headers);
+    //console.log(req.body);
+});
 
 function sendSlackMessage(message) {
     slack.send({
