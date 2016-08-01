@@ -21,34 +21,30 @@ module.exports = {
    },
    
    pokeHammer: function (p1, l1){
-   	var dbList;
+   	var dbList=[];
    	if (p1 === "query"){
-   		return this.pokeQuery(l1[2]);
-   		//return dbList(l1[2]);
+   		//return this.pokeQuery(l1[2]);
+   		dbList.push(l1[2]);
+   		console.log("you're passing query" + dbList);
+   		return dbList.push(l1[2]); //returns the query name
    	}
    	else if (p1 === "addlocation"){
-   		return this.pokeAddLoc(l1[2],l1[3],l1[4]);
-   		//return dbList(1[2],l1[3],l1[4]);
+   		//return this.pokeAddLoc(l1[2],l1[3],l1[4]);
+   		console.log("you're passing location" + dbList);
+   		return dbList.push(11[2],l1[3],l1[4]); // returns name, lat, long
    	}
    	else if (p1 === "currentlocations"){
    		//pokeCurLoc();
-   		return this.pokeCurLoc();
+   		//return this.pokeCurLoc();
+   		console.log("you're passing current location" + dbList);
+   		return dbList.push(l1[1]); //returns the call to ask for locations
    	}
    	else 
    		//pokeHelp();
    		return this.pokeHelp();
    },
-   pokeQuery: function( name1){
-   	return "i looked and " + name1 +" said no";
-   },
+
    
-   pokeAddLoc: function (name1, lat, long){
-   	return "i dont know " + name1 + " at "+ lat+ "," + long;
-   },
-   
-   pokeCurLoc: function(){
-   	return "el oh el this is what we have";
-   },
    
    pokeHelp: function (){
    	return "commands are: \nQuery (name) \nAddLocation (name) (lat) (long) \nCurrentLocations";
