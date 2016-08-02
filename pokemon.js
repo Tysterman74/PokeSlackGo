@@ -13,8 +13,8 @@ module.exports = {
 		return pokeParse(t1);	
    },
   
-	pokeHammer (p1, l1){ 
-		return pokeHammer(p1,l1);
+	pokeHammer (p1, l1, callback){ 
+		return pokeHammer(p1,l1,callback);
    },
 
 	pokeHelp(){
@@ -40,14 +40,22 @@ function pokeParse( t1){
    	return parsed;
 }
 
-function pokeHammer (p1, l1){
+function pokeHammer (p1, l1, callback){
    	var dbList=[];
    	if (p1 === "query"){
    		//return this.pokeQuery(l1[2]);
    		dbList.push(l1[2]);
    		console.log("you're passing query" + dbList);
    		//return dbList; //returns the query name
-   		db.queryLocation(l1[2],pokeQuery);
+   		db.queryLocation(l1[2],function (error, row) {
+   			//Check if error or if successful return
+   			if (row) {
+   				callback(row);
+   			}
+   			else {
+   				console.log("Error with querying.", error);
+   			}
+   		});
    		
    	}
    	else if (p1 === "addlocation"){
