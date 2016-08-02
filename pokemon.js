@@ -76,16 +76,16 @@ function pokeHelp(){
 }
 function pokeAddMessage(list1){
 	console.log("i'm adding in!" + list1);
-	return list1;
+	return list1.id;
 }
 function pokeGetLocations(err, rows){
 	console.log("on the menu" + rows);
-	return err +" hi " + rows;
+	return err +" hi " + rows.id;
 	
 }
 function pokeQuery(err, rows){
 	console.log("are you looking for " + rows + "or"+ err);
-	return err + "results " + rows;
+	return err + "results " + rows.info;
 }
 
 
