@@ -72,5 +72,5 @@ function pokeHelp(){
 }
 function pokeAddMessage(list1){
 	console.log("i'm adding in!" + list1);
-	return(list1);
+	return list1;
 }
