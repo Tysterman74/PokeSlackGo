@@ -68,7 +68,7 @@ Query Location
         });
 */
 
-bot.on('start',function() {
+bender.on('start',function() {
 	bot.postMessageToChannel('#general', 'Bite my shiny metal ass!');
 };
 
