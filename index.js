@@ -94,11 +94,12 @@ app.post('/pokemon', function (req, res) {
          	respondBack(result);
          });
          //sendSlackMessage(pokeJudge);
-         
-         //return {
-         //   text: pokeJudge,
-         //   username: 'poke-slack-go-bot'
-         //};
+         if (pokeJudge) {
+	         return {
+	            text: pokeJudge,
+	            username: 'poke-slack-go-bot'
+	         };
+         }
     });
     
     res.json(reply);
