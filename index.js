@@ -70,7 +70,7 @@ Query Location
 
 bender.on('start',function() {
 	bender.postMessageToChannel('general', 'Bite my shiny metal ass!');
-};
+});
 
 app.post('/test', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
