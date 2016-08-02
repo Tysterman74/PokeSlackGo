@@ -54,7 +54,7 @@ function pokeHammer (p1, l1){
    	}
    	else 
    		//pokeHelp();
-   		return this.pokeHelp();
+   		return pokeHelp();
    }
 
 function pokeHelp(){
