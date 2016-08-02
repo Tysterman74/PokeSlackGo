@@ -5,7 +5,10 @@ module.exports = {
     test: function () {
         console.log("test");
     },
-   
+    
+   init(d){
+   	init(d);
+   }
 	pokeParse(t1){
 		return pokeParse(t1);	
    },
@@ -20,8 +23,16 @@ module.exports = {
    
 }  //end module exports 
 
-var database = require("./database");
-database.initializeDatabase();
+var pkmn;
+var db;
+var stat;
+function init(d){
+	pkmn=new pokemon();
+	pkmn.stat="up";
+	console.log("i think i made a pokemon. it is " + this.stat);
+	//db=d;
+	//console.log("i think this is "+ db );
+}
 
 function pokeParse( t1){
     	var parsed = t1.split(" ");
