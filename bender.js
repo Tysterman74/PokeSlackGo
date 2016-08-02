@@ -22,7 +22,7 @@ Bender.prototype.run = function() {
 
 Bender.prototype._onStart = function() {
 	console.log("_onStart Ran");
-	this._loadBot();
+	this._loadBotObject();
 	this._welcomeMessage();
 };
 
@@ -48,8 +48,8 @@ Bender.prototype._getChannelByID = function( channelID ) {
 	})[0];
 };
 
-Bender.prototype._loadBot = function() {
-	console.log("loadBot");
+Bender.prototype._loadBotObject = function() {
+	console.log("loadBotObject");
 	var self = this;
 	this.user = this.users.filter(function( user ) {
 		return user.name === self.name;
