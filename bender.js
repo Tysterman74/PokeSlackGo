@@ -46,8 +46,8 @@ Bender.prototype._getChannelByID = function( channelID ) {
 
 Bender.prototype._loadBot = function() {
 	var self = this;
-	this.user = this.users.filter(function( user.toLowerCase() ) {
-		return user.name === self.name;
+	this.user = this.users.filter(function( user ) {
+		return user.name === self.name.toLowerCase();
 	})[0];
 };
 
