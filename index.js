@@ -69,7 +69,7 @@ Query Location
 */
 
 bender.on('start',function() {
-	bender.postMessageToChannel('#general', 'Bite my shiny metal ass!');
+	bender.postMessageToChannel('general', 'Bite my shiny metal ass!');
 };
 
 app.post('/test', function (req, res) {
