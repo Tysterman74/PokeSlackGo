@@ -133,7 +133,7 @@ app.post('/down', function (req, res) {
     //console.log(req.body);
 });
 
-function respondBack function (res, text) {
+function respondBack(res, text) {
 	res.json({ text: text, username: 'poke-slack-go-bot' });
 };
 
