@@ -49,11 +49,15 @@ function pokeHammer (p1, l1, callback){
    		//return dbList; //returns the query name
    		db.queryLocation(l1[2],function (error, row) {
    			//Check if error or if successful return
+   			console.log("RowResult", row);
+   			console.log("Error", error);
+   			
    			if (row) {
    				callback(row);
    			}
    			else {
-   				console.log("Error with querying.", error);
+   				callback("Could not find " + l1[2]);
+   				//console.log("Error with querying.", error);
    			}
    		});
    		
