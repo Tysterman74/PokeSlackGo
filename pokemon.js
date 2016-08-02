@@ -58,9 +58,11 @@ function pokeHammer (p1, l1){
    	else if (p1 === "currentlocations"){
    		//pokeCurLoc();
    		//return this.pokeCurLoc();
-   		dblist.push(l1[1]);
+   		//dblist.push(l1[1]);
    		console.log("you're passing current location" + dbList);
-   		return dbList; //returns the call to ask for locations
+   		//return dbList; //returns the call to ask for locations
+   		db.getAllLocations
+   		
    	}
    	else 
    		//pokeHelp();
@@ -74,3 +76,10 @@ function pokeAddMessage(list1){
 	console.log("i'm adding in!" + list1);
 	return list1;
 }
+function pokeGetLocations(err, rows){
+	console.log("on the menu" + rows);
+	return err +" hi " + rows;
+	
+}
+
+
