@@ -8,7 +8,7 @@ module.exports = {
     
    init(d){
    	init(d);
-   }
+   },
 	pokeParse(t1){
 		return pokeParse(t1);	
    },
