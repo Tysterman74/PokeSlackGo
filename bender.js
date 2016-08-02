@@ -28,6 +28,11 @@ Bender.prototype._onStart = function() {
 
 Bender.prototype._onMessage = function( message ) {
 	console.log("_onMessage Run on " + message.text);
+	console.log(this._isChatMessage(message));
+	console.log(this._isChannelConversation(message));
+	console.log(this._isFromBender(message));
+	console.log(this._isMentioningBender(message));
+	console.log(this._isChatMessage(message) && this._isChannelConversation(message) && !this._isFromBender(message) && this._isMentioningBender(message));
 	if (this._isChatMessage(message) &&
 		this._isChannelConversation(message) &&
 		!this._isFromBender(message) &&
