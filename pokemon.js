@@ -49,10 +49,10 @@ function pokeHammer (p1, l1){
    	}
    	else if (p1 === "addlocation"){
    		//return this.pokeAddLoc(l1[2],l1[3],l1[4]);
-   		dbList.push(l1[2],l1[3],l1[4]);
-   		console.log("you're passing location" + dbList);
+   		//dbList.push(l1[2],l1[3],l1[4]);
+   		//console.log("you're passing location" + dbList);
    		//return dbList; // returns name, lat, long
-   		db.addLocation(l1[2],l1[3],l1[4]);
+   		db.addLocation(l1[2],l1[3],l1[4],pokeAddMessage("teehee"));
    	}
    	else if (p1 === "currentlocations"){
    		//pokeCurLoc();
@@ -68,4 +68,10 @@ function pokeHammer (p1, l1){
 
 function pokeHelp(){
    	return "commands are: \nQuery (name) \nAddLocation (name) (lat) (long) \nCurrentLocations";
+}
+function pokeAddMessage(list1){
+	return ("i'm adding in!" + list1);
+	
+}
+
 }
