@@ -13,7 +13,7 @@ var botsettings = {
 	token: 'xoxb-65237437281-SrAfOp7FyJK4QigxprXizS9s',
 	name: 'Bender'
 };
-var bender = new Bot(settings);
+var bender = new Bot(botsettings);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -72,7 +72,7 @@ Query Location
 */
 
 bender.on('start',function() {
-	bot.postMessageToChannel('#general', 'Bite my shiny metal ass!');
+	bender.postMessageToChannel('#general', 'Bite my shiny metal ass!');
 };
 
 app.post('/test', function (req, res) {
