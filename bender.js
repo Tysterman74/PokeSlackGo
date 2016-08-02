@@ -13,6 +13,7 @@ var Bender = function Constructor(settings) {
 util.inherits(Bender, Bot);
 
 Bender.prototype.run = function() {
+	console.log("Bender run function");
 	Bender.super_.call(this, this.settings);
 
 	this.on('start', this._onStart);
@@ -20,11 +21,13 @@ Bender.prototype.run = function() {
 };
 
 Bender.prototype._onStart = function() {
+	console.log("_onStart Ran");
 	this._loadBot();
 	this._welcomeMessage();
 };
 
 Bender.prototype._onMessage = function( message ) {
+	console.log("_onMessage Run on " + message.text);
 	if (this._isChatMessage(message) &&
 		this._isChannelConversation(message) &&
 		!this._isFromBender(message) &&
@@ -34,6 +37,7 @@ Bender.prototype._onMessage = function( message ) {
 };
 
 Bender.prototype._replyToHuman = function( originalMessage ) {
+	console.log("Reply Function Working");
 	var channel = self._getChannelByID( originalMessage.channel );
 	self.postMessageToChannel(channel.name, 'Hey ' + originalMessage.user + ', Bite my shiny metal ass!', {as_user: true});
 };
