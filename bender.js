@@ -56,6 +56,8 @@ Bender.prototype._loadBot = function() {
 };
 
 Bender.prototype._welcomeMessage = function() {
+	console.log("welcome message");
+	console.log( this.channels[0].name );
 	this.postMessageToChannel( this.channels[0].name, 'Sup Humans.', {as_user: true});
 };
 
