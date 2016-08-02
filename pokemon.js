@@ -26,6 +26,7 @@ module.exports = {
 
 var db;
 var stat;
+var callBack;
 function init(d){
 	this.stat="listening!";
 	console.log("i think i made a pokemon. it is " + this.stat);
@@ -71,5 +72,5 @@ function pokeHelp(){
 }
 function pokeAddMessage(list1){
 	console.log("i'm adding in!" + list1);
-	
+	return(list1);
 }
