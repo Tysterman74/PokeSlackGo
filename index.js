@@ -82,12 +82,12 @@ app.post('/test', function (req, res) {
 app.post('/pokemon', function (req, res) {
 		
     var reply = slack.respond(req.body, function (hook) {
-    
+    	var response = res;
         var pkTest = pokedex.pokeParse(hook.text);
          console.log("you are " + pkTest[1]);
          var pokeChoice = pkTest[1].toString();
          var pokeJudge = pokedex.pokeHammer(pokeChoice,pkTest, function (result) {
-         	respondBack(res, result);
+         	respondBack(respond, result);
          });
          //sendSlackMessage(pokeJudge);
          if (pokeJudge) {
