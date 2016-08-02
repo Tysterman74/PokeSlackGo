@@ -24,7 +24,7 @@ Bender.prototype._onStart = function() {
 	this._welcomeMessage();
 };
 
-Bender.prototype._onMessage = function() {
+Bender.prototype._onMessage = function( message ) {
 	if (this._isChatMessage(message) &&
 		this._isChannelConversation(message) &&
 		!this._isFromBender(message) &&
