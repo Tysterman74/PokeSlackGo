@@ -73,5 +73,3 @@ function pokeAddMessage(list1){
 	return ("i'm adding in!" + list1);
 	
 }
-
-}
