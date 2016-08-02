@@ -15,6 +15,7 @@ app.listen(process.env.PORT || 3000, function () {
 });
 
 database.initializeDatabase();
+pokedex.init();
 /*
 ***Database Functions***
 Small documentation of the database.js object and its' functions. Will update as changes are made.
