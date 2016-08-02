@@ -87,6 +87,7 @@ app.post('/pokemon', function (req, res) {
          console.log("you are " + pkTest[1]);
          var pokeChoice = pkTest[1].toString();
          var pokeJudge = pokedex.pokeHammer(pokeChoice,pkTest, function (result) {
+         	console.log(response);
          	respondBack(response, result);
          });
          //sendSlackMessage(pokeJudge);
