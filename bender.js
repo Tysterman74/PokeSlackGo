@@ -13,7 +13,7 @@ var Bender = function Constructor(settings) {
 util.inherits(Bender, Bot);
 
 Bender.prototype.run = function() {
-	Bender.super._call(this, this.settings);
+	Bender.super_.call(this, this.settings);
 
 	this.on('start', this._onStart);
 	this.on('message', this._onMessage);
