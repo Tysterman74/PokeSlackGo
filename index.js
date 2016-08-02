@@ -3,9 +3,17 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var database = require("./database");
 var pokedex = require('./pokemon');
+var Bot = require('slackbots');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
+
+//Bot Creation
+var botsettings = {
+	token: 'xoxb-65237437281-SrAfOp7FyJK4QigxprXizS9s',
+	name: 'Bender'
+};
+var bender = new Bot(settings);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -59,6 +67,10 @@ Query Location
             console.log(row);
         });
 */
+
+bot.on('start',function() {
+	bot.postMessageToChannel('#general', 'Bite my shiny metal ass!');
+};
 
 app.post('/test', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
