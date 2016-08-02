@@ -9,11 +9,11 @@ var slack = new Slack('https://hooks.slack.com/services/T1AC468DD/B1TKGJJF4/pxei
 var app = express();
 
 //Bot Creation
-var botsettings = {
+var bender = new BenderBot({
 	token: 'xoxb-65237437281-SrAfOp7FyJK4QigxprXizS9s',
-	name: 'Bender'
-};
-var bender = new BenderBot(botsettings);
+	name: 'bender'
+});
+
 bender.run();
 
 app.use(bodyParser.json());
