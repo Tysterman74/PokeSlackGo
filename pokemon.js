@@ -84,7 +84,7 @@ function pokeGetLocations(err, rows){
 	
 }
 function pokeQuery(err, rows){
-	console.log("are you looking for " + rows + "or" err);
+	console.log("are you looking for " + rows + "or"+ err);
 	return err + "results " + rows;
 }
 
