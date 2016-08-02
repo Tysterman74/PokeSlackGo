@@ -27,10 +27,10 @@ var pkmn;
 var db;
 var stat;
 function init(d){
-	this.stat="up";
+	this.stat="listening!";
 	console.log("i think i made a pokemon. it is " + this.stat);
-	//db=d;
-	//console.log("i think this is "+ db );
+	db=d;
+	console.log("i think this is "+ db );
 }
 
 function pokeParse( t1){
