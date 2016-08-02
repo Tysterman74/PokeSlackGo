@@ -80,10 +80,6 @@ app.post('/test', function (req, res) {
 });
 
 app.post('/pokemon', function (req, res) {
-	
-	var respondBack = function (text) {
-		res.json({ text: text, username: 'poke-slack-go-bot' });
-	};
 		
     var reply = slack.respond(req.body, function (hook) {
     
@@ -91,7 +87,7 @@ app.post('/pokemon', function (req, res) {
          console.log("you are " + pkTest[1]);
          var pokeChoice = pkTest[1].toString();
          var pokeJudge = pokedex.pokeHammer(pokeChoice,pkTest, function (result) {
-         	respondBack(result);
+         	respondBack(res, result);
          });
          //sendSlackMessage(pokeJudge);
          if (pokeJudge) {
@@ -136,6 +132,10 @@ app.post('/down', function (req, res) {
     //console.log("headers", req.headers);
     //console.log(req.body);
 });
+
+function respondBack = function (res, text) {
+	res.json({ text: text, username: 'poke-slack-go-bot' });
+};
 
 function sendSlackMessage(message) {
     slack.send({
