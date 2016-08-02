@@ -23,7 +23,7 @@ module.exports = {
    
 }  //end module exports 
 
-var pkmn;
+
 var db;
 var stat;
 function init(d){
@@ -51,7 +51,8 @@ function pokeHammer (p1, l1){
    		//return this.pokeAddLoc(l1[2],l1[3],l1[4]);
    		dbList.push(l1[2],l1[3],l1[4]);
    		console.log("you're passing location" + dbList);
-   		return dbList; // returns name, lat, long
+   		//return dbList; // returns name, lat, long
+   		db.addLocation(l1[2],l1[3],l1[4]);
    	}
    	else if (p1 === "currentlocations"){
    		//pokeCurLoc();
