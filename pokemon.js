@@ -1,26 +1,37 @@
 //making a pokemon file yay
 //it says pokemon ER NO it says pkmn
 
-//module.exports = {
-//	pkmn:function(){
-//	console.log("woooh yeah pkmn");
-	
-//	}
-
-//}
 module.exports = {
     test: function () {
         console.log("test");
     },
    
-    pokeParse: function ( t1){
+	pokeParse(t1){
+		pokeParse(t1);	
+   },
+  
+	pokeHammer (p1, l1){ 
+		pokeHammer(p1,l1);
+   },
+
+	pokeHelp(){
+		pokeHelp();
+   }
+   
+}  //end module exports 
+
+   
+   
+   
+
+
+function pokeParse( t1){
     	var parsed = t1.split(" ");
 		parsed[1] = parsed[1].toLowerCase();
    	return parsed;
-   	
-   },
-   
-   pokeHammer: function (p1, l1){
+}
+
+function pokeHammer (p1, l1){
    	var dbList=[];
    	if (p1 === "query"){
    		//return this.pokeQuery(l1[2]);
@@ -44,14 +55,8 @@ module.exports = {
    	else 
    		//pokeHelp();
    		return this.pokeHelp();
-   },
-
-   
-   
-   pokeHelp: function (){
-   	return "commands are: \nQuery (name) \nAddLocation (name) (lat) (long) \nCurrentLocations";
    }
-   
-   
-   
+
+function pokeHelp(){
+   	return "commands are: \nQuery (name) \nAddLocation (name) (lat) (long) \nCurrentLocations";
 }
