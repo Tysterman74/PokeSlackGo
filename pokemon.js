@@ -46,7 +46,9 @@ function pokeHammer (p1, l1){
    		//return this.pokeQuery(l1[2]);
    		dbList.push(l1[2]);
    		console.log("you're passing query" + dbList);
-   		return dbList; //returns the query name
+   		//return dbList; //returns the query name
+   		db.queryLocation(l1[2],pokeQuery);
+   		
    	}
    	else if (p1 === "addlocation"){
    		//return this.pokeAddLoc(l1[2],l1[3],l1[4]);
@@ -80,6 +82,10 @@ function pokeGetLocations(err, rows){
 	console.log("on the menu" + rows);
 	return err +" hi " + rows;
 	
+}
+function pokeQuery(err, rows){
+	console.log("are you looking for " + rows + "or" err);
+	return err + "results " + rows;
 }
 
 
