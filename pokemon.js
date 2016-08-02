@@ -20,10 +20,8 @@ module.exports = {
    
 }  //end module exports 
 
-   
-   
-   
-
+var database = require("./database");
+database.initializeDatabase();
 
 function pokeParse( t1){
     	var parsed = t1.split(" ");
