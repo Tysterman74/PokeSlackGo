@@ -61,7 +61,7 @@ function pokeHammer (p1, l1){
    		//dblist.push(l1[1]);
    		console.log("you're passing current location" + dbList);
    		//return dbList; //returns the call to ask for locations
-   		db.getAllLocations
+   		db.getAllLocations(pokeGetLocations);
    		
    	}
    	else 
