@@ -27,8 +27,7 @@ var pkmn;
 var db;
 var stat;
 function init(d){
-	pkmn=new pokemon();
-	pkmn.stat="up";
+	this.stat="up";
 	console.log("i think i made a pokemon. it is " + this.stat);
 	//db=d;
 	//console.log("i think this is "+ db );
