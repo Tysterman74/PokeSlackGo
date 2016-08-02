@@ -7,15 +7,15 @@ module.exports = {
     },
    
 	pokeParse(t1){
-		pokeParse(t1);	
+		return pokeParse(t1);	
    },
   
 	pokeHammer (p1, l1){ 
-		pokeHammer(p1,l1);
+		return pokeHammer(p1,l1);
    },
 
 	pokeHelp(){
-		pokeHelp();
+		return pokeHelp();
    }
    
 }  //end module exports 
