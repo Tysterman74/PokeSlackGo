@@ -9,8 +9,9 @@ var slack = new Slack('https://hooks.slack.com/services/T1AC468DD/B1TKGJJF4/pxei
 var app = express();
 
 //Bot Creation
+var token = process.env.BOT_KEY_API;
 var bender = new BenderBot({
-	token: 'xoxb-65237437281-SrAfOp7FyJK4QigxprXizS9s',
+	token: token,
 	name: 'bender'
 });
 
