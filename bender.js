@@ -44,7 +44,7 @@ Bender.prototype._replyToHuman = function( originalMessage ) {
 	var channel = self._getChannelByID( originalMessage.channel );
 	console.log("OG: " + originalMessage.channel);
 	console.log("Channel: " + channel);
-	console.log("Channel Name: " + channel.name);
+	//console.log("Channel Name: " + channel.name);
 	console.log("User: " + this.user);
 	console.log(this.user.name);
 	self.postMessageToChannel('general', 'Hey ' + originalMessage.user + ', Bite my shiny metal ass!', {as_user: true});
