@@ -16,6 +16,8 @@ app.listen(process.env.PORT || 3000, function () {
 
 database.initializeDatabase();
 pokedex.init(database);
+
+//database.queryLocation('test');
 /*
 ***Database Functions***
 Small documentation of the database.js object and its' functions. Will update as changes are made.
@@ -86,7 +88,9 @@ app.post('/pokemon', function (req, res) {
         var pkTest = pokedex.pokeParse(hook.text);
          console.log("you are " + pkTest[1]);
          var pokeChoice = pkTest[1].toString();
-         var pokeJudge = pokedex.pokeHammer(pokeChoice, pkTest);
+         var pokeJudge = pokedex.pokeHammer(pokeChoice, pkTest, function (result) {
+             res.json({ text: JSON.stringify(result), username: 'poke-slack-go-bot' });
+         });
          //var pokeJudge = pokedex.pokeHammer(pokeChoice,pkTest, function (result) {
          //	//console.log(response);
          //    respondBack(req.body, response, result);

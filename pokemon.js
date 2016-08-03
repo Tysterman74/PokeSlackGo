@@ -52,17 +52,15 @@ function pokeHammer (p1, l1){
    			console.log("RowResult", row);
    			console.log("Error", error);
    			
-   			return row;
-   			//if (row) {
-   			//	callback(row);
-   			//}
-   			//else {
-   			//	callback("Could not find " + l1[2]);
-   			//	//console.log("Error with querying.", error);
-   			//}
+   			//return row;
+   			if (row) {
+   				callback(row);
+   			}
+   			else {
+   				callback("Could not find " + l1[2]);
+   				//console.log("Error with querying.", error);
+   			}
    		});
-
-   		console.log("penis", result);
    		
    	}
    	else if (p1 === "addlocation"){
