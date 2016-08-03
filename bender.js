@@ -27,12 +27,6 @@ Bender.prototype._onStart = function() {
 };
 
 Bender.prototype._onMessage = function( message ) {
-	//console.log("_onMessage Run on " + message.text);
-	//console.log("is CM? " + this._isChatMessage(message));
-	//console.log("is CC? " + this._isChannelConversation(message));
-	//console.log("is FB? " + this._isFromBender(message));
-	//console.log("is MB? " + this._isMentioningBender(message));
-	//console.log("Full Logic: " + this._isChatMessage(message) && this._isChannelConversation(message) && !this._isFromBender(message) && this._isMentioningBender(message));
 	if (this._isChatMessage(message) && this._isChannelConversation(message) && !this._isFromBender(message) && this._isMentioningBender(message)) {
 		this._replyToHuman(message);
 	}
@@ -43,13 +37,12 @@ Bender.prototype._replyToHuman = function( originalMessage ) {
 	var self = this;
 	var channelObj = self._getChannelByID( originalMessage.channel );
 	var nameObj = self._getNameByID ( originalMessage.user );
-	console.log("Name: " + nameObj.name);
-	//console.log("OG: " + originalMessage.channel);
-	//console.log("Channel: " + channel);
-	//console.log("CN: " + channel.name);
-	//console.log("Channel Name: " + channel.name);
-	//console.log(this.user.name);
-	self.postMessageToChannel( channelObj.name , 'Hey ' + nameObj.name + ', Bite my shiny metal ass!', {as_user: true});
+	if ( originalMessage.channel[0] === 'C' ) {
+		self.postMessageToChannel( channelObj.name , 'Hey ' + nameObj.name + ', Bite my shiny metal ass!', {as_user: true});
+	}
+	else if ( originalMessage.channel[0] === 'D' {
+		self.postMessageToUser( nameObj.name , 'Shut up, ' + nameObj.name + ', I know it!', {as_user: true});
+	}
 };
 
 Bender.prototype._getChannelByID = function( channelID ) {
@@ -76,7 +69,7 @@ Bender.prototype._loadBotObject = function() {
 Bender.prototype._welcomeMessage = function() {
 	console.log("welcome message");
 	console.log( this.channels[0].name );
-	this.postMessageToChannel( this.channels[0].name, 'Sup Humans.', {as_user: true});
+	this.postMessageToChannel( this.channels[0].name, 'I am back baby!', {as_user: true});
 };
 
 Bender.prototype._isChatMessage = function( message ) {
