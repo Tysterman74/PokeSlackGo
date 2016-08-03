@@ -27,12 +27,12 @@ Bender.prototype._onStart = function() {
 };
 
 Bender.prototype._onMessage = function( message ) {
-	console.log("_onMessage Run on " + message.text);
-	console.log("is CM? " + this._isChatMessage(message));
-	console.log("is CC? " + this._isChannelConversation(message));
-	console.log("is FB? " + this._isFromBender(message));
-	console.log("is MB? " + this._isMentioningBender(message));
-	console.log("Full Logic: " + this._isChatMessage(message) && this._isChannelConversation(message) && !this._isFromBender(message) && this._isMentioningBender(message));
+	//console.log("_onMessage Run on " + message.text);
+	//console.log("is CM? " + this._isChatMessage(message));
+	//console.log("is CC? " + this._isChannelConversation(message));
+	//console.log("is FB? " + this._isFromBender(message));
+	//console.log("is MB? " + this._isMentioningBender(message));
+	//console.log("Full Logic: " + this._isChatMessage(message) && this._isChannelConversation(message) && !this._isFromBender(message) && this._isMentioningBender(message));
 	if (this._isChatMessage(message) && this._isChannelConversation(message) && !this._isFromBender(message) && this._isMentioningBender(message)) {
 		this._replyToHuman(message);
 	}
