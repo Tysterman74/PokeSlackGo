@@ -68,7 +68,7 @@ Bender.prototype._loadBotObject = function() {
 Bender.prototype._welcomeMessage = function() {
 	console.log("welcome message");
 	console.log( this.channels[0].name );
-	this.postMessageToChannel( this.channels[0].name, 'Sup Humans.', as_user: true);
+	this.postMessageToChannel( this.channels[0].name, 'Sup Humans.', {as_user: true});
 };
 
 Bender.prototype._isChatMessage = function( message ) {
