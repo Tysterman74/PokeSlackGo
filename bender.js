@@ -42,12 +42,14 @@ Bender.prototype._replyToHuman = function( originalMessage ) {
 	console.log("Reply Function Working");
 	var self = this;
 	var channel = self._getChannelByID( originalMessage.channel );
+	console.log("OG: " + originalMessage.channel);
 	console.log("Channel: " + channel);
 	console.log("Channel Name: " + channel.name);
 	self.postMessageToChannel(channel.name, 'Hey ' + originalMessage.user + ', Bite my shiny metal ass!', {as_user: true});
 };
 
 Bender.prototype._getChannelByID = function( channelID ) {
+	console.log("getChannelByID running");
 	return this.channels.filter(function( item ) {
 		return item.id === channelID;
 	})[0];
