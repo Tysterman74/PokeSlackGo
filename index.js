@@ -97,20 +97,7 @@ app.post('/pokemon', function (req, res) {
          //    //respondBack(req.body, response, result);
          //});
          //sendSlackMessage(pokeJudge);
-         if (pokeJudge) {
-	         return {
-	            text: pokeJudge,
-	            username: 'poke-slack-go-bot'
-	         };
-         }
     });
-    
-    //res.json(reply);
-    //sendSlackMessage("Hallo");
-    //console.log("the req is:",req);
-    //console.log("req", req);
-    //console.log("headers", req.headers);
-    //console.log(req.body);
 });
 
 app.post('/down', function (req, res) {

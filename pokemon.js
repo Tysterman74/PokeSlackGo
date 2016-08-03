@@ -40,34 +40,36 @@ function pokeParse( t1){
    	return parsed;
 }
 
+//For pokeHammer, within the database object's callback, you must call the callback parameter we pass. 
+//The argument is basically the message that you want to send back to the user.
+//Take a look at query for an example.
 function pokeHammer (p1, l1, callback){
    	var dbList=[];
    	if (p1 === "query"){
    		//return this.pokeQuery(l1[2]);
    		dbList.push(l1[2]);
    		console.log("you're passing query" + dbList);
-   		//return dbList; //returns the query name
-   		var result = db.queryLocation(l1[2],function (error, row) {
-   			//Check if error or if successful return
-   			console.log("RowResult", row);
-   			console.log("Error", error);
-   			
-   			//return row;
-   			if (row) {
-   				callback(row);
+   	    //return dbList; //returns the query name
+
+        //Call the database object, and specify the callback. It is important you specify the callback.
+   		db.queryLocation(l1[2],function (error, row) {
+   		    //Check if error or if successful return
+   		    //If there are no results or there is an error, then row will be 'undefined' 
+   		    //so you need to check that first before you call the callback.
+   		    if (row) {
+   		        //This callback object is what's passed through from index.js. All it has is the code to send a response message back to the channel/user.
+                //Once you do what you need to do above this, then pass the message you want to display back into the callback.
+   				callback("Location found. Latitude - " + row.latitude + " Longitude - " + row.longitude);
    			}
    			else {
    				callback("Could not find " + l1[2]);
-   				//console.log("Error with querying.", error);
    			}
    		});
    		
    	}
    	else if (p1 === "addlocation"){
-   		//return this.pokeAddLoc(l1[2],l1[3],l1[4]);
    		dbList.push(l1[2],l1[3],l1[4]);
    		console.log("you're passing location" + dbList);
-   		//return dbList; // returns name, lat, long
    		db.addLocation(l1[2],l1[3],l1[4],pokeAddMessage);
    	}
    	else if (p1 === "currentlocations"){
