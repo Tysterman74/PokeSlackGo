@@ -78,8 +78,6 @@ function queryLocation(locationName, callback) {
         db.serialize(function () {
             db.get("SELECT * FROM Locations WHERE LocationName = $LocationName", { $LocationName: locationName }, function (error, row) {
                 callback(error, row);
-                result = row;
-                queryExecuted = true;
             });
         });
     }
