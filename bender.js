@@ -42,6 +42,8 @@ Bender.prototype._replyToHuman = function( originalMessage ) {
 	console.log("Reply Function Working");
 	var self = this;
 	var channel = self._getChannelByID( originalMessage.channel );
+	var name = self._getNameByID ( originalMessage.user );
+	console.log("Name: " + name);
 	//console.log("OG: " + originalMessage.channel);
 	//console.log("Channel: " + channel);
 	//console.log("CN: " + channel.name);
@@ -54,6 +56,12 @@ Bender.prototype._getChannelByID = function( channelID ) {
 	console.log("getChannelByID running");
 	return this.channels.filter(function( item ) {
 		return item.id === channelID;
+	})[0];
+};
+
+Bender.prototype._getNameByID = function( name ) {
+	return this.users.filter(function( user ) {
+		return user.name === name;
 	})[0];
 };
 
