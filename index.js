@@ -135,7 +135,7 @@ app.post('/down', function (req, res) {
 });
 
 function respondBack(body, res, text) {
-	var reply = slack.response(body, function (hook) {
+	var reply = slack.respond(body, function (hook) {
 		return { text: text, username: 'poke-slack-go-bot' }
 	});
 	res.json(reply);
