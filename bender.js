@@ -44,6 +44,7 @@ Bender.prototype._replyToHuman = function( originalMessage ) {
 	var channel = self._getChannelByID( originalMessage.channel );
 	console.log("OG: " + originalMessage.channel);
 	console.log("Channel: " + channel);
+	console.log("CN: " + channel.name);
 	var channelid = self.getChannelId( originalMessage.channel );
 	console.log("CID: " + channelid);
 	console.log("CID.name " + channelid.name);
