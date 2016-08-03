@@ -40,7 +40,7 @@ Bender.prototype._replyToHuman = function( originalMessage ) {
 	if ( originalMessage.channel[0] === 'C' ) {
 		self.postMessageToChannel( channelObj.name , 'Hey ' + nameObj.name + ', Bite my shiny metal ass!', {as_user: true});
 	}
-	else if ( originalMessage.channel[0] === 'D' {
+	else if ( originalMessage.channel[0] === 'D') {
 		self.postMessageToUser( nameObj.name , 'Shut up, ' + nameObj.name + ', I know it!', {as_user: true});
 	}
 };
