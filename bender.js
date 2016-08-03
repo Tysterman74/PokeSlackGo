@@ -33,10 +33,7 @@ Bender.prototype._onMessage = function( message ) {
 	console.log("is FB? " + this._isFromBender(message));
 	console.log("is MB? " + this._isMentioningBender(message));
 	console.log("Full Logic: " + this._isChatMessage(message) && this._isChannelConversation(message) && !this._isFromBender(message) && this._isMentioningBender(message));
-	if (this._isChatMessage(message) &&
-		this._isChannelConversation(message) &&
-		!this._isFromBender(message) &&
-		this._isMentioningBender(message)) {
+	if (this._isChatMessage(message) && this._isChannelConversation(message) && !this._isFromBender(message) && this._isMentioningBender(message)) {
 		this._replyToHuman(message);
 	}
 };
@@ -72,7 +69,7 @@ Bender.prototype._isChatMessage = function( message ) {
 };
 
 Bender.prototype._isChannelConversation = function( message ) {
-	return typeof message.channel === 'string' && message.channel[0] === 'C';
+	return typeof message.channel === 'string' && (message.channel[0] === 'C' || message.channel[0] === 'D');
 };
 
 Bender.prototype._isFromBender = function( message ) {
