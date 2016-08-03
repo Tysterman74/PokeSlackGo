@@ -61,7 +61,6 @@ Bender.prototype._loadBotObject = function() {
 	this.user = this.users.filter(function( user ) {
 		return user.name === self.name;
 	})[0];
-	console.log("User: " + user + " " + user.name);
 };
 
 Bender.prototype._welcomeMessage = function() {
