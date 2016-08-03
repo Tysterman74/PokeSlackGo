@@ -13,8 +13,8 @@ module.exports = {
 		return pokeParse(t1);	
    },
   
-	pokeHammer (p1, l1){ 
-		return pokeHammer(p1,l1);
+	pokeHammer (p1, l1, callback){ 
+		return pokeHammer(p1,l1, callback);
    },
 
 	pokeHelp(){
@@ -40,7 +40,7 @@ function pokeParse( t1){
    	return parsed;
 }
 
-function pokeHammer (p1, l1){
+function pokeHammer (p1, l1, callback){
    	var dbList=[];
    	if (p1 === "query"){
    		//return this.pokeQuery(l1[2]);
