@@ -47,7 +47,7 @@ Bender.prototype._replyToHuman = function( originalMessage ) {
 	//console.log("Channel Name: " + channel.name);
 	console.log("User: " + this.user);
 	console.log(this.user.name);
-	self.postMessageToChannel('general', 'Hey ' + originalMessage.user + ', Bite my shiny metal ass!', {as_user: true});
+	self.postMessageToChannel( originalMessage.channel, 'Hey ' + originalMessage.user + ', Bite my shiny metal ass!', {as_user: true});
 };
 
 Bender.prototype._getChannelByID = function( channelID ) {
@@ -68,7 +68,7 @@ Bender.prototype._loadBotObject = function() {
 Bender.prototype._welcomeMessage = function() {
 	console.log("welcome message");
 	console.log( this.channels[0].name );
-	this.postMessageToChannel( this.channels[0].name, 'Sup Humans.', {as_user: true});
+	this.postMessageToChannel( this.channels[0].name, 'Sup Humans.');
 };
 
 Bender.prototype._isChatMessage = function( message ) {
