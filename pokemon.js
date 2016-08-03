@@ -13,8 +13,8 @@ module.exports = {
 		return pokeParse(t1);	
    },
   
-	pokeHammer (p1, l1, callback){ 
-		return pokeHammer(p1,l1,callback);
+	pokeHammer (p1, l1){ 
+		return pokeHammer(p1,l1);
    },
 
 	pokeHelp(){
@@ -40,26 +40,29 @@ function pokeParse( t1){
    	return parsed;
 }
 
-function pokeHammer (p1, l1, callback){
+function pokeHammer (p1, l1){
    	var dbList=[];
    	if (p1 === "query"){
    		//return this.pokeQuery(l1[2]);
    		dbList.push(l1[2]);
    		console.log("you're passing query" + dbList);
    		//return dbList; //returns the query name
-   		db.queryLocation(l1[2],function (error, row) {
+   		var result = db.queryLocation(l1[2],function (error, row) {
    			//Check if error or if successful return
    			console.log("RowResult", row);
    			console.log("Error", error);
    			
-   			if (row) {
-   				callback(row);
-   			}
-   			else {
-   				callback("Could not find " + l1[2]);
-   				//console.log("Error with querying.", error);
-   			}
+   			return row;
+   			//if (row) {
+   			//	callback(row);
+   			//}
+   			//else {
+   			//	callback("Could not find " + l1[2]);
+   			//	//console.log("Error with querying.", error);
+   			//}
    		});
+
+   		console.log("penis", result);
    		
    	}
    	else if (p1 === "addlocation"){
