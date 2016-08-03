@@ -58,8 +58,8 @@ function pokeHammer (p1, l1, callback){
    		    //so you need to check that first before you call the callback.
    		    if (row) {
    		        //This callback object is what's passed through from index.js. All it has is the code to send a response message back to the channel/user.
-                //Once you do what you need to do above this, then pass the message you want to display back into the callback.
-   				callback("Location found. Latitude - " + row.latitude + " Longitude - " + row.longitude);
+                //Once you do what you need to do above this, then pass the message you want to display back to the user into the callback.
+   				callback("Location found. Latitude - " + row.Latitude + " Longitude - " + row.Longitude);
    			}
    			else {
    				callback("Could not find " + l1[2]);
