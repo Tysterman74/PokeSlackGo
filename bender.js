@@ -40,6 +40,7 @@ Bender.prototype._onMessage = function( message ) {
 
 Bender.prototype._replyToHuman = function( originalMessage ) {
 	console.log("Reply Function Working");
+	var self = this;
 	var channel = self._getChannelByID( originalMessage.channel );
 	self.postMessageToChannel(channel.name, 'Hey ' + originalMessage.user + ', Bite my shiny metal ass!', {as_user: true});
 };
