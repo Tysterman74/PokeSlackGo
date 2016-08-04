@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var database = require("./database");
 var pokedex = require('./pokemon');
 var BenderBot = require('./bender');
+var logger = require('./logger');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -27,10 +28,11 @@ app.listen(process.env.PORT || 3000, function () {
 
 database.initializeDatabase();
 pokedex.init(database);
-database.getLogs(function (result) {
+logger.init(database);
+/*database.getLogs(function (result) {
     console.log(result);
 });
-/*
+
 database.logDebugMessage('Testing debug', 'tyler_test');
 database.logErrorMessage('Testing error', 'tyler_test', 'here is the error');*/
 
@@ -86,15 +88,17 @@ Query Location
 
 app.post('/logger', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
-    
-        console.log(hook);
-        return {
-           text: 'AND HIS NAME IS, ' + hook.user_name,
-           username: 'JohnCenaNotABot'
-        };
+        logger.getLogs(hook.text, function (result) {
+            res.json({ text: result, username: 'LoggerBotButthole' });
+        });
+        //console.log(hook);
+        //return {
+        //   text: 'AND HIS NAME IS, ' + hook.user_name,
+        //   username: 'JohnCenaNotABot'
+        //};
     });
     
-    res.json(reply);
+    //res.json(reply);
     //sendSlackMessage("Hallo");
     //console.log("the req is:",req);
     //console.log("req", req);
