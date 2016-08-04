@@ -11,9 +11,21 @@ var database;
 
 function getLogs(message, callback) {
     var parseObject = parseMessage(message);
-    callback("Returning shit here.");
+
+    database.getLogs(function (result) {
+        if (result) {
+            callback(JSON.stringify(result));
+        }
+        else {
+            callback("Error getting logs.");
+        }
+    });
 }
 
-function parseMessage() {
+function parseMessage(message) {
+    var parsedMessage = message.split(" ");
+    return {
+        type: parsedMessage[1]
+    };
 
 }

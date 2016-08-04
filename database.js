@@ -139,9 +139,11 @@ function getLogs(callback) {
     db.all("SELECT * FROM Logs", function (error, rows) {
         if (error) {
             console.log("Error getting logs", error);
+            callback(null);
         }
         else {
             console.log("rows", rows);
+            callback(rows);
         }
     });
 }
