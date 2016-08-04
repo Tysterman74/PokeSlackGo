@@ -10,13 +10,13 @@ var app = express();
 
 //Bot Creation
 var token = process.env.BOT_KEY_API;
-console.log(token);/*
+console.log(token);
 var bender = new BenderBot({
 	token: token,
 	name: 'bender'
 });
 
-bender.run();*/
+bender.run();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
