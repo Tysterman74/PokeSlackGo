@@ -2,7 +2,7 @@ module.exports = {
     init(db) {
         database = db;
     },
-    getLogs(message, filter, callback) {
+    getLogs(message, callback) {
         getLogs(message, callback);
     }
 }
