@@ -97,6 +97,10 @@ function createTables() {
         console.log(error);
     });
 
+    db.run("CREATE TABLE Logs (LogId INTEGER PRIMARY KEY AUTOINCREMENT, LogType TEXT, LogMessage TEXT, LogUser TEXT, StackTrace TEXT, LogDate DATETIME)", function (error) {
+        console.log(error);
+    });
+
     //console.log(createTestTableStmnt);
 
     //db.run("CREATE TABLE LogTable " +
