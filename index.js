@@ -10,13 +10,13 @@ var app = express();
 
 //Bot Creation
 var token = process.env.BOT_KEY_API;
-console.log(token);
+console.log(token);/*
 var bender = new BenderBot({
 	token: token,
 	name: 'bender'
 });
 
-bender.run();
+bender.run();*/
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,6 +27,12 @@ app.listen(process.env.PORT || 3000, function () {
 
 database.initializeDatabase();
 pokedex.init(database);
+database.getLogs(function (result) {
+    console.log(result);
+});
+/*
+database.logDebugMessage('Testing debug', 'tyler_test');
+database.logErrorMessage('Testing error', 'tyler_test', 'here is the error');*/
 
 //database.queryLocation('test');
 /*
@@ -78,7 +84,7 @@ Query Location
 	bender.postMessageToChannel('general', 'Bite my shiny metal ass!');
 });*/
 
-app.post('/test', function (req, res) {
+app.post('/logger', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
     
         console.log(hook);

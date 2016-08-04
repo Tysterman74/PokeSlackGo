@@ -13,6 +13,15 @@ module.exports = {
     },
     queryLocation(locationName, callback) {
         queryLocation(locationName, callback);
+    },
+    logDebugMessage(message, user) {
+        logMessage("DEBUG", message, user);
+    },
+    logErrorMessage(message, user, stackTrace) {
+        logMessage("ERROR", message, user, stackTrace)
+    },
+    getLogs(callback) {
+        getLogs(callback);
     }
 }
 
@@ -106,4 +115,33 @@ function createTables() {
     //db.run("CREATE TABLE LogTable " +
     //    "(LogTableId INTEGER PRIMARY KEY AUTOINCREMENT," +
     //    " )")
+}
+
+function logMessage(type, message, user, stackTrace) {
+    db.run("INSERT INTO Logs (LogType, LogMessage, LogUser, StackTrace, LogDate) VALUES ($LogType, $LogMessage, $LogUser, $StackTrace, datetime('now'))",
+        {
+            $LogType: type,
+            $LogMessage: message,
+            $LogUser: user,
+            $StackTrace: stackTrace
+        },
+        function (error) {
+            if (error) {
+                console.log(error);
+            }
+            else {
+                console.log("Message successfully logged.");
+            }
+        });
+}
+
+function getLogs(callback) {
+    db.all("SELECT * FROM Logs", function (error, rows) {
+        if (error) {
+            console.log("Error getting logs", error);
+        }
+        else {
+            console.log("rows", rows);
+        }
+    });
 }
