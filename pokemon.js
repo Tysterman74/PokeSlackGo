@@ -85,7 +85,7 @@ function pokeHammer (p1, l1, callback){
    		//return dbList; //returns the call to ask for locations
    		db.getAllLocations(function (err,rows){
    			if (rows){
-   				callback("gotta catch them all at" + rows);
+   				callback("gotta catch them all at" + rows.LocationName);
    			}
    			else
    				callback("team rocket took them :D");
