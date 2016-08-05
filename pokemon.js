@@ -70,7 +70,12 @@ function pokeHammer (p1, l1, callback){
    	else if (p1 === "addlocation"){
    		dbList.push(l1[2],l1[3],l1[4]);
    		console.log("you're passing location" + dbList);
-   		db.addLocation(l1[2],l1[3],l1[4],pokeAddMessage);
+   		
+   		db.addLocation(l1[2],l1[3],l1[4],function(message)){
+   			
+   			callback("Bills pc says:" + message)
+   			
+   		};
    	}
    	else if (p1 === "currentlocations"){
    		//pokeCurLoc();
