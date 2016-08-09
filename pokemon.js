@@ -93,7 +93,7 @@ function pokeHammer (p1, l1, callback){
    				//for (var i = 0; i<=rows.length; i++){
    				//callback("gotta catch them all at" + rows[i].LocationName);
    		        //}
-   		        //callback(JSON.stringify(rows));
+   		        callback("Returning stuff here");
    		        db.logDebugMessage(JSON.stringify(rows), 'tyler');
    			}
    			else
