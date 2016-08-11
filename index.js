@@ -24,7 +24,8 @@ pg.connect(process.env.DATABASE_URL, function (err, client) {
         sendSlackMessage("Was not able to connect to database.");
     }
     else {
-        sendSlackMessage("Successfully connect to Postgres database!");
+        //sendSlackMessage("Successfully connect to Postgres database!");
+        database.initializeDatabase(client);
     }
 
 });
