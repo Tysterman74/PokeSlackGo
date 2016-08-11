@@ -107,7 +107,7 @@ function queryLocation(locationName, callback) {
 
 function createTables() {
     db.query("CREATE TABLE IF NOT EXISTS Locations " +
-        "(LocationId INT AUTO_INCREMENT PRIMARY NOT NULL, " +
+        "(LocationId INT AUTO_INCREMENT PRIMARY KEY NOT NULL, " +
         " LocationName VARCHAR(255) NOT NULL, " +
         " Latitude FLOAT NOT NULL, " +
         " Longitude FLOAT NOT NULL)",
@@ -121,7 +121,7 @@ function createTables() {
         });
 
     db.query("CREATE TABLE IF NOT EXISTS Logs " +
-        "(LogId INT AUTO_INCREMENT PRIMARY NOT NULL, " +
+        "(LogId INT AUTO_INCREMENT PRIMARY KEY NOT NULL, " +
         " LogType VARCHAR(25) NOT NULL, " +
         " LogMessage VARCHAR(255) NULL, " +
         " LogUser VARCHAR(255) NULL, " +
