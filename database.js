@@ -111,6 +111,22 @@ function createTables() {
                 console.log("Success in creating Locations Table");
             }
         });
+
+    db.query("CREATE TABLE IF NOT EXISTS Logs " +
+        "(LogId INT IDENTITY(1,1) PRIMARY NOT NULL, " +
+        " LogType VARCHAR(25) NOT NULL, " +
+        " LogMessage VARCHAR(255) NULL, " +
+        " LogUser VARCHAR(255) NULL, " +
+        " StackTrace VARCHAR(MAX) NULL, " +
+        " LogDate DATETIME NULL",
+        function (error, result) {
+            if (error, result) {
+                console.log("Error creating Logs table", error);
+            }
+            else {
+                console.log("success in creating logs table");
+            }
+        });
     //db.run("CREATE TABLE TestTable (id INT, stuff TEXT)", null, function (error) {
     //    if (error.errno == 1) {
     //        console.log("SQL_ERROR");
