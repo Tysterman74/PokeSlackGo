@@ -5,6 +5,7 @@ var database = require("./database");
 var pokedex = require('./pokemon');
 var BenderBot = require('./bender');
 var logger = require('./logger');
+var pg = require('pg');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -15,6 +16,17 @@ console.log(token);
 var bender = new BenderBot({
 	token: token,
 	name: 'bender'
+});
+
+pg.defaults.ssl = true;
+pg.connect(process.env.DATABASE_URL, function (err, client) {
+    if (err) {
+        sendSlackMessage("Was not able to connect to database.");
+    }
+    else {
+        sendSlackMessage("Successfully connect to Postgres database!");
+    }
+
 });
 
 bender.run();
