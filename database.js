@@ -107,7 +107,7 @@ function queryLocation(locationName, callback) {
 
 function createTables() {
     db.query("CREATE TABLE IF NOT EXISTS Locations " +
-        "(LocationId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, " +
+        "(LocationId INT IDENTITY(1,1) PRIMARY NOT NULL, " +
         " LocationName VARCHAR(255) NOT NULL, " +
         " Latitude FLOAT NOT NULL, " +
         " Longitude FLOAT NOT NULL)",
