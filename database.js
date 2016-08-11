@@ -65,6 +65,14 @@ function addLocation(locationName, latitude, longitude, callback) {
         //    });
         //    callback(locationName + " has been added!");
         //});
+        db.query("SELECT * FROM Locations WHERE LocationName = ($1)", [locationName], function (error, result) {
+            if (result.rows.length >= 1) {
+                callback(locationName + " already exists!");
+            }
+            else {
+                callback("THIS IS WHERE YOU WOULD ADD THIS STUFF");
+            }
+        });
     }
     catch (err) {
         return err;
@@ -127,25 +135,6 @@ function createTables() {
                 console.log("success in creating logs table");
             }
         });
-    //db.run("CREATE TABLE TestTable (id INT, stuff TEXT)", null, function (error) {
-    //    if (error.errno == 1) {
-    //        console.log("SQL_ERROR");
-    //    }
-    //});
-    //
-    //db.run("CREATE TABLE Locations (LocationId INTEGER PRIMARY KEY AUTOINCREMENT, LocationName TEXT, Latitude REAL, Longitude REAL)", function (error) {
-    //    console.log(error);
-    //});
-    //
-    //db.run("CREATE TABLE Logs (LogId INTEGER PRIMARY KEY AUTOINCREMENT, LogType TEXT, LogMessage TEXT, LogUser TEXT, StackTrace TEXT, LogDate DATETIME)", function (error) {
-    //    console.log(error);
-    //});
-
-    //console.log(createTestTableStmnt);
-
-    //db.run("CREATE TABLE LogTable " +
-    //    "(LogTableId INTEGER PRIMARY KEY AUTOINCREMENT," +
-    //    " )")
 }
 
 function logMessage(type, message, user, stackTrace) {
