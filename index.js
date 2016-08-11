@@ -39,7 +39,7 @@ app.listen(process.env.PORT || 3000, function () {
     console.log("listening.");
 });
 
-database.initializeDatabase();
+//database.initializeDatabase();
 pokedex.init(database);
 logger.init(database);
 /*database.getLogs(function (result) {
