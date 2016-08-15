@@ -110,7 +110,7 @@ function pokeHammer (p1, l1, callback){
    	default:
    		//pokeHelp();
    		callback (pokeHelp());
-   }
+   
 
 function pokeHelp(){
    	return "commands are: \nQuery (name) \nAddLocation (name) (lat) (long) \nCurrentLocations";
