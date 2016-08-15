@@ -87,7 +87,7 @@ function getAllLocations(callback) {
                         var _l = locations[i];
                         toReturn += _l.locationname + "\n";
                     }
-                    toReturn = "To get more details on a current location, use the command to query locations.";
+                    toReturn += "To get more details on a current location, use the command to query locations.";
                     callback(toReturn);
                 }
                 else {
