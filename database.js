@@ -70,7 +70,15 @@ function addLocation(locationName, latitude, longitude, callback) {
                 callback(locationName + " already exists!");
             }
             else {
-                callback("THIS IS WHERE YOU WOULD ADD THIS STUFF");
+                db.query("INSERT INTO Locations (LocationName, Latitude, Longitude) VALUES ($1, $2, $3)", [locationName, latitude, longitude], function (error, result) {
+                    if (error) {
+                        callback("There was an error adding this location. Please try again.")
+                    }
+                    else {
+                        callback("Successfully added " + locationName + "!");
+                    }
+                });
+                //callback("THIS IS WHERE YOU WOULD ADD THIS STUFF");
             }
         });
     }
