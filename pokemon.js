@@ -32,13 +32,13 @@ function init(d){
 	console.log("i think i made a pokemon. it is " + this.stat);
 	db=d;
 	console.log("i think this is "+ db );
-}
+}//end init
 
 function pokeParse( t1){
     	var parsed = t1.split(" ");
 		parsed[1] = parsed[1].toLowerCase();
    	return parsed;
-}
+}//end parse
 
 //For pokeHammer, within the database object's callback, you must call the callback parameter we pass. 
 //The argument is basically the message that you want to send back to the user.
@@ -112,6 +112,8 @@ function pokeHammer (p1, l1, callback){
    	default:
    		//pokeHelp();
    		callback (pokeHelp());
+   	}//end switch
+}//end pokehammer
    
 
 function pokeHelp(){
