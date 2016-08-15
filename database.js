@@ -54,7 +54,9 @@ function addLocation(locationName, latitude, longitude, callback) {
                         callback("There was an error adding this location. Please try again.")
                     }
                     else {
-                        callback("Successfully added " + locationName + "!");
+                        //callback("Successfully added " + locationName + "!");
+                        callback(locationName);
+                        
                     }
                 });
             }
