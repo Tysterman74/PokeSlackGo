@@ -45,7 +45,8 @@ function pokeParse( t1){
 //Take a look at query for an example.
 function pokeHammer (p1, l1, callback){
    	var dbList=[];
-   	if (p1 === "query"){
+   	switch(p1){
+   	case "query":
    		//return this.pokeQuery(l1[2]);
    		dbList.push(l1[2]);
    		console.log("you're passing query" + dbList);
@@ -67,8 +68,8 @@ function pokeHammer (p1, l1, callback){
    		    callback(message);
    		});
    		
-   	}
-   	else if (p1 === "addlocation"){
+   	
+   	case "addlocation":
    		
    		
    		dbList.push(l1[2],l1[3],l1[4]);
@@ -79,8 +80,8 @@ function pokeHammer (p1, l1, callback){
    			callback("Bill's PC has successfully added *" + message + "*!");
    			
    		});
-   	}
-   	else if (p1 === "currentlocations"){
+   	
+   	case "currentlocations":
    		//pokeCurLoc();
    		//return this.pokeCurLoc();
    		//dblist.push(l1[1]);
@@ -105,8 +106,8 @@ function pokeHammer (p1, l1, callback){
    			
    		});
    		
-   	}
-   	else 
+   	
+   	default:
    		//pokeHelp();
    		callback (pokeHelp());
    }
