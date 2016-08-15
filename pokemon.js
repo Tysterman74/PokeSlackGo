@@ -66,8 +66,9 @@ function pokeHammer (p1, l1, callback){
    			//	callback("Could not find " + l1[2]);
    		    //}
    		    callback(message);
+   		    
    		});
-   		
+   		break;
    	
    	case "addlocation":
    		
@@ -80,6 +81,7 @@ function pokeHammer (p1, l1, callback){
    			callback("Bill's PC has successfully added *" + message + "*!");
    			
    		});
+   		break;
    	
    	case "currentlocations":
    		//pokeCurLoc();
@@ -105,7 +107,7 @@ function pokeHammer (p1, l1, callback){
    			//	callback("team rocket took them :D");
    			
    		});
-   		
+   		break;
    	
    	default:
    		//pokeHelp();
