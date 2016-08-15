@@ -47,6 +47,10 @@ function pokeHammer (p1, l1, callback){
    	var dbList=[];
    	switch(p1){
    	case "query":
+   		if (l1.length<4){
+   			callback("You are missing some information here! Please check you put: \n location name latitude longitude");
+   		}
+   		else
    		//return this.pokeQuery(l1[2]);
    		dbList.push(l1[2]);
    		console.log("you're passing query" + dbList);
