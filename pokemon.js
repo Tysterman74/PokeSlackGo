@@ -106,7 +106,7 @@ function pokeHammer (p1, l1, callback){
    	}
    	else 
    		//pokeHelp();
-   		return pokeHelp();
+   		callback (pokeHelp());
    }
 
 function pokeHelp(){
