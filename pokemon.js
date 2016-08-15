@@ -74,7 +74,7 @@ function pokeHammer (p1, l1, callback){
    		
    		db.addLocation(l1[2],l1[3],l1[4],function(message){
    			
-   			callback("Bill's PC has successfully added " + message + "!"")
+   			callback("Bill's PC has successfully added " + message + "!");
    			
    		});
    	}
