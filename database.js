@@ -44,27 +44,6 @@ function init(client) {
 
 function addLocation(locationName, latitude, longitude, callback) {
     try {
-        //db.serialize(function () {
-        //    db.get("SELECT * FROM Locations WHERE LocationName = $locationName", { $locationName: locationName }, function (e1, row) {
-        //        console.log("AddLocation Error", e1);
-        //        console.log("AddLocation Row", row);
-        //
-        //        //If no row is found, add it to the DB
-        //        if (!row) {
-        //            return db.run("INSERT INTO Locations (LocationName, Latitude, Longitude) VALUES ($locationName, $latitude, $longitude)", { $locationName: locationName, $latitude: latitude, $longitude: longitude }, function (e2) {
-        //                console.log("e2", e2);
-        //                if (e2) {
-        //                    callback("There has been an error with adding this location. Please try again.");
-        //                }
-        //            });
-        //        }
-        //            //If row is found, return error statement
-        //        else {
-        //            callback("LocationName already exists!");
-        //        }
-        //    });
-        //    callback(locationName + " has been added!");
-        //});
         db.query("SELECT * FROM Locations WHERE LocationName = ($1)", [locationName], function (error, result) {
             if (result.rows.length >= 1) {
                 callback(locationName + " already exists!");
@@ -78,7 +57,6 @@ function addLocation(locationName, latitude, longitude, callback) {
                         callback("Successfully added " + locationName + "!");
                     }
                 });
-                //callback("THIS IS WHERE YOU WOULD ADD THIS STUFF");
             }
         });
     }
@@ -107,6 +85,14 @@ function queryLocation(locationName, callback) {
         //        callback(error, row);
         //    });
         //});
+        db.query("SELECT * FROM Locations WHERE LocationName = $1", [locationName], function (error, result) {
+            if (error) {
+                callback("There was an error retrieving " + locationName);
+            } else {
+                var foundLocation = result.rows[0];
+                callback("Found location " + foundLocation.locationName + " at " + foundLocation.Latitude + ", " + foundLocation.Longitude);
+            }
+        });
     }
     catch (err) {
 
