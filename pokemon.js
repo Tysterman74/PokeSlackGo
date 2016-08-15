@@ -49,6 +49,7 @@ function pokeHammer (p1, l1, callback){
    	case "query":
    		if (l1.length<4){
    			callback("You are missing some information here! Please check you put: \n location name latitude longitude");
+   			break;
    		}
    		else
    		//return this.pokeQuery(l1[2]);
