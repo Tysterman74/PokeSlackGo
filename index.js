@@ -127,7 +127,7 @@ app.post('/pokemon', function (req, res) {
          console.log("you are " + pkTest[1]);
          var pokeChoice = pkTest[1].toString();
          var pokeJudge = pokedex.pokeHammer(pokeChoice, pkTest, function (result) {
-             res.json({ text: JSON.stringify(result), username: 'poke-slack-go-bot' });
+             res.json({ text: JSON.parse(JSON.stringify(result)), username: 'poke-slack-go-bot' });
          });
          //var pokeJudge = pokedex.pokeHammer(pokeChoice,pkTest, function (result) {
          //	//console.log(response);
