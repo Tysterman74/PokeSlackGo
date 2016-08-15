@@ -91,7 +91,12 @@ function queryLocation(locationName, callback) {
             } else {
                 var foundLocation = result.rows[0];
                 //callback(JSON.stringify(result));
-                callback("Found location " + foundLocation.locationname + " at " + foundLocation.latitude + ", " + foundLocation.longitude);
+                if (foundLocation.locationname) {
+                    callback("Found location " + foundLocation.locationname + " at " + foundLocation.latitude + ", " + foundLocation.longitude);
+                }
+                else {
+                    callback("Could not find " + locationName + ". Check your spelling?");
+                }
             }
         });
     }
