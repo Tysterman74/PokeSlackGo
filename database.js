@@ -88,6 +88,7 @@ function getAllLocations(callback) {
                         toReturn += _l.locationname + "\n";
                     }
                     toReturn = "To get more details on a current location, use the command to query locations.";
+                    callback(toReturn);
                 }
                 else {
                     callback("No locations have been added. Use the command to add locations now!");
