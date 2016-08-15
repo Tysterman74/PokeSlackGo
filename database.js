@@ -90,7 +90,8 @@ function queryLocation(locationName, callback) {
                 callback("There was an error retrieving " + locationName);
             } else {
                 var foundLocation = result.rows[0];
-                callback("Found location " + foundLocation.locationName + " at " + foundLocation.Latitude + ", " + foundLocation.Longitude);
+                callback(JSON.stringify(result));
+                //callback("Found location " + foundLocation.locationName + " at " + foundLocation.Latitude + ", " + foundLocation.Longitude);
             }
         });
     }
