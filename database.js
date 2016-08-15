@@ -91,7 +91,7 @@ function queryLocation(locationName, callback) {
             } else {
                 var foundLocation = result.rows[0];
                 //callback(JSON.stringify(result));
-                if (foundLocation.locationname) {
+                if (foundLocation) {
                     callback("Found location " + foundLocation.locationname + " at " + foundLocation.latitude + ", " + foundLocation.longitude);
                 }
                 else {
