@@ -81,11 +81,11 @@ function getAllLocations(callback) {
                 var locations = result.rows;
 
                 if (locations) {
-                    var toReturn = "Current Locations are: \n";
+                    var toReturn = "Current Locations are: \r\n";
 
                     for (var i = 0; i < locations.length; i++) {
                         var _l = locations[i];
-                        toReturn += _l.locationname + "\n";
+                        toReturn += _l.locationname + "\r\n";
                     }
                     toReturn += "To get more details on a current location, use the command to query locations.";
                     callback(toReturn);
