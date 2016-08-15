@@ -73,7 +73,26 @@ function getAllLocations(callback) {
         //    });
         //});
         db.query("SELECT * FROM Locations", function (error, result) {
-            callback(JSON.stringify(result));
+            //callback(JSON.stringify(result));
+            if (error) {
+                callback("There was an error retrieving current locations saved. Please try again.");
+            }
+            else {
+                var locations = result.rows;
+
+                if (locations) {
+                    var toReturn = "Current Locations are: \n";
+
+                    for (var i = 0; i < locations.length; i++) {
+                        var _l = locations[i];
+                        toReturn += _l.locationname + "\n";
+                    }
+                    toReturn = "To get more details on a current location, use the command to query locations.";
+                }
+                else {
+                    callback("No locations have been added. Use the command to add locations now!");
+                }
+            }
         });
     }
     catch (err) {
