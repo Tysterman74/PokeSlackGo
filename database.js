@@ -65,13 +65,16 @@ function addLocation(locationName, latitude, longitude, callback) {
     }
 }
 
-function getAllLocations(toRun) {
+function getAllLocations(callback) {
     try {
         //db.serialize(function () {
         //    db.all("SELECT * FROM Locations", function (error, rows) {
         //        toRun(error, rows);
         //    });
         //});
+        db.query("SELECT * FROM Locations", function (error, result) {
+            callback(JSON.stringify(result));
+        });
     }
     catch (err) {
 
@@ -80,11 +83,6 @@ function getAllLocations(toRun) {
 
 function queryLocation(locationName, callback) {
     try {
-        //db.serialize(function () {
-        //    db.get("SELECT * FROM Locations WHERE LocationName = $LocationName", { $LocationName: locationName }, function (error, row) {
-        //        callback(error, row);
-        //    });
-        //});
         db.query("SELECT * FROM Locations WHERE LocationName = $1", [locationName], function (error, result) {
             if (error) {
                 callback("There was an error retrieving " + locationName);

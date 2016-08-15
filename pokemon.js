@@ -84,21 +84,22 @@ function pokeHammer (p1, l1, callback){
    		//dblist.push(l1[1]);
    		console.log("you're passing current location" + dbList);
    		//return dbList; //returns the call to ask for locations
-   		db.getAllLocations(function (err,rows){
-   		    if (rows) {
-   		        var toReturn = "";
-
-   		        //for (var i = 0; i <= rows.length; i++) {
-                //    toReturn += 
-   		        //}
-   				//for (var i = 0; i<=rows.length; i++){
-   				//callback("gotta catch them all at" + rows[i].LocationName);
-   		        //}
-   		        callback("Returning stuff here");
-   		        db.logDebugMessage(JSON.stringify(rows), 'tyler');
-   			}
-   			else
-   				callback("team rocket took them :D");
+   		db.getAllLocations(function (result) {
+   		    callback(result);
+   		    //if (rows) {
+   		    //    var toReturn = "";
+            //
+   		    //    //for (var i = 0; i <= rows.length; i++) {
+            //    //    toReturn += 
+   		    //    //}
+   			//	//for (var i = 0; i<=rows.length; i++){
+   			//	//callback("gotta catch them all at" + rows[i].LocationName);
+   		    //    //}
+   		    //    callback("Returning stuff here");
+   		    //    db.logDebugMessage(JSON.stringify(rows), 'tyler');
+   			//}
+   			//else
+   			//	callback("team rocket took them :D");
    			
    		});
    		
