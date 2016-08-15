@@ -69,7 +69,7 @@ function pokeHammer (p1, l1, callback){
    		
    	}
    	else if (p1 === "addlocation"){
-   		if (l1.length()<4)
+   		if (l1.length<4)
    		{
    			callback("Not enough information! you maybe missing your lat longs")
    		}
