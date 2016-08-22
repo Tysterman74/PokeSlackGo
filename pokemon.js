@@ -46,83 +46,86 @@ function pokeParse( t1){
 function pokeHammer (p1, l1, callback){
    	var dbList=[];
    	switch(p1){
-   	case "query":
+   	    case "query":
 
-   		//return this.pokeQuery(l1[2]);
-   		dbList.push(l1[2]);
-   		console.log("you're passing query" + dbList);
-   	    //return dbList; //returns the query name
+   		    //return this.pokeQuery(l1[2]);
+   		    dbList.push(l1[2]);
+   		    console.log("you're passing query" + dbList);
+   	        //return dbList; //returns the query name
 
-        //Call the database object, and specify the callback. It is important you specify the callback.
-   		db.queryLocation(l1[2],function (message) {
-   		    //Check if error or if successful return
-   		    //If there are no results or there is an error, then row will be 'undefined' 
-   		    //so you need to check that first before you call the callback.
-   		    //if (row) {
-   		    //    //This callback object is what's passed through from index.js. All it has is the code to send a response message back to the channel/user.
-            //    //Once you do what you need to do above this, then pass the message you want to display back to the user into the callback.
-   			//	callback("Location found. Latitude - " + row.Latitude + " Longitude - " + row.Longitude);
-   			//}
-   			//else {
-   			//	callback("Could not find " + l1[2]);
-   		    //}
-   		    callback(message);
+            //Call the database object, and specify the callback. It is important you specify the callback.
+   		    db.queryLocation(l1[2],function (message) {
+   		        //Check if error or if successful return
+   		        //If there are no results or there is an error, then row will be 'undefined' 
+   		        //so you need to check that first before you call the callback.
+   		        //if (row) {
+   		        //    //This callback object is what's passed through from index.js. All it has is the code to send a response message back to the channel/user.
+                //    //Once you do what you need to do above this, then pass the message you want to display back to the user into the callback.
+   			    //	callback("Location found. Latitude - " + row.Latitude + " Longitude - " + row.Longitude);
+   			    //}
+   			    //else {
+   			    //	callback("Could not find " + l1[2]);
+   		        //}
+   		        callback(message);
    		    
-   		});
-   		break;
+   		    });
+   		    break;
    	
-   	case "addlocation":
-   		 if (l1.length<5){
-   			callback("You are missing some information here! Please check you put: \n location name latitude longitude");
-   			break;
-   		}
-   		else
+   	    case "addlocation":
+   		     if (l1.length<5){
+   			    callback("You are missing some information here! Please check you put: \n location name latitude longitude");
+   			    break;
+   		    }
+   		    else
    		
-   		dbList.push(l1[2],l1[3],l1[4]);
-   		console.log("you're passing location" + dbList);
+   		    dbList.push(l1[2],l1[3],l1[4]);
+   		    console.log("you're passing location" + dbList);
    		
-   		db.addLocation(l1[2],l1[3],l1[4],function(message){
+   		    db.addLocation(l1[2],l1[3],l1[4],function(message){
    			
-   			callback("Bill's PC has successfully added *" + message + "*!");
+   			    callback("Bill's PC has successfully added *" + message + "*!");
    			
-   		});
-   		break;
+   		    });
+   		    break;
    	
-   	case "currentlocations":
-   		//pokeCurLoc();
-   		//return this.pokeCurLoc();
-   		//dblist.push(l1[1]);
-   		console.log("you're passing current location" + dbList);
-   		//return dbList; //returns the call to ask for locations
-   		db.getAllLocations(function (result) {
-   		    callback(result);
-   		    //if (rows) {
-   		    //    var toReturn = "";
-            //
-   		    //    //for (var i = 0; i <= rows.length; i++) {
-            //    //    toReturn += 
-   		    //    //}
-   			//	//for (var i = 0; i<=rows.length; i++){
-   			//	//callback("gotta catch them all at" + rows[i].LocationName);
-   		    //    //}
-   		    //    callback("Returning stuff here");
-   		    //    db.logDebugMessage(JSON.stringify(rows), 'tyler');
-   			//}
-   			//else
-   			//	callback("team rocket took them :D");
+   	    case "currentlocations":
+   		    //pokeCurLoc();
+   		    //return this.pokeCurLoc();
+   		    //dblist.push(l1[1]);
+   		    console.log("you're passing current location" + dbList);
+   		    //return dbList; //returns the call to ask for locations
+   		    db.getAllLocations(function (result) {
+   		        callback(result);
+   		        //if (rows) {
+   		        //    var toReturn = "";
+                //
+   		        //    //for (var i = 0; i <= rows.length; i++) {
+                //    //    toReturn += 
+   		        //    //}
+   			    //	//for (var i = 0; i<=rows.length; i++){
+   			    //	//callback("gotta catch them all at" + rows[i].LocationName);
+   		        //    //}
+   		        //    callback("Returning stuff here");
+   		        //    db.logDebugMessage(JSON.stringify(rows), 'tyler');
+   			    //}
+   			    //else
+   			    //	callback("team rocket took them :D");
    			
-   		});
-   		break;
-   	
-   	default:
-   		//pokeHelp();
-   		callback (pokeHelp());
+   		    });
+   		    break;
+   	    case "ivcheck":
+
+   	        callback("Checking IVs for: " + l1[2]);
+   	        break;
+   	    default:
+   		    //pokeHelp();
+   		    callback (pokeHelp());
    	}//end switch
 }//end pokehammer
    
 
 function pokeHelp(){
-   	return "commands are: \nQuery (name) \nAddLocation (name) (lat) (long) \nCurrentLocations";
+   	return "commands are: \nQuery (name) \nAddLocation (name) (lat) (long) \nCurrentLocations \n IvCheck (pokemonName) (CP) (HP) (DustLevelUp) (Powered Up? Either 'yes' or 'no')";
 }
 function pokeAddMessage(list1){
 	console.log("i'm adding in!" + list1);
