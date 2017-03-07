@@ -171,7 +171,8 @@ app.post('/fe-heroes', function (req, res) {
         
     });*/
     var reply = slack.respond(req.body, function (hook) {
-        res.json({ text: req.body });
+        console.log(req.body);
+        res.json({ text: "Test" });
     });
 
     //res.json(req);
