@@ -12,6 +12,7 @@ var app = express();
 
 //Bot Creation
 var token = process.env.BOT_KEY_API;
+//var token = 'xoxb-65237437281-SrAfOp7FyJK4QigxprXizS9s';
 console.log(token);
 var bender = new BenderBot({
 	token: token,
@@ -30,7 +31,7 @@ pg.connect(process.env.DATABASE_URL, function (err, client) {
 
 });
 
-bender.run();
+//bender.run();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -165,6 +166,17 @@ app.post('/down', function (req, res) {
     //console.log(req.body);
 });
 
+app.post('/fe-heroes', function (req, res) {
+    /*var reply = slack.respond(req.body, function(hook) {
+        
+    });*/
+    var reply = slack.respond(req.body, function (hook) {
+        res.json({ text: req.body });
+    });
+
+    //res.json(req);
+});
+
 function respondBack(body, res, text) {
 	var reply = slack.respond(body, function (hook) {
 		return { text: text, username: 'poke-slack-go-bot' }
@@ -175,7 +187,7 @@ function respondBack(body, res, text) {
 function sendSlackMessage(message) {
     slack.send({
         text: message,
-        channel: '#general',
+        channel: '#testing',
         username: 'TestBotTyler'
     });
 }
