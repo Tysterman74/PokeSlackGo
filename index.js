@@ -12,7 +12,6 @@ var app = express();
 
 //Bot Creation
 var token = process.env.BOT_KEY_API;
-//var token = 'xoxb-65237437281-SrAfOp7FyJK4QigxprXizS9s';
 console.log(token);
 var bender = new BenderBot({
 	token: token,
@@ -166,16 +165,25 @@ app.post('/down', function (req, res) {
     //console.log(req.body);
 });
 
+//Req.Body:
+/*
+{ token: 'x6cqHVsDVkLYv6mcZLx9Bcqs',
+ team_id: 'T1AC468DD',
+ team_domain: 'dreams-are-not-dreams',
+ service_id: '150531051971',
+ channel_id: 'C4EL6M0MB',
+ channel_name: 'testing',
+ timestamp: '1488857906.000011',
+ user_id: 'U1AAPF6GK',
+ user_name: 'tynutsathitya',
+ text: 'fe-heroes test',
+ trigger_word: 'fe-heroes' }
+*/
 app.post('/fe-heroes', function (req, res) {
-    /*var reply = slack.respond(req.body, function(hook) {
-        
-    });*/
     var reply = slack.respond(req.body, function (hook) {
         console.log(req.body);
         res.json({ text: "Test" });
     });
-
-    //res.json(req);
 });
 
 function respondBack(body, res, text) {
