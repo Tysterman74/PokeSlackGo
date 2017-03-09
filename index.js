@@ -7,6 +7,7 @@ var BenderBot = require('./bender');
 var logger = require('./logger');
 var pg = require('pg');
 var readline = require('readline');
+var parser = require('./parser');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -46,6 +47,7 @@ app.listen(process.env.PORT || 3000, function () {
 //database.initializeDatabase();
 pokedex.init(database);
 logger.init(database);
+parser.init();
 /*database.getLogs(function (result) {
     console.log(result);
 });
@@ -209,13 +211,16 @@ function debugFlow() {
             console.log("exiting");
         } else {
             //INSERT HERE THE LOGIC TO TEST
-            var pkTest = pokedex.pokeParse(line);
-            console.log("you are " + pkTest[1]);
-            var pokeChoice = pkTest[1].toString();
-            var pokeJudge = pokedex.pokeHammer(pokeChoice, pkTest, function (result) {
+			
+			parser.fullParse(line);
+			
+            //var pkTest = pokedex.pokeParse(line);
+            //console.log("you are " + pkTest[1]);
+            //var pokeChoice = pkTest[1].toString();
+            //var pokeJudge = pokedex.pokeHammer(pokeChoice, pkTest, function (result) {
                 //res.json({ text: result, username: 'poke-slack-go-bot' });
-                sendSlackMessage(result);
-            });
+            //    sendSlackMessage(result);
+            //});
         }
         r1.prompt(); 
     }).on('close', () => {
