@@ -155,6 +155,35 @@ function createTables() {
                 console.log("success in creating logs table");
             }
         });
+
+    db.query("CREATE TABLE IF NOT EXISTS Character " +
+        "(CharacterId SERIAL PRIMARY KEY NOT NULL, " + 
+        " Name VARCHAR(25) NOT NULL, " +
+        " Color VARCHAR(15) NOT NULL, " +
+        " Type VARCHAR(20) NOT NULL, " +
+        " HPBase INTEGER NOT NULL, " +
+        " HPLow INTEGER NOT NULL, " + 
+        " HPHigh INTEGER NOT NULL, " +
+        " AtkBase INTEGER NOT NULL, " +
+        " AtkLow INTEGER NOT NULL, " +
+        " AtkHigh INTEGER NOT NULL, " +
+        " SpdBase INTEGER NOT NULL, " + 
+        " SpdLow INTEGER NOT NULL," + 
+        " SpdHigh INTEGER NOT NULL," +
+        " DefBase INTEGER NOT NULL," +
+        " DefLow INTEGER NOT NULL, " + 
+        " DefHigh INTEGER NOT NULL," +
+        " ResBase INTEGER NOT NULL, " +
+        " ResLow INTEGER NOT NULL," +
+        " ResHigh INTEGER NOT NULL)",
+        function (error, result) {
+            if (error, result) {
+                console.log("Error creating Character table", error);
+            }
+            else {
+                console.log("Success in creating Character Table");
+            }
+        });
 }
 
 function logMessage(type, message, user, stackTrace) {
