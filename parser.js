@@ -47,6 +47,9 @@ function init(){
 
 function fullParse(input){
 	this.parsed = input.split(" ");
+	setName();
+	setCommand();
+	setData();
 	
 }//end fullParse
 
