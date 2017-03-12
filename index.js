@@ -6,20 +6,25 @@ var pokedex = require('./pokemon');
 var BenderBot = require('./bender');
 var logger = require('./logger');
 var pg = require('pg');
+var readline = require('readline');
+var parser = require('./parser');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
 
 //Bot Creation
 var token = process.env.BOT_KEY_API;
-console.log(token);
+//var LOCAL = true;
+var RUNNING_PRODUCTION = process.env.RUNNING_PRODUCTION;
+console.log(RUNNING_PRODUCTION);
+
 var bender = new BenderBot({
 	token: token,
 	name: 'bender'
 });
 
 pg.defaults.ssl = true;
-pg.connect(process.env.DATABASE_URL, function (err, client) {
+pg.connect(RUNNING_PRODUCTION ? process.env.DATABASE_URL : "postgres://ubxahnokhymbcy:OgCT_vW_TRGNAuWokK7uwwP-J2@ec2-54-243-204-129.compute-1.amazonaws.com:5432/ddkickb54hq93j", function (err, client) {
     if (err) {
         sendSlackMessage("Was not able to connect to database.");
     }
@@ -42,6 +47,7 @@ app.listen(process.env.PORT || 3000, function () {
 //database.initializeDatabase();
 pokedex.init(database);
 logger.init(database);
+parser.init();
 /*database.getLogs(function (result) {
     console.log(result);
 });
@@ -185,6 +191,43 @@ app.post('/fe-heroes', function (req, res) {
         res.json({ text: "Test" });
     });
 });
+
+const r1 = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+    prompt: "Start Typing>"
+})
+
+//This snippet here is used when running the server locally.
+if (!RUNNING_PRODUCTION)
+    debugFlow();
+
+//We prompt on the command line the line that we would type in the Slack chat.
+//It then takes the line object which is the string.
+function debugFlow() {
+    r1.prompt();
+    r1.on('line', (line) => {
+        if (line == 'EXIT') {
+            console.log("exiting");
+        } else {
+            //INSERT HERE THE LOGIC TO TEST
+			
+			parser.fullParse(line);
+			
+            //var pkTest = pokedex.pokeParse(line);
+            //console.log("you are " + pkTest[1]);
+            //var pokeChoice = pkTest[1].toString();
+            //var pokeJudge = pokedex.pokeHammer(pokeChoice, pkTest, function (result) {
+                //res.json({ text: result, username: 'poke-slack-go-bot' });
+            //    sendSlackMessage(result);
+            //});
+        }
+        r1.prompt(); 
+    }).on('close', () => {
+        console.log("Shutting down");
+        process.exit(0);
+    });
+}
 
 function respondBack(body, res, text) {
 	var reply = slack.respond(body, function (hook) {
