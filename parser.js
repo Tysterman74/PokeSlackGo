@@ -48,15 +48,14 @@ function init(){
 	//console.log("I will be parsing ");
 }//end init
 
+//This will set the name, command, and data for the object 
+//then return an object that you can refer to using name, command and data.
 function fullParse(input){
 	this.parsed = input.split(" ");
 	setName();
 	setCommand();
 	setData();
-	var o = returnParsed();
-	console.log("name is " + o.name);
-	console.log("command is " + o.command);
-	console.log("data is " + o.data);
+	returnParsed();
 }//end fullParse
 
 function parsePrinter(){
