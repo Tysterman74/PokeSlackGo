@@ -30,6 +30,9 @@ module.exports = {
 	},
 	getData(){
 		return getData();
+	},
+	returnParsed(){
+		return returnParsed();
 	}
 	
 }
@@ -50,7 +53,10 @@ function fullParse(input){
 	setName();
 	setCommand();
 	setData();
-	
+	var o = returnParsed();
+	console.log("name is " + o.name);
+	console.log("command is " + o.command);
+	console.log("data is " + o.data);
 }//end fullParse
 
 function parsePrinter(){
@@ -90,4 +96,9 @@ function setData(){
 
 function getData(){
 	return this.data;
+}
+
+function returnParsed(){
+	var parsedLine ={ name: getName(), command: getCommand(), data: getData()};
+	return parsedLine;
 }
