@@ -211,8 +211,22 @@ function debugFlow() {
             console.log("exiting");
         } else {
             //INSERT HERE THE LOGIC TO TEST
-			
-			parser.fullParse(line);
+            /*
+                var hpObj = {
+                    Base: 1,
+                    Low: -3,
+                    High: -4
+                };
+                database.addCharacter("Tyler", "Blue", "Flying", 
+                    hpObj, hpObj, hpObj, hpObj, hpObj, function (result) {
+                        sendSlackMessage(result);
+                    });
+                database.queryCharacter(line, function (result) {
+                    sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
+                });
+            */
+
+			//parser.fullParse(line);
 			
             //var pkTest = pokedex.pokeParse(line);
             //console.log("you are " + pkTest[1]);
