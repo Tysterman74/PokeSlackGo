@@ -10,9 +10,6 @@ module.exports = {
 		return fullParse(input);
 	},
 	
-	parsePrinter(){
-		return parsePrinter();
-	},
 	setName(){
 		return setName();
 	},
@@ -44,8 +41,7 @@ var command;
 var data;
 
 function init(){
-	console.log("BayMax Parser is listening!");
-	//console.log("I will be parsing ");
+	
 }//end init
 
 //This will set the name, command, and data for the object 
@@ -57,15 +53,6 @@ function fullParse(input){
 	setData();
 	return returnParsed();
 }//end fullParse
-
-function parsePrinter(){
-	i=0;
-	console.log("the parsed.length is" + this.parsed.length);
-	while (this.parsed.length > i){
-		console.log(this.parsed[i]);
-		i++;
-	}
-}//end parsePrinter
 
 function setName(){
 	this.name=this.parsed[0];
@@ -97,8 +84,8 @@ function getData(){
 	return this.data;
 }
 
+//returns an object that you can refer to with .name / .command /.data
 function returnParsed(){
 	var parsedLine ={ name: getName(), command: getCommand(), data: getData()};
-	console.log(parsedLine);
 	return parsedLine;
 }
