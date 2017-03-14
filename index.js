@@ -8,6 +8,7 @@ var logger = require('./logger');
 var pg = require('pg');
 var readline = require('readline');
 var parser = require('./parser');
+var cLookUp = require('./characterlookup');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -48,6 +49,7 @@ app.listen(process.env.PORT || 3000, function () {
 pokedex.init(database);
 logger.init(database);
 parser.init();
+cLookUp.init(database);
 /*database.getLogs(function (result) {
     console.log(result);
 });
@@ -217,6 +219,7 @@ function debugFlow() {
                     Low: -3,
                     High: -4
                 };
+				
                 database.addCharacter("Tyler", "Blue", "Flying", 
                     hpObj, hpObj, hpObj, hpObj, hpObj, function (result) {
                         sendSlackMessage(result);
@@ -225,7 +228,14 @@ function debugFlow() {
                     sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
                 });
             */
-
+			var parsedLine = parser.fullParse(line);
+			console.log(parsedLine.data + "teehee");
+			cLookUp.setName(parsedLine);
+			cLookUp.lookUp(function (result){
+				sendSlackMessage(result);
+			});
+		
+			
 			//parser.fullParse(line);
 			
             //var pkTest = pokedex.pokeParse(line);

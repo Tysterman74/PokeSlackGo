@@ -55,7 +55,7 @@ function fullParse(input){
 	setName();
 	setCommand();
 	setData();
-	returnParsed();
+	return returnParsed();
 }//end fullParse
 
 function parsePrinter(){
@@ -99,5 +99,6 @@ function getData(){
 
 function returnParsed(){
 	var parsedLine ={ name: getName(), command: getCommand(), data: getData()};
+	console.log(parsedLine);
 	return parsedLine;
 }
