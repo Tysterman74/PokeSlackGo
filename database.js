@@ -63,7 +63,7 @@ function init(client) {
 function addCharacter(name, color, type, hpObj, atkObj, spdObj, defObj, resObj, callback) {
     db.query("SELECT * FROM Character WHERE Name = ($1)", [name], function (error, result) {
         if (result.rows.length >= 1) {
-            callback("EXISTS");
+            callback("EXISTS", name);
         }
         else {
                 db.query("INSERT INTO Character"+ 
@@ -75,10 +75,11 @@ function addCharacter(name, color, type, hpObj, atkObj, spdObj, defObj, resObj, 
                      spdObj.Base, spdObj.Low, spdObj.High, defObj.Base, defObj.Low, defObj.High, resObj.Base, resObj.Low, resObj.High], 
                     function (error, result) {
                     if (error) {
-                        callback("ERROR")
+                        console.log("Error creating Character", error);
+                        callback("ERROR", name)
                     }
                     else {
-                        callback("OK");
+                        callback("OK", name);
                         
                     }
                 });

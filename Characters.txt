@@ -1,0 +1,20 @@
+# Name, Color, Type, HPBase, HpLow, HpHigh, AtkBase, AtkLow, AtkHigh, SpdBase, SpdLow, SpdHigh, DefBase, DefLow, DefHigh, ResBase, ResLow, ResHigh
+Eliwood,Red Calvary,39,35,42,47,44,50,30,26,33,23,20,26,32,29,35
+Abel,Blue Lance,Calvary,44,40,47,41,38,44,27,24,30,25,22,28,25,22,29
+Alfonse,Red Sword,Infantry,43,43,43,51,51,51,25,25,25,32,32,32,22,22,22
+Anna,Green Axe,Infantry,41,41,41,45,45,45,38,38,38,22,22,22,28,28,28
+Arthur,Green Axe,Infantry,48,45,51,44,47,41,29,26,32,30,26,33,24,21,28
+Azama,Staff,Infantry,43,43,43,31,28,31,26,26,30,32,29,32,25,25,29
+Azura,Blue Lance,Infantry,36,33,40,43,40,46,36,33,39,21,18,24,28,24,31
+Barst,Green Axe,Infantry,46,46,49,38,38,41,27,27,27,30,30,30,13,13,13
+Bartre,Green Axe,Infantry,49,46,49,51,48,54,28,25,32,36,36,39,16,13,16
+Beruka,Green Axe,Flying,46,43,46,40,40,43,23,23,26,37,37,37,22,19,25
+Caeda,Red Sword,Flying,36,33,40,37,34,41,37,34,40,24,21,28,34,31,37
+Cain,Red Sword,Calvary,42,39,45,40,37,43,27,24,30,27,24,31,21,18,24
+Camilla,Green Axe,Calvary,37,34,41,38,34,41,27,24,30,28,24,31,31,28,34
+Catria,Blue Lance,Flying,39,35,42,42,39,45,34,31,37,29,25,32,25,22,29
+Cecilia,Green Tome,Calvalry,36,33,40,46,43,49,25,22,25,22,19,25,29,25,32
+Cherche,Green Axe,Flying,46,46,46,56,56,56,25,25,25,32,32,32,12,12,12
+Chrom,Red Sword,Infantry,47,44,50,53,50,56,25,22,29,31,28,34,17,13,20
+Clarine,Staff,Cavalry,35,35,39,35,32,37,33,33,36,22,19,25,32,28,32
+# End

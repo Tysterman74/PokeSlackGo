@@ -8,6 +8,7 @@ var logger = require('./logger');
 var pg = require('pg');
 var readline = require('readline');
 var parser = require('./parser');
+var fs = require('fs');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -31,10 +32,78 @@ pg.connect(RUNNING_PRODUCTION ? process.env.DATABASE_URL : "postgres://ubxahnokh
     else {
         //sendSlackMessage("Successfully connect to Postgres database!");
         database.initializeDatabase(client);
+        addCharacters(function (result) {
+            console.log(result);
+        });
     }
 
 });
 
+function addCharacters(callback) {
+
+        var input = fs.createReadStream("Characters.txt");
+
+        var remaining = '';
+        input.on('data', function (data) {
+            remaining += data;
+            var index = remaining.indexOf('\n');
+            while (index > -1) {
+                var line = remaining.substring(0, index);
+                remaining = remaining.substring(index + 1);
+
+                console.log("Line: " + line);
+                if (!line.startsWith("#")) {
+                    var splitString = line.split(",");
+                    console.log(splitString);
+                    var name = splitString[0];
+                    var color = splitString[1];
+                    var type = splitString[2];
+                    var hpObj = {
+                        Base: parseInt(splitString[3]),
+                        Low: parseInt(splitString[4]),
+                        High: parseInt(splitString[5])
+                    };
+
+                    var atkObj = {
+                        Base: parseInt(splitString[6]),
+                        Low: parseInt(splitString[7]),
+                        High: parseInt(splitString[8])
+                    };
+
+                    var spdObj = {
+                        Base: parseInt(splitString[9]),
+                        Low: parseInt(splitString[10]),
+                        High: parseInt(splitString[11])
+                    };
+
+                    var defObj = {
+                        Base: parseInt(splitString[12]),
+                        Low: parseInt(splitString[13]),
+                        High: parseInt(splitString[14])
+                    };
+
+                    var resObj = {
+                        Base: parseInt(splitString[15]),
+                        Low: parseInt(splitString[16]),
+                        High: parseInt(splitString[17])
+                    };
+
+                    database.addCharacter(name, color, type, hpObj, atkObj, spdObj, defObj, resObj, function (result, returnName) {
+                        //console.log("Adding " + name + ": " + result);
+                        callback("Adding " + returnName + ": " + result);
+                    });
+                }
+
+                index = remaining.indexOf('\n');
+            }
+        });
+
+        input.on('end', function () {
+            if (remaining.length > 0) {
+                console.log("Line: " + remaining);
+            }
+        });
+}
 //bender.run();
 
 app.use(bodyParser.json());
@@ -48,6 +117,7 @@ app.listen(process.env.PORT || 3000, function () {
 pokedex.init(database);
 logger.init(database);
 parser.init();
+
 /*database.getLogs(function (result) {
     console.log(result);
 });
@@ -225,6 +295,10 @@ function debugFlow() {
                     sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
                 });
             */
+
+                            database.queryCharacter(line, function (result) {
+                    sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
+                });
 
 			//parser.fullParse(line);
 			
