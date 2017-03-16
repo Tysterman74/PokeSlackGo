@@ -7,8 +7,11 @@ module.exports={
 	setName(parsedObject){
 		return setName(parsedObject);
 	},
-	lookUp(callback){
-		return lookUp(callback);
+	getName(){
+		return getName();
+	},
+	lookUp(object, callback){
+		return lookUp(object, callback);
 	}
 }
 
@@ -23,10 +26,16 @@ function setName(parsedObject){
 	this.pName = parsedObject.data;
 	}
 
+function getName(){
+	return this.pName;
+}
 
-function lookUp(callback){
-	db.queryCharacter(pName, function(message){
+function lookUp(object, callback){
+	console.log("i'm passing " + object.data);
+	db.queryCharacter(object.data, function(message){
+		console.log(message);
 		callback(message);
+		
 	});
 	
 }
