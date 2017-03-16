@@ -23,7 +23,7 @@ function init(database){
 }
 
 function setName(parsedObject){
-	this.pName = parsedObject.data;
+	this.pName = parsedObject;
 	this.pName;
 }
 

@@ -31,7 +31,6 @@ function execute(parsedLine, callback) {
 
 function characterLookup(parsedLine, callback) {
     var name = parsedLine[2];
-    characterLookupObj.setName(name)
     characterLookupObj.lookUp(name, function (result) {
         callback(result);
     });
