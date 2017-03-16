@@ -24,19 +24,30 @@ function init(database){
 
 function setName(parsedObject){
 	this.pName = parsedObject.data;
+	this.pName;
 	}
 
 function getName(){
 	return this.pName;
 }
 
-function lookUp(object, callback){
+function lookUp(object.data, callback){
 	console.log("i'm passing " + object.data);
-	db.queryCharacter(object.data, function(message){
+	db.queryCharacter(object, function(message){
 		console.log(message);
 		callback(message);
 		
 	});
-	
+	console.log("i'm passing getName()" + getName());
+		db.queryCharacter(getName(), function(message){
+		console.log(message);
+		callback(message);
+		
+	});
+	console.log("i'm passing Chrom");
+		db.queryCharacter('Chrom', function(message){
+		console.log(message);
+		callback(message);
+	});
 }
 
