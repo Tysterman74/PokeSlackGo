@@ -8,6 +8,7 @@ var logger = require('./logger');
 var pg = require('pg');
 var readline = require('readline');
 var parser = require('./parser');
+var feCalc = require('./fecalc');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -48,6 +49,7 @@ app.listen(process.env.PORT || 3000, function () {
 pokedex.init(database);
 logger.init(database);
 parser.init();
+feCalc.init();
 /*database.getLogs(function (result) {
     console.log(result);
 });

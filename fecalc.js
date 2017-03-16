@@ -3,7 +3,7 @@ var math = require('mathjs');
 
 module.exports = {
     init() {
-        init();
+        return init();
     },
     feCustomCalc( characters, callback ) {
         return feCustomCalc( characters, callback);
@@ -19,6 +19,9 @@ module.exports = {
 //init function
 function init() {
     console.log("Start this thing up");
+    console.log("\nFECalc");
+    console.log('testing feParse');
+    feParseTest();
 }
 
 //feCustomCalc takes data and throws back an endmessage 
@@ -29,7 +32,8 @@ function init() {
 //     c(o)unterable, (r)ed, (b)lue, (g)reen, (c)olorless, (a)dvantage]
 // Damage: ceil(floor(floor(Atk * ADV) * EFF) - DEF/RES)
 function feCustomCalc( characters, endmessage ) {
-        
+    var hi = "hi";
+    return hi;
 }
 
 // feParse will parse the data from vs and whitespace
@@ -81,4 +85,26 @@ function feCreateChar ( parseddata ) {
         chars[i] = dummy;
     }
     return chars;
+}
+
+function feParseTest () {
+    var results = { total: 0, bad: 0};
+    
+    function test( ran, expected ) {
+       results.total++;
+       var running = feParse(ran);
+       if ( running !== expected ) {
+          results.bad++; 
+          console.log( "Expected " + expected + ", but returned " + running);
+       }
+    }
+
+    test( "3849261735gnvs3035263024b", ["3849261735gn", "3035263024b",] );
+    test( "3849261735gnv3035263024b", ["3849261735gn", "3035263024b",] );
+    test( "gn3849261735vb3035263024", ["gn3849261735", "b3035263024",] );
+    test( "g3849261735nvsb3035263024", ["g3849261735n", "b3035263024",] );
+    test( "g3849261735nv3035263024b", ["g3849261735n", "3035263024b",] );
+    test( "3849261735v3035263024", ["3849261735", "3035263024",] );
+    console.log( results.total - results.bad + " passed. " + results.bad + " failed out of " + results.total);
+    
 }
