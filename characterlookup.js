@@ -25,14 +25,14 @@ function init(database){
 function setName(parsedObject){
 	this.pName = parsedObject.data;
 	this.pName;
-	}
+}
 
 function getName(){
 	return this.pName;
 }
 
 function lookUp(object, callback){
-	console.log("i'm passing getName()" + getName());
+	console.log("i'm passing getName()" + getName() + "s");
 		db.queryCharacter(object, function(message){
 		if (message!="DNE"){
 			console.log("Are You looking for " + message.name  + "?!?!?!?! using getName()");

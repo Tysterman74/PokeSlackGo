@@ -238,7 +238,7 @@ function debugFlow() {
 			var parsedLine = parser.fullParse(line);
 			console.log(parsedLine.data + "teehee");
 			cLookUp.setName(parsedLine);
-			cLookUp.lookUp(parsedLine, function(result){
+			cLookUp.lookUp(parsedLine.data, function(result){
 				sendSlackMessage(result);
 			});
 		

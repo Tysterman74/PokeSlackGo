@@ -22,14 +22,15 @@ function execute(parsedLine, callback) {
 
     switch (command) {
         case commandEnums.CHARACTERLOOKUP:
-            characterLookup(name, callback);
+            characterLookup(parsedLine, callback);
             break;
         default:
             break;
     }
 }
 
-function characterLookup(name, callback) {
+function characterLookup(parsedLine, callback) {
+    var name = parsedLine[2];
     characterLookupObj.setName(name)
     characterLookupObj.lookUp(name, function (result) {
         callback(result);
