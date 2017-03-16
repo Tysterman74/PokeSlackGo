@@ -30,7 +30,7 @@ function execute(parsedLine, callback) {
 }
 
 function characterLookup(parsedLine, callback) {
-    var name = parsedLine[2];
+    var name = parsedLine.data;
     characterLookupObj.lookUp(name, function (result) {
         callback(result);
     });
