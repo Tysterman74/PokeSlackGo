@@ -31,23 +31,16 @@ function getName(){
 	return this.pName;
 }
 
-function lookUp(object.data, callback){
-	console.log("i'm passing " + object.data);
-	db.queryCharacter(object, function(message){
-		console.log(message);
-		callback(message);
-		
-	});
+function lookUp(object, callback){
 	console.log("i'm passing getName()" + getName());
 		db.queryCharacter(getName(), function(message){
-		console.log(message);
-		callback(message);
+		if (message!="DNE"){
+			console.log("Are You looking for " + message.name  + "?!?!?!?! using getName()");
+			callback("Are You looking for " + message.name  + "?!?!?!?! ");
+		}
+		else
+			callback(message);
 		
-	});
-	console.log("i'm passing Chrom");
-		db.queryCharacter('Chrom', function(message){
-		console.log(message);
-		callback(message);
 	});
 }
 

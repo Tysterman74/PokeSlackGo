@@ -38,7 +38,7 @@ module.exports = {
 var parsed;
 var name;
 var command;
-var data;
+var data="";
 
 function init(){
 	
@@ -52,6 +52,7 @@ function fullParse(input){
 	setCommand();
 	setData();
 	return returnParsed();
+	//console.log(getData());
 }//end fullParse
 
 function setName(){
@@ -72,12 +73,26 @@ function getCommand(){
 
 function setData(){
 	i=2;
-	var tempData="";
+	var tempData=[];
 	while(this.parsed.length > i){
-		tempData=tempData + this.parsed[i] + " ";
+		tempData.push(this.parsed[i]);
 		i++;
 	}
-	this.data=tempData;
+
+	
+	var tempString="";
+	tempString=tempData[0];
+	j=1;
+	if (tempData.length > 1){
+		while(tempData.length>j){
+		tempString+=" "+tempData[j];
+		j++;
+		}
+		this.data=tempString;
+	}
+	else
+		this.data=tempString;
+	
 }
 
 function getData(){
