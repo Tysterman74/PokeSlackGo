@@ -17,6 +17,12 @@ module.exports = {
     queryCharacter(name, callback) {
         queryCharacter(name, callback);
     },
+    addWeapon() {
+
+    },
+    queryWeapon() {
+
+    },
     queryLocation(locationName, callback) {
         queryLocation(locationName, callback);
     },
@@ -85,6 +91,9 @@ function addCharacter(name, color, type, hpObj, atkObj, spdObj, defObj, resObj, 
                 });
         }
     })
+}
+
+function addWeapon() {
 }
 
 function addLocation(locationName, latitude, longitude, callback) {
@@ -185,6 +194,10 @@ function queryCharacter(name, callback) {
     });
 }
 
+function queryWeapon() {
+
+}
+
 function queryLocation(locationName, callback) {
     try {
         db.query("SELECT * FROM Locations WHERE LocationName = $1", [locationName], function (error, result) {
@@ -266,6 +279,21 @@ function createTables() {
                 console.log("Success in creating Character Table");
             }
         });
+
+    db.query("CREATE TABLE IF NOT EXISTS Weapon " +
+        "(WeaponId SERIAL PRIMARY KEY NOT NULL, " +
+        " Name VARCHAR(25) NOT NULL, " + 
+        " Color VARCHAR(25) NOT NULL, " + 
+        " Type VARCHAR(20) NOT NULL, " +
+        " Might INTEGER NOT NULL," + 
+        " TriggerEffect VARCHAR(15) NOT NULL," +
+        " DoubleAtk BOOLEAN NOT NULL," + 
+        " EffectiveType VARCHAR(20) NOT NULL," + 
+        " Advantage VARCHAR(20) NOT NULL, " + 
+        " Disadvantage VARCHAR(20) NOT NULL, " +
+        " SpecialCooldown INTEGER NOT NULL, " + 
+        " StatBoost INTEGER NOT NULL, " + 
+        " StatName VARCHAR(7) NOT NULL)")
 }
 
 function logMessage(type, message, user, stackTrace) {
