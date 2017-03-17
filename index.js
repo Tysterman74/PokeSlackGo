@@ -50,6 +50,7 @@ pokedex.init(database);
 logger.init(database);
 parser.init();
 feCalc.init();
+
 /*database.getLogs(function (result) {
     console.log(result);
 });
@@ -213,9 +214,17 @@ function debugFlow() {
             console.log("exiting");
         } else {
             //INSERT HERE THE LOGIC TO TEST
-			
-			parser.fullParse(line);
-			
+            sendSlackMessage("helloo");
+			// parser.fullParse(line);
+            var chara = feCalc.feCreateChar(feCalc.feParse(line));
+            // var testing = feCalc.feCustomCalc(chara, feCalc.feResults); 
+            var testing = feCalc.feCustomCalc(chara, function(print) {
+                console.log(print);
+                sendSlackMessage(print);
+            });
+            // {
+            //     res.json({text: result, username: 'Boo'});
+            // });
             //var pkTest = pokedex.pokeParse(line);
             //console.log("you are " + pkTest[1]);
             //var pokeChoice = pkTest[1].toString();

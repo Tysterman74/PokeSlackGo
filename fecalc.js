@@ -15,10 +15,13 @@ module.exports = {
     },
     feCreateChar( parseddata ) {
         return feCreateChar( parseddata );
+    },
+    feResults (characters, callback) {
+        return feResults( characters, callback );
     }
 }
 
-//init function
+// init function
 function init() {
     // commenting out tests
     // console.log("Start this thing up");
@@ -104,7 +107,8 @@ function feCustomCalc( characters, callback ) {
         characters[i].dmg = dmg[i];
         // console.log( characters[i] );
     }
-    callback( characters );
+    // console.log( characters );
+    feResults ( characters, callback );
     // return dmg;
             
 }
@@ -162,9 +166,10 @@ function feCreateChar ( parseddata ) {
 // feResults is main output
 // sets up turn by turn
 // stat changes? TODO
-function feResults ( characters ) {
+function feResults ( characters, callback ) {
     var color = [], calc = [];
     var results = "FE:H Calculator\n";
+    // console.log ( characters );
     for ( var i in characters ) {
         color.push((characters[i].flags.includes("r")) ? "Red " : ((characters[i].flags.includes("g") ? "Green " : ((characters[i].flags.includes("b")) ? "Blue " : "Colorless " ) ) ) );
     }
@@ -211,7 +216,11 @@ function feResults ( characters ) {
         }     
     }
     // console.log( results );
-    return results;
+    // return results;
+    if (typeof callback === "function" ) {
+        // callback( characters );
+        callback ( results );
+    }
 }
 
 function errorMissingColor() {
