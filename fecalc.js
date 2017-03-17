@@ -182,7 +182,7 @@ function feResults ( characters, callback ) {
         calc.push( characters[0].dmg ) 
     } 
     calc.push( ((characters[1].hp - calc[0]) < 0) ? 0 : (characters[1].hp - calc[0]) );
-    calc.push( characters[1].atk );
+    calc.push( characters[1].dmg );
     calc.push( ((characters[0].hp - calc[2]) < 0) ? 0 : (characters[0].hp - calc[2]) );
     // console.log ( "FE:H Calculator\n" );
     // Print Data
@@ -199,7 +199,9 @@ function feResults ( characters, callback ) {
     results += color[1] + "is " + ( (calc[1] <= 0) ? "OHKO'd!\n" : "left with " + calc[1] + "!\n" );
     // Counter Damage
     // if both are ranged or if defender has counterable
-    if ( ( (characters[0].flags.includes("n") && characters[1].flags.includes("n")) || !(characters[0].flags.includes("n") && characters[1].flags.includes("n")) ) || (characters[0].flags.includes("n") && characters[1].flags.includes("o")) ) {
+    if ( ( (characters[0].flags.includes("n") && characters[1].flags.includes("n")) || (!characters[0].flags.includes("n") && !characters[1].flags.includes("n")) ) || (characters[0].flags.includes("n") && characters[1].flags.includes("o")) ) {
+        // console.log( ((characters[0].flags.includes("n") && characters[1].flags.includes("n")) || (!characters[0].flags.includes("n") && !characters[1].flags.includes("n"))));
+        // console.log(characters[0].flags.includes("n") && characters[1].flags.includes("n"));
         results += color[1] + "retaliates for " + calc[2]  + "!\n";
         results += color[0] + "is " + ( (calc[3] <= 0) ? "killed!\n" : "left with " + calc[3] + "!\n" );
     } else {
