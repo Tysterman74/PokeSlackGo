@@ -1,4 +1,5 @@
-//FE:H Custom Calc
+// FE:H Custom Calc
+// LF<Trap Card - Kunai w/ Chain
 var math = require('mathjs');
 var _und = require('underscore');
 
@@ -28,8 +29,6 @@ function init() {
     console.log('\ntesting feCustomCalc');
     feCalcTest();
     console.log("\nFinished Tests");
-    
-    
 }
 
 //feCustomCalc takes data and throws back an endmessage 
@@ -91,7 +90,7 @@ function feCustomCalc( characters, callback ) {
             adv = [0.8, 1.2];
         }
     } else {
-        callback( errorMessage() );
+        callback( errorMissingColor() );
     }
     for ( var i in characters ) {
         // set EFF
@@ -114,7 +113,7 @@ function feCustomCalc( characters, callback ) {
 // remove whitespace
 // look for v/vs
 // split and return
-// What if multiple v/vs
+// What if multiple v/vs TODO
 function feParse( data ) {
     var parseddata = data.replace(/ /g, "");
     // "/ /g" = regex global replace, javascript only replaces first instance
@@ -135,6 +134,7 @@ function feParse( data ) {
 // technically a parser*
 // hp, atk, spd, def, res, [(d)braveweapon, (e)ffective, ra(n)ged, (m)agic,
 //     c(o)unterable, (r)ed, (b)lue, (g)reen, (c)olorless, (a)dvantage]
+// what if number is smaller TODO
 function feCreateChar ( parseddata ) {
     var chars = parseddata; 
     //for loop for each in array
@@ -158,23 +158,17 @@ function feCreateChar ( parseddata ) {
     return chars;
 }
 
+// feResults is main output
+// sets up turn by turn
+// stat changes? TODO
 function feResults ( characters ) {
-    var color = [];
+    var color = [], calc = [];
     for ( var i in characters ) {
         color.push((characters[i].flags.includes("r")) ? "Red " : ((characters[i].flags.includes("g") ? "Green " : ((characters[i].flags.includes("b")) ? "Blue " : "Colorless " ) ) ) );
     }
-    console.log ( "FE:H Calculator\n" );
-    // Attacker Data
-    console.log ( color[0] + "Attacker: " );
-    console.log ( "HP: " + characters[0].hp + " Atk: " + characters[0].atk + " Spd: " + characters[0].spd +" Def: " + characters[0].def + " Res: " + characters[0].res + "\n" );
-    console.log ( "VS\n" );
-    // Defender Data
-    console.log ( color[1] + "Defender: " );
-    console.log ( "HP: " + characters[1].hp + " Atk: " + characters[1].atk + " Spd: " + characters[1].spd +" Def: " + characters[1].def + " Res: " + characters[1].res + "\n" );
     // Simulation
     // Save in array
     // [ Atk, DefHP, DefAtk, AttHP ]
-    var calc = [];
     if ( characters[0].flags.includes("d") ) {
         calc.push( characters[0].dmg * 2 ) 
     } else {
@@ -183,6 +177,15 @@ function feResults ( characters ) {
     calc.push( ((characters[1].hp - calc[0]) < 0) ? 0 : (characters[1].hp - calc[0]) );
     calc.push( characters[1].atk );
     calc.push( ((characters[0].hp - calc[2]) < 0) ? 0 : (characters[0].hp - calc[2]) );
+    console.log ( "FE:H Calculator\n" );
+    // Print Data
+    // Attacker Data
+    console.log ( color[0] + "Attacker: " );
+    console.log ( "HP: " + characters[0].hp + " Atk: " + characters[0].atk + " Spd: " + characters[0].spd +" Def: " + characters[0].def + " Res: " + characters[0].res + "\n" );
+    console.log ( "VS\n" );
+    // Defender Data
+    console.log ( color[1] + "Defender: " );
+    console.log ( "HP: " + characters[1].hp + " Atk: " + characters[1].atk + " Spd: " + characters[1].spd +" Def: " + characters[1].def + " Res: " + characters[1].res + "\n" );
     // Initial Attack
     // Attacker Damage ( check for OHKO then Counter )
     console.log ( color[0] + "attacks for " + calc[0]  + "!" )
@@ -196,6 +199,19 @@ function feResults ( characters ) {
         console.log ( color[1] + "cannot attack back!");
     }
     // Speed Check for Extra Attack / Counter 
+    if ( (characters[0].spd - characters[1].spd) >= 5 ) {
+        console.log ( color [0] + "attacks again for " + calc[0] + "!");
+        console.log ( color[1] + "is " + ( ((calc[1] - calc[0]) <= 0) ? "killed!" : "left with " + ( calc[1] - calc[0]) + "!" ) );
+    } else if ( (characters[0].spd - characters[1].spd) >= 5 ) {
+        if ( ( (characters[0].flags.includes("n") && characters[1].flags.includes("n")) || !(characters[0].flags.includes("n") && characters[1].flags.includes("n")) ) || (characters[0].flags.includes("n") && characters[1].flags.includes("o")) ) {
+            console.log ( color[1] + "retaliates again for " + calc[2]  + "!" )
+            console.log ( color[0] + "is " + ( ((calc[3] - calc[2]) <= 0) ? "killed!" : "left with " + (calc[3] - calc[2]) + "!" ) );
+        }     
+    }
+}
+
+function errorMissingColor() {
+    console.log ( "Missing color designation");
 }
 
 // feParseTest is a Custom Unit Test for function feParse()
@@ -254,6 +270,7 @@ function feCharTest () {
     console.log( results.total - results.bad + " passed. " + results.bad + " failed out of " + results.total);
 }
 
+// feCalcTest is a Custom Test for function feCustomCalc()
 function feCalcTest () {
     var results = { total: 0, bad: 0};
     
