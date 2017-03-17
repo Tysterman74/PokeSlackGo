@@ -9,6 +9,7 @@ var pg = require('pg');
 var readline = require('readline');
 var parser = require('./parser');
 var cLookUp = require('./characterlookup');
+var fe = require('./fe');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -50,6 +51,7 @@ pokedex.init(database);
 logger.init(database);
 parser.init();
 cLookUp.init(database);
+fe.init(cLookUp);
 /*database.getLogs(function (result) {
     console.log(result);
 });
@@ -190,7 +192,12 @@ app.post('/down', function (req, res) {
 app.post('/fe-heroes', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
         console.log(req.body);
-        res.json({ text: "Test" });
+        //res.json({ text: "Test" });
+        //res.json(hook);
+        var parsedLine = parser.fullParse(hook.text);
+        fe.execute(parsedLine, function (result) {
+            res.json({ text: result });
+        });
     });
 });
 
@@ -231,7 +238,7 @@ function debugFlow() {
 			var parsedLine = parser.fullParse(line);
 			console.log(parsedLine.data + "teehee");
 			cLookUp.setName(parsedLine);
-			cLookUp.lookUp(parsedLine, function(result){
+			cLookUp.lookUp(parsedLine.data, function(result){
 				sendSlackMessage(result);
 			});
 		
