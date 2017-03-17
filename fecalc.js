@@ -20,15 +20,16 @@ module.exports = {
 
 //init function
 function init() {
-    console.log("Start this thing up");
-    console.log("\nFECalc");
-    console.log('testing feParse');
-    feParseTest();
-    console.log('\ntesting feCreateChar');
-    feCharTest();
-    console.log('\ntesting feCustomCalc');
-    feCalcTest();
-    console.log("\nFinished Tests");
+    // commenting out tests
+    // console.log("Start this thing up");
+    // console.log("\nFECalc");
+    // console.log('testing feParse');
+    // feParseTest();
+    // console.log('\ntesting feCreateChar');
+    // feCharTest();
+    // console.log('\ntesting feCustomCalc');
+    // feCalcTest();
+    // console.log("\nFinished Tests");
 }
 
 //feCustomCalc takes data and throws back an endmessage 
@@ -163,6 +164,7 @@ function feCreateChar ( parseddata ) {
 // stat changes? TODO
 function feResults ( characters ) {
     var color = [], calc = [];
+    var results = "FE:H Calculator\n";
     for ( var i in characters ) {
         color.push((characters[i].flags.includes("r")) ? "Red " : ((characters[i].flags.includes("g") ? "Green " : ((characters[i].flags.includes("b")) ? "Blue " : "Colorless " ) ) ) );
     }
@@ -177,41 +179,44 @@ function feResults ( characters ) {
     calc.push( ((characters[1].hp - calc[0]) < 0) ? 0 : (characters[1].hp - calc[0]) );
     calc.push( characters[1].atk );
     calc.push( ((characters[0].hp - calc[2]) < 0) ? 0 : (characters[0].hp - calc[2]) );
-    console.log ( "FE:H Calculator\n" );
+    // console.log ( "FE:H Calculator\n" );
     // Print Data
     // Attacker Data
-    console.log ( color[0] + "Attacker: " );
-    console.log ( "HP: " + characters[0].hp + " Atk: " + characters[0].atk + " Spd: " + characters[0].spd +" Def: " + characters[0].def + " Res: " + characters[0].res + "\n" );
-    console.log ( "VS\n" );
+    results += color[0] + "Attacker: \n";
+    results += "HP: " + characters[0].hp + " Atk: " + characters[0].atk + " Spd: " + characters[0].spd +" Def: " + characters[0].def + " Res: " + characters[0].res + "\n\n";
+    results += "VS\n\n";
     // Defender Data
-    console.log ( color[1] + "Defender: " );
-    console.log ( "HP: " + characters[1].hp + " Atk: " + characters[1].atk + " Spd: " + characters[1].spd +" Def: " + characters[1].def + " Res: " + characters[1].res + "\n" );
+    results += color[1] + "Defender: \n";
+    results += "HP: " + characters[1].hp + " Atk: " + characters[1].atk + " Spd: " + characters[1].spd +" Def: " + characters[1].def + " Res: " + characters[1].res + "\n\n";
     // Initial Attack
     // Attacker Damage ( check for OHKO then Counter )
-    console.log ( color[0] + "attacks for " + calc[0]  + "!" )
-    console.log ( color[1] + "is " + ( (calc[1] <= 0) ? "OHKO'd!" : "left with " + calc[1] + "!" ) );
+    results += color[0] + "attacks for " + calc[0]  + "!\n" 
+    results += color[1] + "is " + ( (calc[1] <= 0) ? "OHKO'd!\n" : "left with " + calc[1] + "!\n" );
     // Counter Damage
     // if both are ranged or if defender has counterable
     if ( ( (characters[0].flags.includes("n") && characters[1].flags.includes("n")) || !(characters[0].flags.includes("n") && characters[1].flags.includes("n")) ) || (characters[0].flags.includes("n") && characters[1].flags.includes("o")) ) {
-        console.log ( color[1] + "retaliates for " + calc[2]  + "!" )
-        console.log ( color[0] + "is " + ( (calc[3] <= 0) ? "killed!" : "left with " + calc[3] + "!" ) );
+        results += color[1] + "retaliates for " + calc[2]  + "!\n";
+        results += color[0] + "is " + ( (calc[3] <= 0) ? "killed!\n" : "left with " + calc[3] + "!\n" );
     } else {
-        console.log ( color[1] + "cannot attack back!");
+        results += color[1] + "cannot attack back!\n";
     }
     // Speed Check for Extra Attack / Counter 
     if ( (characters[0].spd - characters[1].spd) >= 5 ) {
-        console.log ( color [0] + "attacks again for " + calc[0] + "!");
-        console.log ( color[1] + "is " + ( ((calc[1] - calc[0]) <= 0) ? "killed!" : "left with " + ( calc[1] - calc[0]) + "!" ) );
+        results += color [0] + "attacks again for " + calc[0] + "!\n";
+        results += color[1] + "is " + ( ((calc[1] - calc[0]) <= 0) ? "killed!\n" : "left with " + ( calc[1] - calc[0]) + "!\n" );
     } else if ( (characters[0].spd - characters[1].spd) >= 5 ) {
         if ( ( (characters[0].flags.includes("n") && characters[1].flags.includes("n")) || !(characters[0].flags.includes("n") && characters[1].flags.includes("n")) ) || (characters[0].flags.includes("n") && characters[1].flags.includes("o")) ) {
-            console.log ( color[1] + "retaliates again for " + calc[2]  + "!" )
-            console.log ( color[0] + "is " + ( ((calc[3] - calc[2]) <= 0) ? "killed!" : "left with " + (calc[3] - calc[2]) + "!" ) );
+            results += color[1] + "retaliates again for " + calc[2]  + "!\n"; 
+            results += color[0] + "is " + ( ((calc[3] - calc[2]) <= 0) ? "killed!\n" : "left with " + (calc[3] - calc[2]) + "!\n" );
         }     
     }
+    // console.log( results );
+    return results;
 }
 
 function errorMissingColor() {
     console.log ( "Missing color designation");
+    return "Missing color designation";
 }
 
 // feParseTest is a Custom Unit Test for function feParse()
