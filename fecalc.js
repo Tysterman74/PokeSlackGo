@@ -20,6 +20,15 @@ module.exports = {
         return feResults( characters, callback );
     }
 }
+// global vars
+// easier to change advantages later
+var neutral = 1, smalladv = 1.2, smalldadv = 0.8, bigadv = 1.4, bigdadv = 0.6;
+var effective = 1.5;
+// readability set;
+// character readability
+var ATTACKING_CHARACTER = 0, DEFENDING_CHARACTER=1;
+// calculation readability
+var ATTACKER_DMG = 0, DEFENDER_HP = 1, DEFENDER_DMG = 2, ATTACKER_HP = 3;
 
 // init function
 function init() {
@@ -35,53 +44,53 @@ function init() {
 // adv array [ initiator, defender ] 
 function feCustomCalc( characters, callback ) {
     var dmg = [];
-    var adv = [1, 1], eff = [1, 1];
+    var adv = [neutral, neutral], eff = [neutral, neutral];
     // Set ADV / DADV 
-    if ( characters[0].flags.includes("r") ) {
-        if ( characters[1].flags.includes("b") ) {
-            if ( characters[0].flags.includes("a") || characters[1].flags.includes("a") ) {
-                adv = [0.6, 1.4]; 
+    if ( characters[ATTACKING_CHARACTER].flags.includes("r") ) {
+        if ( characters[DEFENDING_CHARACTER].flags.includes("b") ) {
+            if ( characters[ATTACKING_CHARACTER].flags.includes("a") || characters[DEFENDING_CHARACTER].flags.includes("a") ) {
+                adv = [bigdadv, bigadv]; 
             } else {   
-                adv = [0.8, 1.2];
+                adv = [smalldadv, smalladv];
             }
-        } else if ( characters[1].flags.includes("g") ) {
-            if ( characters[0].flags.includes("a") || characters[1].flags.includes("a") ) {
-                adv = [1.4, 0.6];
+        } else if ( characters[DEFENDING_CHARACTER].flags.includes("g") ) {
+            if ( characters[ATTACKING_CHARACTER].flags.includes("a") || characters[DEFENDING_CHARACTER].flags.includes("a") ) {
+                adv = [bigadv, bigdadv];
             } else {   
-                adv = [1.2, 0.8];
-            }
-        }
-    } else if ( characters[0].flags.includes("g") ) {
-        if ( characters[1].flags.includes("r") ) {
-            if ( characters[0].flags.includes("a") || characters[1].flags.includes("a") ) {
-                adv = [0.6, 1.4]; 
-            } else {   
-                adv = [0.8, 1.2];
-            }
-        } else if ( characters[1].flags.includes("b") ) {
-            if ( characters[0].flags.includes("a") || characters[1].flags.includes("a") ) {
-                adv = [1.4, 0.6];
-            } else {   
-                adv = [1.2, 0.8];
+                adv = [smalladv, smalldadv];
             }
         }
-    } else if ( characters[0].flags.includes("b") ) {
-        if ( characters[1].flags.includes("g") ) {
-            if ( characters[0].flags.includes("a") || characters[1].flags.includes("a") ) {
-                adv = [0.6, 1.4]; 
+    } else if ( characters[ATTACKING_CHARACTER].flags.includes("g") ) {
+        if ( characters[DEFENDING_CHARACTER].flags.includes("r") ) {
+            if ( characters[ATTACKING_CHARACTER].flags.includes("a") || characters[DEFENDING_CHARACTER].flags.includes("a") ) {
+                adv = [bigdadv, bigadv]; 
             } else {   
-                adv = [0.8, 1.2];
+                adv = [smalldadv, smalladv];
             }
-        } else if ( characters[1].flags.includes("r") ) {
-            if ( characters[0].flags.includes("a") || characters[1].flags.includes("a") ) {
-                adv = [1.4, 0.6];
+        } else if ( characters[DEFENDING_CHARACTER].flags.includes("b") ) {
+            if ( characters[ATTACKING_CHARACTER].flags.includes("a") || characters[DEFENDING_CHARACTER].flags.includes("a") ) {
+                adv = [bigadv, bigdadv];
             } else {   
-                adv = [1.2, 0.8];
+                adv = [smalladv, smalldadv];
             }
         }
-    } else if ( characters[0].flags.includes("c") ) {
-        if ( characters[1].flags.includes("a") ) {
-            adv = [0.8, 1.2];
+    } else if ( characters[ATTACKING_CHARACTER].flags.includes("b") ) {
+        if ( characters[DEFENDING_CHARACTER].flags.includes("g") ) {
+            if ( characters[ATTACKING_CHARACTER].flags.includes("a") || characters[DEFENDING_CHARACTER].flags.includes("a") ) {
+                adv = [bigdadv, bigadv]; 
+            } else {   
+                adv = [smalldadv, smalladv];
+            }
+        } else if ( characters[DEFENDING_CHARACTER].flags.includes("r") ) {
+            if ( characters[ATTACKING_CHARACTER].flags.includes("a") || characters[DEFENDING_CHARACTER].flags.includes("a") ) {
+                adv = [bigadv, bigdadv];
+            } else {   
+                adv = [smalladv, smalldadv];
+            }
+        }
+    } else if ( characters[ATTACKING_CHARACTER].flags.includes("c") ) {
+        if ( characters[DEFENDING_CHARACTER].flags.includes("a") ) {
+            adv = [smalldadv, smalladv];
         }
     } else {
         callback( errorMissingColor() );
@@ -89,7 +98,7 @@ function feCustomCalc( characters, callback ) {
     for ( var i in characters ) {
         // set EFF
         if ( characters[i].flags.includes("e") )
-        eff[i] = 1.5;
+        eff[i] = effective;
         // Calculate Damage
         // Damage: ceil(floor(floor(Atk * ADV) * EFF) - DEF/RES)
         dmg.push(math.ceil( math.floor ( math.floor ( characters[i].atk * adv[i] ) * eff[i]) - ( (characters[i].flags.includes('m')) ? characters[math.abs( i-1 )].res : characters[math.abs( i-1 )].def ) ) );
@@ -160,42 +169,42 @@ function feResults ( characters, callback ) {
     // Simulation
     // Save in array
     // [ Atk, DefHP, DefAtk, AttHP ]
-    if ( characters[0].flags.includes("d") ) {
-        calc.push( characters[0].dmg * 2 ) 
+    if ( characters[ATTACKING_CHARACTER].flags.includes("d") ) {
+        calc.push( characters[ATTACKING_CHARACTER].dmg * 2 ) 
     } else {
-        calc.push( characters[0].dmg ) 
+        calc.push( characters[ATTACKING_CHARACTER].dmg ) 
     } 
-    calc.push( ((characters[1].hp - calc[0]) < 0) ? 0 : (characters[1].hp - calc[0]) );
-    calc.push( characters[1].dmg );
-    calc.push( ((characters[0].hp - calc[2]) < 0) ? 0 : (characters[0].hp - calc[2]) );
+    calc.push( ((characters[DEFENDING_CHARACTER].hp - calc[ATTACKER_DMG]) < 0) ? 0 : (characters[DEFENDING_CHARACTER].hp - calc[ATTACKER_DMG]) );
+    calc.push( characters[DEFENDING_CHARACTER].dmg );
+    calc.push( ((characters[ATTACKING_CHARACTER].hp - calc[DEFENDER_DMG]) < 0) ? 0 : (characters[ATTACKING_CHARACTER].hp - calc[DEFENDER_DMG]) );
     // Print Data
     // Attacker Data
-    results += color[0] + "Attacker: \n";
-    results += "HP: " + characters[0].hp + " Atk: " + characters[0].atk + " Spd: " + characters[0].spd +" Def: " + characters[0].def + " Res: " + characters[0].res + "\n\n";
+    results += color[ATTACKING_CHARACTER] + "Attacker: \n";
+    results += "HP: " + characters[ATTACKING_CHARACTER].hp + " Atk: " + characters[ATTACKING_CHARACTER].atk + " Spd: " + characters[ATTACKING_CHARACTER].spd +" Def: " + characters[ATTACKING_CHARACTER].def + " Res: " + characters[ATTACKING_CHARACTER].res + "\n\n";
     results += "VS\n\n";
     // Defender Data
-    results += color[1] + "Defender: \n";
-    results += "HP: " + characters[1].hp + " Atk: " + characters[1].atk + " Spd: " + characters[1].spd +" Def: " + characters[1].def + " Res: " + characters[1].res + "\n\n";
+    results += color[DEFENDING_CHARACTER] + "Defender: \n";
+    results += "HP: " + characters[DEFENDING_CHARACTER].hp + " Atk: " + characters[DEFENDING_CHARACTER].atk + " Spd: " + characters[DEFENDING_CHARACTER].spd +" Def: " + characters[DEFENDING_CHARACTER].def + " Res: " + characters[DEFENDING_CHARACTER].res + "\n\n";
     // Initial Attack
     // Attacker Damage ( check for OHKO then Counter )
-    results += color[0] + "attacks for " + calc[0]  + "!\n" 
-    results += color[1] + "is " + ( (calc[1] <= 0) ? "OHKO'd!\n" : "left with " + calc[1] + "!\n" );
+    results += color[ATTACKING_CHARACTER] + "attacks for " + calc[ATTACKER_DMG]  + "!\n" 
+    results += color[DEFENDING_CHARACTER] + "is " + ( (calc[DEFENDER_HP] <= 0) ? "OHKO'd!\n" : "left with " + calc[DEFENDER_HP] + "!\n" );
     // Counter Damage
     // if both are ranged or if defender has counterable
-    if ( ( (characters[0].flags.includes("n") && characters[1].flags.includes("n")) || (!characters[0].flags.includes("n") && !characters[1].flags.includes("n")) ) || (characters[0].flags.includes("n") && characters[1].flags.includes("o")) ) {
-        results += color[1] + "retaliates for " + calc[2]  + "!\n";
-        results += color[0] + "is " + ( (calc[3] <= 0) ? "killed!\n" : "left with " + calc[3] + "!\n" );
+    if ( ( (characters[ATTACKING_CHARACTER].flags.includes("n") && characters[DEFENDING_CHARACTER].flags.includes("n")) || (!characters[ATTACKING_CHARACTER].flags.includes("n") && !characters[DEFENDING_CHARACTER].flags.includes("n")) ) || (characters[ATTACKING_CHARACTER].flags.includes("n") && characters[DEFENDING_CHARACTER].flags.includes("o")) ) {
+        results += color[DEFENDING_CHARACTER] + "retaliates for " + calc[DEFENDER_DMG]  + "!\n";
+        results += color[ATTACKING_CHARACTER] + "is " + ( (calc[ATTACKER_HP] <= 0) ? "killed!\n" : "left with " + calc[ATTACKER_HP] + "!\n" );
     } else {
-        results += color[1] + "cannot attack back!\n";
+        results += color[DEFENDING_CHARACTER] + "cannot attack back!\n";
     }
     // Speed Check for Extra Attack / Counter 
-    if ( (characters[0].spd - characters[1].spd) >= 5 ) {
-        results += color [0] + "attacks again for " + calc[0] + "!\n";
-        results += color[1] + "is " + ( ((calc[1] - calc[0]) <= 0) ? "killed!\n" : "left with " + ( calc[1] - calc[0]) + "!\n" );
-    } else if ( (characters[0].spd - characters[1].spd) >= 5 ) {
-        if ( ( (characters[0].flags.includes("n") && characters[1].flags.includes("n")) || !(characters[0].flags.includes("n") && characters[1].flags.includes("n")) ) || (characters[0].flags.includes("n") && characters[1].flags.includes("o")) ) {
-            results += color[1] + "retaliates again for " + calc[2]  + "!\n"; 
-            results += color[0] + "is " + ( ((calc[3] - calc[2]) <= 0) ? "killed!\n" : "left with " + (calc[3] - calc[2]) + "!\n" );
+    if ( (characters[ATTACKING_CHARACTER].spd - characters[DEFENDING_CHARACTER].spd) >= 5 ) {
+        results += color [ATTACKING_CHARACTER] + "attacks again for " + calc[ATTACKER_DMG] + "!\n";
+        results += color[DEFENDING_CHARACTER] + "is " + ( ((calc[DEFENDER_HP] - calc[ATTACKER_DMG]) <= 0) ? "killed!\n" : "left with " + ( calc[DEFENDER_HP] - calc[ATTACKER_DMG]) + "!\n" );
+    } else if ( (characters[ATTACKING_CHARACTER].spd - characters[DEFENDING_CHARACTER].spd) >= 5 ) {
+        if ( ( (characters[ATTACKING_CHARACTER].flags.includes("n") && characters[DEFENDING_CHARACTER].flags.includes("n")) || (!characters[ATTACKING_CHARACTER].flags.includes("n") && !characters[DEFENDING_CHARACTER].flags.includes("n")) ) || (characters[ATTACKING_CHARACTER].flags.includes("n") && characters[DEFENDING_CHARACTER].flags.includes("o")) ) {
+            results += color[DEFENDING_CHARACTER] + "retaliates again for " + calc[DEFENDER_DMG]  + "!\n"; 
+            results += color[ATTACKING_CHARACTER] + "is " + ( ((calc[ATTACKER_HP] - calc[DEFENDER_DMG]) <= 0) ? "killed!\n" : "left with " + (calc[ATTACKER_HP] - calc[DEFENDER_DMG]) + "!\n" );
         }     
     }
     if (typeof callback === "function" ) {

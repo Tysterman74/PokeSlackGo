@@ -214,13 +214,12 @@ function debugFlow() {
             console.log("exiting");
         } else {
             //INSERT HERE THE LOGIC TO TEST
-            sendSlackMessage("helloo");
 			// parser.fullParse(line);
             var chara = feCalc.feCreateChar(feCalc.feParse(line));
             // var testing = feCalc.feCustomCalc(chara, feCalc.feResults); 
             var testing = feCalc.feCustomCalc(chara, function(print) {
                 console.log(print);
-                sendSlackMessage(print);
+                // sendSlackMessage(print);
             });
             // {
             //     res.json({text: result, username: 'Boo'});
