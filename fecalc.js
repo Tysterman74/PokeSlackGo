@@ -23,16 +23,6 @@ module.exports = {
 
 // init function
 function init() {
-    // commenting out tests
-    // console.log("Start this thing up");
-    // console.log("\nFECalc");
-    // console.log('testing feParse');
-    // feParseTest();
-    // console.log('\ntesting feCreateChar');
-    // feCharTest();
-    // console.log('\ntesting feCustomCalc');
-    // feCalcTest();
-    // console.log("\nFinished Tests");
 }
 
 //feCustomCalc takes data and throws back an endmessage 
@@ -102,15 +92,10 @@ function feCustomCalc( characters, callback ) {
         eff[i] = 1.5;
         // Calculate Damage
         // Damage: ceil(floor(floor(Atk * ADV) * EFF) - DEF/RES)
-        // console.log( (characters[0].flags.includes('m')) ? characters[1].res : characters[1].def );
         dmg.push(math.ceil( math.floor ( math.floor ( characters[i].atk * adv[i] ) * eff[i]) - ( (characters[i].flags.includes('m')) ? characters[math.abs( i-1 )].res : characters[math.abs( i-1 )].def ) ) );
         characters[i].dmg = dmg[i];
-        // console.log( characters[i] );
     }
-    // console.log( characters );
     feResults ( characters, callback );
-    // return dmg;
-            
 }
 
 // feParse will parse the data from vs and whitespace
@@ -169,7 +154,6 @@ function feCreateChar ( parseddata ) {
 function feResults ( characters, callback ) {
     var color = [], calc = [];
     var results = "FE:H Calculator\n";
-    // console.log ( characters );
     for ( var i in characters ) {
         color.push((characters[i].flags.includes("r")) ? "Red " : ((characters[i].flags.includes("g") ? "Green " : ((characters[i].flags.includes("b")) ? "Blue " : "Colorless " ) ) ) );
     }
@@ -184,7 +168,6 @@ function feResults ( characters, callback ) {
     calc.push( ((characters[1].hp - calc[0]) < 0) ? 0 : (characters[1].hp - calc[0]) );
     calc.push( characters[1].dmg );
     calc.push( ((characters[0].hp - calc[2]) < 0) ? 0 : (characters[0].hp - calc[2]) );
-    // console.log ( "FE:H Calculator\n" );
     // Print Data
     // Attacker Data
     results += color[0] + "Attacker: \n";
@@ -200,8 +183,6 @@ function feResults ( characters, callback ) {
     // Counter Damage
     // if both are ranged or if defender has counterable
     if ( ( (characters[0].flags.includes("n") && characters[1].flags.includes("n")) || (!characters[0].flags.includes("n") && !characters[1].flags.includes("n")) ) || (characters[0].flags.includes("n") && characters[1].flags.includes("o")) ) {
-        // console.log( ((characters[0].flags.includes("n") && characters[1].flags.includes("n")) || (!characters[0].flags.includes("n") && !characters[1].flags.includes("n"))));
-        // console.log(characters[0].flags.includes("n") && characters[1].flags.includes("n"));
         results += color[1] + "retaliates for " + calc[2]  + "!\n";
         results += color[0] + "is " + ( (calc[3] <= 0) ? "killed!\n" : "left with " + calc[3] + "!\n" );
     } else {
@@ -217,19 +198,17 @@ function feResults ( characters, callback ) {
             results += color[0] + "is " + ( ((calc[3] - calc[2]) <= 0) ? "killed!\n" : "left with " + (calc[3] - calc[2]) + "!\n" );
         }     
     }
-    // console.log( results );
-    // return results;
     if (typeof callback === "function" ) {
-        // callback( characters );
         callback ( results );
     }
 }
 
 function errorMissingColor() {
-    console.log ( "Missing color designation");
     return "Missing color designation";
 }
 
+// Tests are not used
+//
 // feParseTest is a Custom Unit Test for function feParse()
 function feParseTest () {
     var results = { total: 0, bad: 0};
@@ -237,7 +216,6 @@ function feParseTest () {
     function test( ran, expected ) {
        results.total++;
        var running = feParse(ran);
-    //    console.log( running );
        for ( var i = 0; i < running.length; i++ ){
            if ( running[i] != expected[i])
            {
