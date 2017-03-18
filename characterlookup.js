@@ -32,7 +32,7 @@ function getName(){
 
 function lookUp(object, callback){
 	//console.log("i'm passing getName()" + getName());
-		db.queryCharacter(getName(), function(message){
+		db.queryCharacter(object, function(message){
 		if (message!="DNE"){
 /* 			console.log("Here's what I found on " + message.name + ": \n"
 			+ "Color: " + message.color +"\n"
