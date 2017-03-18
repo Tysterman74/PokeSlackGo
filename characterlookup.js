@@ -57,7 +57,7 @@ function lookUp(object, callback){
 			);
 		}
 		else
-			callback("I could not find " + getName()+ ", please check your spelling and try again.");
+			callback("I could not find " + object+ ", please check your spelling and try again.");
 		
 	});
 }
