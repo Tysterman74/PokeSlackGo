@@ -9,6 +9,8 @@ var pg = require('pg');
 var readline = require('readline');
 var parser = require('./parser');
 var feCalc = require('./fecalc');
+var cLookUp = require('./characterlookup');
+var fe = require('./fe');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -50,7 +52,8 @@ pokedex.init(database);
 logger.init(database);
 parser.init();
 feCalc.init();
-
+cLookUp.init(database);
+fe.init(cLookUp);
 /*database.getLogs(function (result) {
     console.log(result);
 });
@@ -191,7 +194,12 @@ app.post('/down', function (req, res) {
 app.post('/fe-heroes', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
         console.log(req.body);
-        res.json({ text: "Test" });
+        //res.json({ text: "Test" });
+        //res.json(hook);
+        var parsedLine = parser.fullParse(hook.text);
+        fe.execute(parsedLine, function (result) {
+            res.json({ text: result });
+        });
     });
 });
 
@@ -214,16 +222,30 @@ function debugFlow() {
             console.log("exiting");
         } else {
             //INSERT HERE THE LOGIC TO TEST
-			// parser.fullParse(line);
-            var chara = feCalc.feCreateChar(feCalc.feParse(line));
-            // var testing = feCalc.feCustomCalc(chara, feCalc.feResults); 
-            var testing = feCalc.feCustomCalc(chara, function(print) {
-                console.log(print);
-                // sendSlackMessage(print);
-            });
-            // {
-            //     res.json({text: result, username: 'Boo'});
-            // });
+            /*
+                var hpObj = {
+                    Base: 1,
+                    Low: -3,
+                    High: -4
+                };
+				
+                database.addCharacter("Tyler", "Blue", "Flying", 
+                    hpObj, hpObj, hpObj, hpObj, hpObj, function (result) {
+                        sendSlackMessage(result);
+                    });
+                database.queryCharacter(line, function (result) {
+                    sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
+                });
+            */
+        var parsedLine = parser.fullParse(line);
+        console.log(parsedLine.data + "teehee");
+        cLookUp.setName(parsedLine);
+        cLookUp.lookUp(parsedLine.data, function(result){
+          sendSlackMessage(result);
+        });
+		
+			
+			//parser.fullParse(line);
             //var pkTest = pokedex.pokeParse(line);
             //console.log("you are " + pkTest[1]);
             //var pokeChoice = pkTest[1].toString();

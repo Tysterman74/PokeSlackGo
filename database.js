@@ -11,6 +11,12 @@ module.exports = {
     getAllLocations(toRun) {
         getAllLocations(toRun);
     },
+    addCharacter(name, color, type, hpObj, atkObj, spdObj, defObj, resObj, callback) {
+        addCharacter(name, color, type, hpObj, atkObj, spdObj, defObj, resObj, callback);
+    },
+    queryCharacter(name, callback) {
+        queryCharacter(name, callback);
+    },
     queryLocation(locationName, callback) {
         queryLocation(locationName, callback);
     },
@@ -42,6 +48,44 @@ function init(client) {
     //});
 }
 
+//Adds a FE character into the FE database.
+//Takes in the following:
+//  Name (String) - Name of the Character
+//  Color (String) - Color Weapon Character wields (Red, Blue, Green, Colorless)
+//  Type (String) - Type of Character (Infantry, Flying, Mounted, Armor, Dragon)
+//  hpObj (Object { Base: int, Low: int, High: int }) - Base State of HP as well as variance
+//  atkObj (Object { Base: int, Low: int, High: int}) - Base State of ATK as well as variance
+//  spdObj (Object { Base: int, Low: int, High: int}) - Base State of SPD as well as variance
+//  defObj (Object { Base: int, Low: int, High: int}) - Base State of DEF as well as variance
+//  resObj (Object { Base: int, Low: int, High: int}) - Base State of RES as well as variance
+// callback (Function) - Function to be called once this function finishes
+// Returns - Status of EXISTS, OK, or ERROR.
+function addCharacter(name, color, type, hpObj, atkObj, spdObj, defObj, resObj, callback) {
+    db.query("SELECT * FROM Character WHERE Name = ($1)", [name], function (error, result) {
+        if (result.rows.length >= 1) {
+            callback("EXISTS");
+        }
+        else {
+                db.query("INSERT INTO Character"+ 
+                    "(Name, Color, Type, HPBase, HPLow, HPHigh, AtkBase, AtkLow, AtkHigh,"+
+                    " SpdBase, SpdLow, SpdHigh, DefBase, DefLow, DefHigh, ResBase, ResLow, ResHigh)"+
+                    "VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, "+
+                            "$10, $11, $12, $13, $14, $15, $16, $17, $18)", 
+                    [name, color, type, hpObj.Base, hpObj.Low, hpObj.High, atkObj.Base, atkObj.Low, atkObj.High,
+                     spdObj.Base, spdObj.Low, spdObj.High, defObj.Base, defObj.Low, defObj.High, resObj.Base, resObj.Low, resObj.High], 
+                    function (error, result) {
+                    if (error) {
+                        callback("ERROR")
+                    }
+                    else {
+                        callback("OK");
+                        
+                    }
+                });
+        }
+    })
+}
+
 function addLocation(locationName, latitude, longitude, callback) {
     try {
         db.query("SELECT * FROM Locations WHERE LocationName = ($1)", [locationName], function (error, result) {
@@ -69,13 +113,7 @@ function addLocation(locationName, latitude, longitude, callback) {
 
 function getAllLocations(callback) {
     try {
-        //db.serialize(function () {
-        //    db.all("SELECT * FROM Locations", function (error, rows) {
-        //        toRun(error, rows);
-        //    });
-        //});
         db.query("SELECT * FROM Locations", function (error, result) {
-            //callback(JSON.stringify(result));
             if (error) {
                 callback("There was an error retrieving current locations saved. Please try again.");
             }
@@ -101,6 +139,49 @@ function getAllLocations(callback) {
     catch (err) {
 
     }
+}
+
+//Finds a character in the FE Database based on Name.
+//Inputs: 
+//  Name (String) - Name of character
+//  Callback (Function) - Function to be called when this function is done
+//  Returns - Either a String of "ERROR" (if error has occured), "DNE" (Does not exist),
+//  Or the Character data in this form:
+//      { 
+//          name: "String", 
+//          color: "String", 
+//          type: "String", 
+//          hpbase: int, 
+//          hplow: int, 
+//          hphigh: int,
+//          atkbase: int, 
+//          atklow: int, 
+//          atkhigh: int, 
+//          spdbase: int, 
+//          spdlow: int, 
+//          spdhigh: int,
+//          defbase: int, 
+//          deflow: int, 
+//          defhigh: int, 
+//          resbase: int, 
+//          reslow: int, 
+//          reshigh: int
+//      }
+function queryCharacter(name, callback) {
+    db.query("SELECT * FROM Character Where Name = ($1)", [name], function (error, result) {
+        if (error) {
+            callback("ERROR");
+        }
+        else {
+            var foundCharacter = result.rows[0];
+            if (foundCharacter) {
+                callback(foundCharacter);
+            }
+            else {
+                callback("DNE");
+            }
+        }
+    });
 }
 
 function queryLocation(locationName, callback) {
@@ -153,6 +234,35 @@ function createTables() {
             }
             else {
                 console.log("success in creating logs table");
+            }
+        });
+
+    db.query("CREATE TABLE IF NOT EXISTS Character " +
+        "(CharacterId SERIAL PRIMARY KEY NOT NULL, " + 
+        " Name VARCHAR(25) NOT NULL, " +
+        " Color VARCHAR(15) NOT NULL, " +
+        " Type VARCHAR(20) NOT NULL, " +
+        " HPBase INTEGER NOT NULL, " +
+        " HPLow INTEGER NOT NULL, " + 
+        " HPHigh INTEGER NOT NULL, " +
+        " AtkBase INTEGER NOT NULL, " +
+        " AtkLow INTEGER NOT NULL, " +
+        " AtkHigh INTEGER NOT NULL, " +
+        " SpdBase INTEGER NOT NULL, " + 
+        " SpdLow INTEGER NOT NULL," + 
+        " SpdHigh INTEGER NOT NULL," +
+        " DefBase INTEGER NOT NULL," +
+        " DefLow INTEGER NOT NULL, " + 
+        " DefHigh INTEGER NOT NULL," +
+        " ResBase INTEGER NOT NULL, " +
+        " ResLow INTEGER NOT NULL," +
+        " ResHigh INTEGER NOT NULL)",
+        function (error, result) {
+            if (error) {
+                console.log("Error creating Character table", error);
+            }
+            else {
+                console.log("Success in creating Character Table");
             }
         });
 }
