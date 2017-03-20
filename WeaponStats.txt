@@ -1,0 +1,4 @@
+#Name,StatName,StatValue
+Test,ATK,3
+Test,RES,-3
+END

@@ -1,0 +1,3 @@
+#Name,Color,Type,Might,TriggerEffect,DoubleAtk,EffectiveType,Advantage,Disadvantage,SpecialCooldown,SPCost,Range
+Test,Blue,Tome,7,NONE,0,NONE,NONE,NONE,0,100,2
+END

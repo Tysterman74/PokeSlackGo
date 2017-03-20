@@ -35,12 +35,99 @@ pg.connect(RUNNING_PRODUCTION ? process.env.DATABASE_URL : "postgres://ubxahnokh
     else {
         //sendSlackMessage("Successfully connect to Postgres database!");
         database.initializeDatabase(client);
-        addCharacters(function (result) {
+        addWeapons(function (result) {
             console.log(result);
         });
+        /*addCharacters(function (result) {
+            console.log(result);
+        });*/
+
+
     }
 
 });
+
+function addWeapons(callback) {
+    var input = fs.createReadStream("Weapons.txt");
+    
+    console.log("Adding Weapons");
+    var remaining = '';
+    input.on('data', function (data) {
+            remaining += data;
+            var index = remaining.indexOf('\n');
+            while (index > -1) {
+                var line = remaining.substring(0, index);
+                remaining = remaining.substring(index + 1);
+
+                console.log("Line: " + line);
+                if (!line.startsWith("#")) {
+                    var splitString = line.split(",");
+                    var name = splitString[0];
+                    var color = splitString[1];
+                    var type = splitString[2];
+                    var might = splitString[3];
+                    var triggerEffect = splitString[4];
+                    var doubleAtk = splitString[5];
+                    var effectType = splitString[6];
+                    var advantage = splitString[7];
+                    var disadvantage = splitString[8];
+                    var specialCooldown = splitString[9];
+                    var spCost = splitString[10];
+                    var range = splitString[11];
+
+                    database.addWeapon(name, color, type, might, triggerEffect, doubleAtk, effectType,advantage, disadvantage, specialCooldown, spCost, range,
+                        function (result, returnName) {
+                            callback("Adding " + returnName +": " + result);
+                        }
+                    );
+                }
+
+                index = remaining.indexOf('\n');
+            }
+    });
+    
+    input.on('end', function () {
+        if (remaining.length > 0) {
+            console.log("Line: " + remaining);
+        }
+    });
+
+    console.log("Adding weapon stats");
+    var weaponStatInput = fs.createReadStream("WeaponStats.txt");
+    remaining = '';
+
+    weaponStatInput.on('data', function (data) {
+        remaining += data;
+        var index = remaining.indexOf('\n');
+        while (index > -1) {
+            var line = remaining.substring(0, index);
+            remaining = remaining.substring(index + 1);
+
+            console.log("Line: " + line);
+            if (!line.startsWith("#")) {
+                var splitString = line.split(',');
+                var name = splitString[0];
+                var statName = splitString[1];
+                var statValue = splitString[2];
+
+                database.addWeaponStat(name, statName, statValue, 
+                    function (result, returnName) {
+                        callback("Adding " + returnName +": " + result);
+                    });
+            }
+
+            index = remaining.indexOf('\n');
+        }
+    });
+
+    weaponStatInput.on('end', function () {
+        if (remaining.length > 0) {
+            console.log("Line: " + remaining);
+        }
+    });
+
+
+}
 
 function addCharacters(callback) {
 
@@ -304,10 +391,25 @@ function debugFlow() {
                     sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
                 });
             */
-
-                database.queryCharacter(line, function (result) {
+            database.queryWeapon(line, function (result) {
+                console.log(result);
+                var statsString = "";
+                if (result.stats) {
+                    statsString += "\nStat Effects:";
+                    for (var i = 0; i < result.stats.length; i++) {
+                        var stat = result.stats[i];
+                        statsString += "\n" + stat.statname +": " + stat.statvalue; 
+                    }
+                }
+                sendSlackMessage("Name: " + result.name + 
+                    "\nColor: " + result.color +
+                    "\nType: " + result.type +
+                    "\nMight: " + result.might +
+                    statsString);
+            });
+                /*database.queryCharacter(line, function (result) {
                     sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
-                });
+                });*/
 			
 			//parser.fullParse(line);
             //var pkTest = pokedex.pokeParse(line);
