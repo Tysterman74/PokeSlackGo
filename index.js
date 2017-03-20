@@ -9,6 +9,9 @@ var pg = require('pg');
 var readline = require('readline');
 var parser = require('./parser');
 var fs = require('fs');
+var feCalc = require('./fecalc');
+var cLookUp = require('./characterlookup');
+var fe = require('./fe');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -258,7 +261,12 @@ app.post('/down', function (req, res) {
 app.post('/fe-heroes', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {
         console.log(req.body);
-        res.json({ text: "Test" });
+        //res.json({ text: "Test" });
+        //res.json(hook);
+        var parsedLine = parser.fullParse(hook.text);
+        fe.execute(parsedLine, function (result) {
+            res.json({ text: result });
+        });
     });
 });
 
@@ -287,6 +295,7 @@ function debugFlow() {
                     Low: -3,
                     High: -4
                 };
+				
                 database.addCharacter("Tyler", "Blue", "Flying", 
                     hpObj, hpObj, hpObj, hpObj, hpObj, function (result) {
                         sendSlackMessage(result);
@@ -296,12 +305,11 @@ function debugFlow() {
                 });
             */
 
-                            database.queryCharacter(line, function (result) {
+                database.queryCharacter(line, function (result) {
                     sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
                 });
-
-			//parser.fullParse(line);
 			
+			//parser.fullParse(line);
             //var pkTest = pokedex.pokeParse(line);
             //console.log("you are " + pkTest[1]);
             //var pokeChoice = pkTest[1].toString();
