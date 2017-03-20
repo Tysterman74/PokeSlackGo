@@ -8,6 +8,7 @@ var logger = require('./logger');
 var pg = require('pg');
 var readline = require('readline');
 var parser = require('./parser');
+var feCalc = require('./fecalc');
 var cLookUp = require('./characterlookup');
 var fe = require('./fe');
 
@@ -50,6 +51,7 @@ app.listen(process.env.PORT || 3000, function () {
 pokedex.init(database);
 logger.init(database);
 parser.init();
+feCalc.init();
 cLookUp.init(database);
 fe.init(cLookUp);
 /*database.getLogs(function (result) {
@@ -235,16 +237,15 @@ function debugFlow() {
                     sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
                 });
             */
-			var parsedLine = parser.fullParse(line);
-			console.log(parsedLine.data + "teehee");
-			cLookUp.setName(parsedLine);
-			cLookUp.lookUp(parsedLine.data, function(result){
-				sendSlackMessage(result);
-			});
+        var parsedLine = parser.fullParse(line);
+        console.log(parsedLine.data + "teehee");
+        cLookUp.setName(parsedLine);
+        cLookUp.lookUp(parsedLine.data, function(result){
+          sendSlackMessage(result);
+        });
 		
 			
 			//parser.fullParse(line);
-			
             //var pkTest = pokedex.pokeParse(line);
             //console.log("you are " + pkTest[1]);
             //var pokeChoice = pkTest[1].toString();
