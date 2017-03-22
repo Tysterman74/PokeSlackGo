@@ -198,7 +198,7 @@ app.post('/fe-heroes', function (req, res) {
         //res.json(hook);
         var parsedLine = parser.fullParse(hook.text);
         fe.execute(parsedLine, function (result) {
-            res.json({ text: result });
+            res.json(result);
         });
     });
 });
@@ -267,6 +267,12 @@ function respondBack(body, res, text) {
 	});
 	res.json(reply);
 };
+
+function sendSlackJson(toReturn) {
+    toReturn.channel = '#testing';
+    toReturn.username = 'TestBotTyler';
+    slack.send(toReturn);
+}
 
 function sendSlackMessage(message) {
     slack.send({
