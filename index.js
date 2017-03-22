@@ -10,7 +10,9 @@ var readline = require('readline');
 var parser = require('./parser');
 var feCalc = require('./fecalc');
 var cLookUp = require('./characterlookup');
+var wLookUp = require('./weaponlookup');
 var fe = require('./fe');
+
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -53,6 +55,7 @@ logger.init(database);
 parser.init();
 feCalc.init();
 cLookUp.init(database);
+wLookUp.init();
 fe.init(cLookUp);
 /*database.getLogs(function (result) {
     console.log(result);
@@ -237,12 +240,12 @@ function debugFlow() {
                     sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
                 });
             */
-        var parsedLine = parser.fullParse(line);
-        console.log(parsedLine.data + "teehee");
-        cLookUp.setName(parsedLine);
-        cLookUp.lookUp(parsedLine.data, function(result){
-          sendSlackMessage(result);
-        });
+        // var parsedLine = parser.fullParse(line);
+        // console.log(parsedLine.data + "teehee");
+        // cLookUp.setName(parsedLine);
+        // cLookUp.lookUp(parsedLine.data, function(result){
+          // sendSlackMessage(result);
+        // });
 		
 			
 			//parser.fullParse(line);
