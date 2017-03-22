@@ -39,6 +39,9 @@ module.exports = {
     },
     getLogs(callback) {
         getLogs(callback);
+    },
+    runQuery(query) {
+        runQuery(query);
     }
 }
 
@@ -66,6 +69,17 @@ function init(client) {
             console.log("Success in deleting weapon");
         }
     });*/
+}
+
+function runQuery(query) {
+    db.query(query, function (error, result) {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        else {
+            console.log(result);
+        }
+    });
 }
 
 //Adds a FE character into the FE database.

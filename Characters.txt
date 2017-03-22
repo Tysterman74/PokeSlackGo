@@ -17,4 +17,17 @@ Cecilia,Green Tome,Calvalry,36,33,40,46,43,49,25,22,25,22,19,25,29,25,32
 Cherche,Green Axe,Flying,46,46,46,56,56,56,25,25,25,32,32,32,12,12,12
 Chrom,Red Sword,Infantry,47,44,50,53,50,56,25,22,29,31,28,34,17,13,20
 Clarine,Staff,Cavalry,35,35,39,35,32,37,33,33,36,22,19,25,32,28,32
+Cordelia,Blue Lance,Flying,40,36,43,35,32,38,35,32,38,22,19,25,25,22,28
+Corrin (F),Blue Breath,Infantry,41,37,44,27,24,31,34,31,37,34,31,37,21,18,24
+Corrin (M),Red Sword,Infantry,42,38,45,32,29,35,32,29,35,28,24,31,24,21,28
+Donnel,Blue Lance,Infantry,43,43,46,35,35,38,29,26,29,32,39,35,23,20,23
+Draug,Red Sword,Armored,50,50,50,30,30,33,32,29,35,39,39,39,18,15,18
+Effie,Blue Lance,Armored,50,47,53,40,37,43,22,19,25,33,29,36,23,20,27
+Eirika,Red Sword,Infantry,42,39,45,26,23,30,35,32,38,26,23,30,28,24,31
+Eldigan,Red Sword,Infantry,45,42,48,32,29,35,24,21,28,34,31,37,19,15,22
+Elise,Staff,Cavalry,30,27,33,32,29,35,32,29,35,19,16,22,32,29,35
+Ephraim,Blue Lance,Infantry,45,42,48,35,32,38,25,22,29,32,29,35,20,17,23
+Est,Blue Lance,Flying,36,33,36,35,32,38,30,30,33,24,21,24,32,32,35
+Fae,Green Breath,Infantry,46,43,50,33,30,36,28,25,31,25,22,29,30,26,33
+Felicia,Dagger,Infantry,34,31,34,23,23,23,37,37,40,18,15,18,35,32,38
 # End

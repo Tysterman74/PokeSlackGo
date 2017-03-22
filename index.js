@@ -35,12 +35,12 @@ pg.connect(RUNNING_PRODUCTION ? process.env.DATABASE_URL : "postgres://ubxahnokh
     else {
         //sendSlackMessage("Successfully connect to Postgres database!");
         database.initializeDatabase(client);
-        addWeapons(function (result) {
-            console.log(result);
-        });
-        /*addCharacters(function (result) {
+        /*(addWeapons(function (result) {
             console.log(result);
         });*/
+        addCharacters(function (result) {
+            console.log(result);
+        });
 
 
     }
@@ -391,7 +391,8 @@ function debugFlow() {
                     sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
                 });
             */
-            database.queryWeapon(line, function (result) {
+            database.runQuery(line);
+            /*database.queryWeapon(line, function (result) {
                 console.log(result);
                 var statsString = "";
                 if (result.stats) {
@@ -406,7 +407,8 @@ function debugFlow() {
                     "\nType: " + result.type +
                     "\nMight: " + result.might +
                     statsString);
-            });
+            });*/
+
                 /*database.queryCharacter(line, function (result) {
                     sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
                 });*/
