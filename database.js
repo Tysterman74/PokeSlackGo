@@ -237,7 +237,7 @@ function getAllLocations(callback) {
 //  Name (String) - Name of character
 //  Callback (Function) - Function to be called when this function is done
 //  Returns - Either a String of "ERROR" (if error has occured), "DNE" (Does not exist),
-//  Or the Character data in this form:
+//  Or an array of Character data in this form:
 //      { 
 //          name: "String", 
 //          color: "String", 
@@ -259,14 +259,14 @@ function getAllLocations(callback) {
 //          reshigh: int
 //      }
 function queryCharacter(name, callback) {
-    db.query("SELECT * FROM Character Where Name = ($1)", [name], function (error, result) {
+    db.query("SELECT * FROM Character Where Name ILIKE '%"+name+"%'", function (error, result) {
         if (error) {
+            console.log(error);
             callback("ERROR");
         }
         else {
-            var foundCharacter = result.rows[0];
-            if (foundCharacter) {
-                callback(foundCharacter);
+            if (result.rows.length > 0) {
+                callback(result.rows);
             }
             else {
                 callback("DNE");
@@ -275,6 +275,34 @@ function queryCharacter(name, callback) {
     });
 }
 
+//Finds a weapon in the FE DB based on Name.
+//Inputs:
+//  Name (String) - Name of weapon
+//  Callback (Function) - Function to be called when this function is done
+//  Returns - Either a String of "ERROR" (if error has occured), "DNE" (Does not exist),
+//  Or the Weapon data in this form:
+//  {
+//      weaponid: int,
+//      name: "String",
+//      color: "String",
+//      type: "String",
+//      might: int,
+//      triggereffect: "String" - Either "NONE", "INIT", or "DEFEND",
+//      doubleatk: boolean - Flag if the weapon allows attacking twice,
+//      effecttype: "String" - Either movement type (in caps) or "NONE",
+//      advantage: "String" - Either color (in caps) or "NONE",
+//      disvantage: "String" - Either color (in caps) or "NONE",
+//      specialcooldown: int,
+//      spcost: int
+//      range: int,
+//      stats: Array of objects of the following:
+//          {
+//              weaponstatid: int, Primary Key,
+//              weaponid: int, Foreign Key reference to the weapon,
+//              statname: "String", - Either "ATK", "RES", "DEF", "SPD"
+//              statvalue: int
+//          }
+//  }
 function queryWeapon(Name, callback) {
     db.query("SELECT * FROM Weapon Where Name = ($1)", [Name], function (error, result) {
         if (error) {
