@@ -17,6 +17,17 @@ module.exports = {
     queryCharacter(name, callback) {
         queryCharacter(name, callback);
     },
+    addWeapon(Name, Color, Type, Might, TriggerEffect, DoubleAtk, 
+        EffectiveType, Advantage, Disadvantage, SpecialCooldown, spCost, range, callback) {
+        addWeapon(Name, Color, Type, Might, TriggerEffect, DoubleAtk, 
+            EffectiveType, Advantage, Disadvantage, SpecialCooldown, spCost, range, callback);
+    },
+    addWeaponStat(Name, StatName, StatValue, callback) {
+        addWeaponStat(Name, StatName, StatValue, callback);
+    },
+    queryWeapon(Name, callback) {
+        queryWeapon(Name, callback);
+    },
     queryLocation(locationName, callback) {
         queryLocation(locationName, callback);
     },
@@ -28,6 +39,9 @@ module.exports = {
     },
     getLogs(callback) {
         getLogs(callback);
+    },
+    runQuery(query) {
+        runQuery(query);
     }
 }
 
@@ -39,13 +53,33 @@ function init(client) {
     db = client;
 
     createTables();
-    //db.serialize(function () {
-    //    createTables();
-    //
-    //    //db.each("SELECT * FROM TestTable", function (err, row) {
-    //    //    console.log(row.id + ' ' + row.stuff);
-    //    //});
-    //});
+    /*db.query("ALTER TABLE Weapon ADD COLUMN Range INTEGER NOT NULL", function (error, result) {
+        if (error) {
+            console.log("Error adding Range to weapon", error);
+        }
+        else {
+            console.log("Success adding Range to weapon");
+        }
+    });
+    db.query("DELETE FROM Weapon", function (error, result) {
+        if (error) {
+            console.log("error deleting weapon");
+        }
+        else {
+            console.log("Success in deleting weapon");
+        }
+    });*/
+}
+
+function runQuery(query) {
+    db.query(query, function (error, result) {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        else {
+            console.log(result);
+        }
+    });
 }
 
 //Adds a FE character into the FE database.
@@ -63,7 +97,7 @@ function init(client) {
 function addCharacter(name, color, type, hpObj, atkObj, spdObj, defObj, resObj, callback) {
     db.query("SELECT * FROM Character WHERE Name = ($1)", [name], function (error, result) {
         if (result.rows.length >= 1) {
-            callback("EXISTS");
+            callback("EXISTS", name);
         }
         else {
                 db.query("INSERT INTO Character"+ 
@@ -75,15 +109,72 @@ function addCharacter(name, color, type, hpObj, atkObj, spdObj, defObj, resObj, 
                      spdObj.Base, spdObj.Low, spdObj.High, defObj.Base, defObj.Low, defObj.High, resObj.Base, resObj.Low, resObj.High], 
                     function (error, result) {
                     if (error) {
-                        callback("ERROR")
+                        console.log("Error creating Character", error);
+                        callback("ERROR", name)
                     }
                     else {
-                        callback("OK");
+                        callback("OK", name);
                         
                     }
                 });
         }
     })
+}
+
+function addWeapon(Name, Color, Type, Might, TriggerEffect, DoubleAtk, 
+    EffectiveType, Advantage, Disadvantage, SpecialCooldown, SpCost, Range, callback) {
+    db.query("SELECT * FROM Weapon WHERE Name = ($1)", [Name], function (error, result) {
+        if (result.rows.length >= 1) {
+            callback("EXISTS", Name);
+        }
+        else {
+            db.query("INSERT INTO Weapon" + 
+                "(Name, Color, Type, Might, TriggerEffect, DoubleAtk, EffectiveType, Advantage, Disadvantage, SpecialCooldown, SpCost, Range) " +
+                " VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)", 
+                [Name, Color, Type, Might, TriggerEffect, DoubleAtk, EffectiveType, Advantage, Disadvantage, SpecialCooldown, SpCost, Range],
+                function (error, result) {
+                    if (error) {
+                        console.log("Error creating Weapon", error);
+                        callback("ERROR", Name);
+                    }
+                    else {
+                        callback("OK", Name);
+                    }
+                });
+        }
+    });
+}
+
+function addWeaponStat(Name, StatName, StatValue, callback) {
+    db.query("SELECT * FROM Weapon WHERE Name = ($1)", [Name] , function (error, result) {
+        if (result.rows.length == 1) {
+            var foundWeapon = result.rows[0];
+            db.query("SELECT * FROM WeaponStat WHERE WeaponId = ($1) AND StatName = ($2) AND StatValue = ($3)", [foundWeapon.weaponid, StatName, StatValue],
+                function (error, result) {
+                    if (result.rows.length >= 1) {
+                        callback("EXISTS", Name + ", StatName: " + StatName + " StatValue: " + StatValue);
+                    }
+                    else {
+                        db.query("INSERT INTO WeaponStat" + 
+                            "(WeaponId, StatName, StatValue)" + 
+                            "VALUES ($1, $2, $3)",
+                            [foundWeapon.weaponid, StatName, StatValue],
+                            function (error, result) {
+                                if (error) {
+                                    console.log("Error creating weapon stat", error);
+                                    callback("ERROR", error);
+                                }
+                                else {
+                                    callback("OK", Name + ", StatName: " + StatName + " StatValue: " + StatValue);
+                                }
+                            });
+                    }
+                });
+        }
+        else {
+            callback("DNE or Multiple Entries", Name);
+        }
+    });
 }
 
 function addLocation(locationName, latitude, longitude, callback) {
@@ -146,7 +237,7 @@ function getAllLocations(callback) {
 //  Name (String) - Name of character
 //  Callback (Function) - Function to be called when this function is done
 //  Returns - Either a String of "ERROR" (if error has occured), "DNE" (Does not exist),
-//  Or the Character data in this form:
+//  Or an array of Character data in this form:
 //      { 
 //          name: "String", 
 //          color: "String", 
@@ -168,14 +259,71 @@ function getAllLocations(callback) {
 //          reshigh: int
 //      }
 function queryCharacter(name, callback) {
-    db.query("SELECT * FROM Character Where Name = ($1)", [name], function (error, result) {
+    db.query("SELECT * FROM Character Where Name ILIKE '%"+name+"%'", function (error, result) {
+        if (error) {
+            console.log(error);
+            callback("ERROR");
+        }
+        else {
+            if (result.rows.length > 0) {
+                callback(result.rows);
+            }
+            else {
+                callback("DNE");
+            }
+        }
+    });
+}
+
+//Finds a weapon in the FE DB based on Name.
+//Inputs:
+//  Name (String) - Name of weapon
+//  Callback (Function) - Function to be called when this function is done
+//  Returns - Either a String of "ERROR" (if error has occured), "DNE" (Does not exist),
+//  Or the Weapon data in this form:
+//  {
+//      weaponid: int,
+//      name: "String",
+//      color: "String",
+//      type: "String",
+//      might: int,
+//      triggereffect: "String" - Either "NONE", "INIT", or "DEFEND",
+//      doubleatk: boolean - Flag if the weapon allows attacking twice,
+//      effecttype: "String" - Either movement type (in caps) or "NONE",
+//      advantage: "String" - Either color (in caps) or "NONE",
+//      disvantage: "String" - Either color (in caps) or "NONE",
+//      specialcooldown: int,
+//      spcost: int
+//      range: int,
+//      stats: Array of objects of the following:
+//          {
+//              weaponstatid: int, Primary Key,
+//              weaponid: int, Foreign Key reference to the weapon,
+//              statname: "String", - Either "ATK", "RES", "DEF", "SPD"
+//              statvalue: int
+//          }
+//  }
+function queryWeapon(Name, callback) {
+    db.query("SELECT * FROM Weapon Where Name = ($1)", [Name], function (error, result) {
         if (error) {
             callback("ERROR");
         }
         else {
-            var foundCharacter = result.rows[0];
-            if (foundCharacter) {
-                callback(foundCharacter);
+            var foundWeapon = result.rows[0];
+            if (foundWeapon) {
+                db.query("SELECT * FROM WeaponStat WHERE WeaponId = ($1)", [foundWeapon.weaponid], function (error, result) {
+                    if (error) {
+                        callback("ERROR");
+                    }
+                    else {
+                        var weaponToReturn = foundWeapon;
+                        if (result.rows.length > 0) {
+                            weaponToReturn.stats = result.rows;
+                        }
+
+                        callback(weaponToReturn);
+                    }
+                });
             }
             else {
                 callback("DNE");
@@ -263,6 +411,40 @@ function createTables() {
             }
             else {
                 console.log("Success in creating Character Table");
+            }
+        });
+
+    db.query("CREATE TABLE IF NOT EXISTS Weapon " +
+        "(WeaponId SERIAL PRIMARY KEY NOT NULL, " +
+        " Name VARCHAR(25) NOT NULL, " + 
+        " Color VARCHAR(25) NOT NULL, " + 
+        " Type VARCHAR(20) NOT NULL, " +
+        " Might INTEGER NOT NULL," + 
+        " TriggerEffect VARCHAR(15) NOT NULL," +
+        " DoubleAtk BOOLEAN NOT NULL," + 
+        " EffectiveType VARCHAR(20) NOT NULL," + 
+        " Advantage VARCHAR(20) NOT NULL, " + 
+        " Disadvantage VARCHAR(20) NOT NULL, " +
+        " SpecialCooldown INTEGER NOT NULL)",
+        function (error, result) {
+            if (error) {
+                console.log("Error creating Weapon table", error);
+            }
+            else {
+                console.log("Success in creating Weapon Table. Creating WeaponStat Relational table.")
+                db.query("CREATE TABLE IF NOT EXISTS WeaponStat " + 
+                    "(WeaponStatId SERIAL PRIMARY KEY NOT NULL, " + 
+                    " WeaponId SERIAL REFERENCES Weapon(WeaponId), " + 
+                    " StatName VARCHAR(7) NOT NULL, " + 
+                    " StatValue INTEGER NOT NULL)",
+                    function (err, res) {
+                        if (err) {
+                            console.log("Error creating weaponStats", err);
+                        }
+                        else {
+                            console.log("succcess in creating weapon stats table");
+                        }
+                    });    
             }
         });
 }

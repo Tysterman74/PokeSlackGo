@@ -8,11 +8,10 @@ var logger = require('./logger');
 var pg = require('pg');
 var readline = require('readline');
 var parser = require('./parser');
+var fs = require('fs');
 var feCalc = require('./fecalc');
 var cLookUp = require('./characterlookup');
-var wLookUp = require('./weaponlookup');
 var fe = require('./fe');
-
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -36,10 +35,10 @@ pg.connect(RUNNING_PRODUCTION ? process.env.DATABASE_URL : "postgres://ubxahnokh
     else {
         //sendSlackMessage("Successfully connect to Postgres database!");
         database.initializeDatabase(client);
+
     }
 
 });
-
 //bender.run();
 
 app.use(bodyParser.json());
@@ -53,10 +52,7 @@ app.listen(process.env.PORT || 3000, function () {
 pokedex.init(database);
 logger.init(database);
 parser.init();
-feCalc.init();
-cLookUp.init(database);
-wLookUp.init();
-fe.init(cLookUp);
+
 /*database.getLogs(function (result) {
     console.log(result);
 });
@@ -201,7 +197,7 @@ app.post('/fe-heroes', function (req, res) {
         //res.json(hook);
         var parsedLine = parser.fullParse(hook.text);
         fe.execute(parsedLine, function (result) {
-            res.json({ text: result });
+            res.json(result);
         });
     });
 });
@@ -225,37 +221,28 @@ function debugFlow() {
             console.log("exiting");
         } else {
             //INSERT HERE THE LOGIC TO TEST
-            /*
-                var hpObj = {
-                    Base: 1,
-                    Low: -3,
-                    High: -4
-                };
-				
-                database.addCharacter("Tyler", "Blue", "Flying", 
-                    hpObj, hpObj, hpObj, hpObj, hpObj, function (result) {
-                        sendSlackMessage(result);
-                    });
-                database.queryCharacter(line, function (result) {
-                    sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
+
+            /*database.queryWeapon(line, function (result) {
+                console.log(result);
+                var statsString = "";
+                if (result.stats) {
+                    statsString += "\nStat Effects:";
+                    for (var i = 0; i < result.stats.length; i++) {
+                        var stat = result.stats[i];
+                        statsString += "\n" + stat.statname +": " + stat.statvalue; 
+                    }
+                }
+                sendSlackMessage("Name: " + result.name + 
+                    "\nColor: " + result.color +
+                    "\nType: " + result.type +
+                    "\nMight: " + result.might +
+                    statsString);
+            });*/
+
+                //database.queryCharacter(line, function (result) {
+                //    console.log(result);
+                    //sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
                 });
-            */
-        // var parsedLine = parser.fullParse(line);
-        // console.log(parsedLine.data + "teehee");
-        // cLookUp.setName(parsedLine);
-        // cLookUp.lookUp(parsedLine.data, function(result){
-          // sendSlackMessage(result);
-        // });
-		
-			
-			//parser.fullParse(line);
-            //var pkTest = pokedex.pokeParse(line);
-            //console.log("you are " + pkTest[1]);
-            //var pokeChoice = pkTest[1].toString();
-            //var pokeJudge = pokedex.pokeHammer(pokeChoice, pkTest, function (result) {
-                //res.json({ text: result, username: 'poke-slack-go-bot' });
-            //    sendSlackMessage(result);
-            //});
         }
         r1.prompt(); 
     }).on('close', () => {
@@ -270,6 +257,12 @@ function respondBack(body, res, text) {
 	});
 	res.json(reply);
 };
+
+function sendSlackJson(toReturn) {
+    toReturn.channel = '#testing';
+    toReturn.username = 'TestBotTyler';
+    slack.send(toReturn);
+}
 
 function sendSlackMessage(message) {
     slack.send({

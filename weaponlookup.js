@@ -6,7 +6,7 @@ var cLook=require('./characterlookup');
 module.exports = {
 	init(){
 		init();
-	}
+	},
 	lookUp(object, callback){
 		return lookUp(object, callback)
 	}
@@ -16,4 +16,8 @@ module.exports = {
 
 function init(){
 	console.log("I have been awakened");
+}
+
+function lookUp(object, callback){
+	console.log("hi");
 }
