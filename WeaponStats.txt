@@ -1,0 +1,9 @@
+#Name,StatName,StatValue
+Test,ATK,3
+Test,RES,-3
+Binding Blade,DEF,2
+Binding Blade,RES,2
+Brave Sword,SPD,-5
+Brave Sword+,SPD,-5
+Durandal,ATK,4
+END

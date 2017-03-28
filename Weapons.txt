@@ -1,0 +1,10 @@
+#Name,Color,Type,Might,TriggerEffect,DoubleAtk,EffectiveType,Advantage,Disadvantage,SpecialCooldown,SPCost,Range
+Test,Blue,Tome,7,NONE,0,NONE,NONE,NONE,0,100,2
+Armorslayer,Red,Sword,7,NONE,0,ARMOR,ARMOR,NONE,0,200,1
+Armorslayer+,Red,Sword,12,NONE,0,ARMOR,ARMOR,NONE,0,300,1
+Binding Blade,Red,Sword,16,DEFEND,0,NONE,NONE,NONE,0,400,1
+Brave Sword,Red,Sword,5,INIT,1,NONE,NONE,NONE,0,200,1
+Brave Sword+,Red,Sword,8,INIT,1,NONE,NONE,NONE,0,300,1
+Durandal,Red,Sword,16,INIT,0,NONE,NONE,NONE,0,400,1
+Falchion,Red,Sword,16,BOTH,0,DRAGON,DRAGON,NONE,0,400,1
+END
