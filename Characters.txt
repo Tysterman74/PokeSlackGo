@@ -1,4 +1,4 @@
-# Name, Color, Type, HPBase, HpLow, HpHigh, AtkBase, AtkLow, AtkHigh, SpdBase, SpdLow, SpdHigh, DefBase, DefLow, DefHigh, ResBase, ResLow, ResHigh
+﻿# Name, Color, Type, HPBase, HpLow, HpHigh, AtkBase, AtkLow, AtkHigh, SpdBase, SpdLow, SpdHigh, DefBase, DefLow, DefHigh, ResBase, ResLow, ResHigh
 Eliwood,Red Calvary,39,35,42,47,44,50,30,26,33,23,20,26,32,29,35
 Abel,Blue Lance,Calvary,44,40,47,41,38,44,27,24,30,25,22,28,25,22,29
 Alfonse,Red Sword,Infantry,43,43,43,51,51,51,25,25,25,32,32,32,22,22,22
@@ -77,4 +77,15 @@ Oboro,Blue Lance,Infantry,40,36,43,32,32,35,26,23,30,35,32,38,24,21,24
 Odin,Blue Tome,Infantry,43,40,46,22,19,25,32,29,35,25,22,28,25,22,28
 Ogma,Red Sword,Infantry,47,44,50,35,32,38,34,31,37,28,24,31,13,10,17
 Olivia,Red Sword,Infantry,36,33,40,28,25,31,33,30,36,27,23,30,26,22,29
+Olwen,Blue Tome,Cavalry,34,31,37,26,23,30,34,31,37,20,17,23,30,27,33
+Palla,Red Sword,Flying,42,39,42,31,31,34,31,27,34,28,24,28,26,23,30
+Peri,Blue Lance,Cavalry,35,32,39,33,30,36,33,30,36,23,20,26,30,27,33
+Priscilla,Staff,Cavalry,36,33,40,29,25,32,29,25,32,19,16,22,32,29,35
+Raigh,Red Tome,Infantry,36,33,36,32,32,35,29,29,29,22,19,22,29,29,29
+Raven,Green Axe,Infantry,41,37,44,34,31,37,35,32,38,25,22,29,22,19,25
+Rebecca,Bow,Infantry,37,34,41,29,25,32,34,31,37,21,18,24,27,23,30
+Reinhardt,Blue Tome,Cavalry,38,34,41,32,29,35,23,20,26,27,23,30,25,22,28
+Robin (F),Green Tome,Infantry,40,40,40,29,29,29,29,29,29,29,29,29,22,22,22
+Robin (M),Blue Tome,Infantry,40,36,43,29,25,32,29,25,32,29,25,32,22,19,25
+Roy,Red Sword,Infantry,44,41,47,30,26,33,31,27,34,25,22,29,28,25,31
 # End
