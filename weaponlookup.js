@@ -4,8 +4,8 @@ var cLook=require('./characterlookup');
 
 
 module.exports = {
-	init(){
-		init();
+	init(database){
+		init(database);
 	},
 	lookUp(object, callback){
 		return lookUp(object, callback)
@@ -14,8 +14,14 @@ module.exports = {
 
 }
 
-function init(){
+var db;//database variable
+
+
+function init(database){
 	console.log("I have been awakened");
+	db=database;
+	
+	
 }
 
 function lookUp(object, callback){

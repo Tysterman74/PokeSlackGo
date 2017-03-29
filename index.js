@@ -221,28 +221,10 @@ function debugFlow() {
             console.log("exiting");
         } else {
             //INSERT HERE THE LOGIC TO TEST
-
-            /*database.queryWeapon(line, function (result) {
-                console.log(result);
-                var statsString = "";
-                if (result.stats) {
-                    statsString += "\nStat Effects:";
-                    for (var i = 0; i < result.stats.length; i++) {
-                        var stat = result.stats[i];
-                        statsString += "\n" + stat.statname +": " + stat.statvalue; 
-                    }
-                }
-                sendSlackMessage("Name: " + result.name + 
-                    "\nColor: " + result.color +
-                    "\nType: " + result.type +
-                    "\nMight: " + result.might +
-                    statsString);
-            });*/
-
-                //database.queryCharacter(line, function (result) {
-                //    console.log(result);
-                    //sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
-                });
+		var pObject = parser.fullParse(line);
+		cLookUp.lookUp(pObject, function(){
+			console.log(result);
+		});
         }
         r1.prompt(); 
     }).on('close', () => {
