@@ -31,6 +31,7 @@ function getName(){
 }
 
 function lookUp(object, callback){
+		console.log(object);
 		db.queryCharacter(object, function(message){
 		if (message!="DNE"){
 			var urlName = message.name.replace(" ","_");

@@ -222,7 +222,7 @@ function debugFlow() {
         } else {
             //INSERT HERE THE LOGIC TO TEST
 		var pObject = parser.fullParse(line);
-		cLookUp.lookUp(pObject, function(){
+		cLookUp.lookUp(pObject.data, function(){
 			console.log(result);
 		});
         }
