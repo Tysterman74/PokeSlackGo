@@ -28,9 +28,6 @@ module.exports = {
 	getData(){
 		return getData();
 	},
-	capFirst(string){
-		return capFirst(string);
-	},
 	returnParsed(){
 		return returnParsed();
 	}
@@ -85,11 +82,11 @@ function setData(){
 
 	
 	var tempString="";
-	tempString=capFirst(tempData[0]);
+	tempString=tempData[0];
 	j=1;
 	if (tempData.length > 1){
 		while(tempData.length>j){
-		tempString+=" "+capFirst(tempData[j]);
+		tempString+=" "+tempData[j];
 		j++;
 		}
 		this.data=tempString;
@@ -98,12 +95,6 @@ function setData(){
 		this.data=tempString;
 	
 }
-
-function capFirst(sname){
-	return sname.charAt(0).toUpperCase() + sname.slice(1);
-}
-
-
 
 
 function getData(){

@@ -224,7 +224,7 @@ function debugFlow() {
             //INSERT HERE THE LOGIC TO TEST
 		var pObject = parser.fullParse(line);
 		cLookUp.lookUp(pObject.data, function(result){
-			console.log(result);
+			sendSlackJson(result);
 		});
         }
         r1.prompt(); 
