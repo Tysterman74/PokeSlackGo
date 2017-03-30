@@ -52,6 +52,7 @@ app.listen(process.env.PORT || 3000, function () {
 pokedex.init(database);
 logger.init(database);
 parser.init();
+cLookUp.init(database);
 
 /*database.getLogs(function (result) {
     console.log(result);
@@ -222,7 +223,7 @@ function debugFlow() {
         } else {
             //INSERT HERE THE LOGIC TO TEST
 		var pObject = parser.fullParse(line);
-		cLookUp.lookUp(pObject.data, function(){
+		cLookUp.lookUp(pObject.data, function(result){
 			console.log(result);
 		});
         }

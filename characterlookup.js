@@ -33,7 +33,9 @@ function getName(){
 function lookUp(object, callback){
 		console.log(object);
 		db.queryCharacter(object, function(message){
+			console.log(message);
 		if (message!="DNE"){
+			//At this point, we need to check if it's one result in the array, multiple, or none.
 			var urlName = message.name.replace(" ","_");
 			var toReturn = {
 				text:"Here's what I found on " + message.name + ": \n"
