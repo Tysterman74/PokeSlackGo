@@ -67,9 +67,9 @@ function lookUp(object, callback){
 				var possibleChar=message.length;
 				var listChar=listToString(message);
 				var toReturn={
-					text: "There are " + possibleChar + " possible characters for " + object + ". \n" 
+					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" 
 					+ "Did you mean one of these Characters? \n"
-					+ listChar
+					+ listChar 
 				}
 			}
 			
@@ -89,11 +89,19 @@ function listToString(list){
 	var i =1;
 	var listString=list[0].name;
 	//console.log("there are " + list.length);
-	
-	while(i < list.length){
-		listString+= " " + list[i].name;
-		i++;
-	}
+	if (list.length > 5){
+		while (i<5){
+			listString+="\n"+list[i].name;
+			i++;
+		}//end while
+	}//end if > 5
+		
+	else{
+		while(i < list.length){
+			listString+= "\n" + list[i].name;
+			i++;
+		}
+	}//end else
 	//console.log(listString);
 	return listString;
 }
