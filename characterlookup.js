@@ -19,18 +19,13 @@ module.exports={
 }
 
 var db; //database variable
-var pName; //parased name variable
+var firstIndex=0;//starting index
+var secondIndex=1;//second Index
+
 
 function init(database){
 	db=database;
-}
-
-function setName(parsedObject){
-	this.pName = parsedObject.data;
-	}
-
-function getName(){
-	return this.pName;
+	console.log("Initializing Character Look Up");
 }
 
 function lookUp(object, callback){
@@ -39,23 +34,23 @@ function lookUp(object, callback){
 			//At this point, we need to check if it's one result in the array, multiple, or none.
 			if(message.length == 1)
 				{
-				var urlName = message[0].name.replace(" ","_");
+				var urlName = message[firstIndex].name.replace(" ","_");
 				var toReturn = {
-					text:"Here's what I found on " + message[0].name + ": \n"
-						+ "Color: " + message[0].color +"\n"
-						+ "Movement Type: " + message[0].type +"\n \n"
+					text:"Here's what I found on " + message[firstIndex].name + ": \n"
+						+ "Color: " + message[firstIndex].color +"\n"
+						+ "Movement Type: " + message[firstIndex].type +"\n \n"
 						+ "Stats: \n"
-						+ "HP "+ message[0].hplow + "/" + message[0].hpbase + "/" + message[0].hphigh +"\n" 
-						+ "Atk " + message[0].atklow + "/" + message[0].atkbase + "/" + message[0].atkhigh +"\n"
-						+ "Spd " + message[0].spdlow + "/" + message[0].spdbase + "/" + message[0].spdhigh +"\n"
-						+ "Def " + message[0].deflow + "/" + message[0].defbase + "/" + message[0].defhigh +"\n"
-						+ "Res " + message[0].reslow + "/" + message[0].resbase + "/" + message[0].reshigh +"\n",
+						+ "HP "+ message[firstIndex].hplow + "/" + message[firstIndex].hpbase + "/" + message[firstIndex].hphigh +"\n" 
+						+ "Atk " + message[firstIndex].atklow + "/" + message[firstIndex].atkbase + "/" + message[firstIndex].atkhigh +"\n"
+						+ "Spd " + message[firstIndex].spdlow + "/" + message[firstIndex].spdbase + "/" + message[firstIndex].spdhigh +"\n"
+						+ "Def " + message[firstIndex].deflow + "/" + message[firstIndex].defbase + "/" + message[firstIndex].defhigh +"\n"
+						+ "Res " + message[firstIndex].reslow + "/" + message[firstIndex].resbase + "/" + message[firstIndex].reshigh +"\n",
 					 attachments: [
 						 {
 							 fallback: "N/A",
 							 color: "#4286f4",
-							 title: message[0].name + " Wiki Page",
-							 text: "Click on the title link for more information about " + message[0].name,
+							 title: message[firstIndex].name + " Wiki Page",
+							 text: "Click on the title link for more information about " + message[firstIndex].name,
 							 author_name: "Fire Emblem Wiki",
 							 author_link: "http://feheroes.wiki/",
 							 title_link: "http://feheroes.wiki/" + urlName
@@ -86,23 +81,21 @@ function lookUp(object, callback){
 }
 
 function listToString(list){
-	var i =1;
-	var listString=list[0].name;
-	//console.log("there are " + list.length);
+
+	var listString=list[firstIndex].name;
+
 	if (list.length > 5){
-		while (i<5){
+		for(i=secondIndex; i<5; i++){
 			listString+="\n"+list[i].name;
-			i++;
 		}//end while
 	}//end if > 5
 		
 	else{
-		while(i < list.length){
+		for(i=secondIndex; i < list.length;i++){
 			listString+= "\n" + list[i].name;
-			i++;
+			
 		}
 	}//end else
-	//console.log(listString);
 	return listString;
 }
 	

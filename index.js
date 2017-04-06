@@ -11,6 +11,7 @@ var parser = require('./parser');
 var fs = require('fs');
 var feCalc = require('./fecalc');
 var cLookUp = require('./characterlookup');
+var vLookUp = require('./weaponlookup');
 var fe = require('./fe');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
@@ -53,6 +54,7 @@ pokedex.init(database);
 logger.init(database);
 parser.init();
 cLookUp.init(database);
+vLookUp.init(database);
 
 /*database.getLogs(function (result) {
     console.log(result);
@@ -223,7 +225,8 @@ function debugFlow() {
         } else {
             //INSERT HERE THE LOGIC TO TEST
 		var pObject = parser.fullParse(line);
-		cLookUp.lookUp(pObject.data, function(result){
+		//console.log(pObject);
+		vLookUp.lookUp(pObject.data, function(result){
 			sendSlackJson(result);
 		});
         }
