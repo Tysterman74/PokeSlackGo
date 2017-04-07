@@ -28,9 +28,6 @@ module.exports = {
 	getData(){
 		return getData();
 	},
-	capFirst(string){
-		return capFirst(string);
-	},
 	returnParsed(){
 		return returnParsed();
 	}
@@ -42,6 +39,13 @@ var parsed;
 var name;
 var command;
 var data="";
+
+var firstIndex=0;
+var secondIndex=1;
+
+var nameIndex=0;
+var commandIndex=1;
+var dataIndex=2;
 
 function init(){
 	
@@ -60,7 +64,7 @@ function fullParse(input){
 }//end fullParse
 
 function setName(){
-	this.name=this.parsed[0];
+	this.name=this.parsed[nameIndex];
 }
 
 function getName(){
@@ -68,7 +72,7 @@ function getName(){
 }
 
 function setCommand(){
-	this.command=this.parsed[1];
+	this.command=this.parsed[commandIndex];
 }
 
 function getCommand(){
@@ -76,21 +80,18 @@ function getCommand(){
 }
 
 function setData(){
-	i=2;
 	var tempData=[];
-	while(this.parsed.length > i){
+	for(i=dataIndex;this.parsed.length > i;i++){
 		tempData.push(this.parsed[i]);
-		i++;
 	}
 
 	
 	var tempString="";
-	tempString=capFirst(tempData[0]);
-	j=1;
+	tempString=tempData[firstIndex];
+	
 	if (tempData.length > 1){
-		while(tempData.length>j){
-		tempString+=" "+capFirst(tempData[j]);
-		j++;
+		for(j=secondIndex;tempData.length>j;j++){
+		tempString+=" "+tempData[j];
 		}
 		this.data=tempString;
 	}
@@ -98,12 +99,6 @@ function setData(){
 		this.data=tempString;
 	
 }
-
-function capFirst(sname){
-	return sname.charAt(0).toUpperCase() + sname.slice(1);
-}
-
-
 
 
 function getData(){

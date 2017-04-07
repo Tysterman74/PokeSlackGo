@@ -28,10 +28,10 @@ var db;
 var stat;
 var callBack;
 function init(d){
-	this.stat="listening!";
-	console.log("i think i made a pokemon. it is " + this.stat);
+	//this.stat="listening!";
+	//console.log("i think i made a pokemon. it is " + this.stat);
 	db=d;
-	console.log("i think this is "+ db );
+	//console.log("i think this is "+ db );
 }//end init
 
 function pokeParse( t1){

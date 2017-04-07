@@ -11,6 +11,7 @@ var parser = require('./parser');
 var fs = require('fs');
 var feCalc = require('./fecalc');
 var cLookUp = require('./characterlookup');
+var vLookUp = require('./weaponlookup');
 var fe = require('./fe');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
@@ -52,6 +53,8 @@ app.listen(process.env.PORT || 3000, function () {
 pokedex.init(database);
 logger.init(database);
 parser.init();
+cLookUp.init(database);
+vLookUp.init(database);
 
 /*database.getLogs(function (result) {
     console.log(result);
@@ -221,28 +224,11 @@ function debugFlow() {
             console.log("exiting");
         } else {
             //INSERT HERE THE LOGIC TO TEST
-
-            /*database.queryWeapon(line, function (result) {
-                console.log(result);
-                var statsString = "";
-                if (result.stats) {
-                    statsString += "\nStat Effects:";
-                    for (var i = 0; i < result.stats.length; i++) {
-                        var stat = result.stats[i];
-                        statsString += "\n" + stat.statname +": " + stat.statvalue; 
-                    }
-                }
-                sendSlackMessage("Name: " + result.name + 
-                    "\nColor: " + result.color +
-                    "\nType: " + result.type +
-                    "\nMight: " + result.might +
-                    statsString);
-            });*/
-
-                database.queryCharacter(line, function (result) {
-                    console.log(result);
-                    //sendSlackMessage("Name: " + result.name + " \nColor: " + result.color + "\nType: " + result.type);
-                });
+		var pObject = parser.fullParse(line);
+		//console.log(pObject);
+		vLookUp.lookUp(pObject.data, function(result){
+			sendSlackJson(result);
+		});
         }
         r1.prompt(); 
     }).on('close', () => {

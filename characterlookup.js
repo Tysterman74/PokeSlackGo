@@ -12,55 +12,67 @@ module.exports={
 	},
 	lookUp(object, callback){
 		return lookUp(object, callback);
+	},
+	listToString(list){
+		return listToString(list);
 	}
 }
 
 var db; //database variable
-var pName; //parased name variable
+var firstIndex=0;//starting index
+var secondIndex=1;//second Index
+
 
 function init(database){
 	db=database;
-}
-
-function setName(parsedObject){
-	this.pName = parsedObject.data;
-	}
-
-function getName(){
-	return this.pName;
+	console.log("Initializing Character Look Up");
 }
 
 function lookUp(object, callback){
 		db.queryCharacter(object, function(message){
 		if (message!="DNE"){
-			var urlName = message.name.replace(" ","_");
-			var toReturn = {
-				text:"Here's what I found on " + message.name + ": \n"
-					+ "Color: " + message.color +"\n"
-					+ "Movement Type: " + message.type +"\n \n"
-					+ "Stats: \n"
-					+ "HP "+ message.hplow + "/" + message.hpbase + "/" + message.hphigh +"\n" 
-					+ "Atk " + message.atklow + "/" + message.atkbase + "/" + message.atkhigh +"\n"
-					+ "Spd " + message.spdlow + "/" + message.spdbase + "/" + message.spdhigh +"\n"
-					+ "Def " + message.deflow + "/" + message.defbase + "/" + message.defhigh +"\n"
-					+ "Res " + message.reslow + "/" + message.resbase + "/" + message.reshigh +"\n",
-				attachments: [
-					{
-						fallback: "N/A",
-						color: "#4286f4",
-						title: message.name + " Wiki Page",
-						text: "Click on the title link for more information about " + message.name,
-						author_name: "Fire Emblem Wiki",
-						author_link: "http://feheroes.wiki/",
-						title_link: "http://feheroes.wiki/" + urlName
-					}
-				]
-			};
+			//At this point, we need to check if it's one result in the array, multiple, or none.
+			if(message.length == 1)
+				{
+				var urlName = message[firstIndex].name.replace(" ","_");
+				var toReturn = {
+					text:"Here's what I found on " + message[firstIndex].name + ": \n"
+						+ "Color: " + message[firstIndex].color +"\n"
+						+ "Movement Type: " + message[firstIndex].type +"\n \n"
+						+ "Stats: \n"
+						+ "HP "+ message[firstIndex].hplow + "/" + message[firstIndex].hpbase + "/" + message[firstIndex].hphigh +"\n" 
+						+ "Atk " + message[firstIndex].atklow + "/" + message[firstIndex].atkbase + "/" + message[firstIndex].atkhigh +"\n"
+						+ "Spd " + message[firstIndex].spdlow + "/" + message[firstIndex].spdbase + "/" + message[firstIndex].spdhigh +"\n"
+						+ "Def " + message[firstIndex].deflow + "/" + message[firstIndex].defbase + "/" + message[firstIndex].defhigh +"\n"
+						+ "Res " + message[firstIndex].reslow + "/" + message[firstIndex].resbase + "/" + message[firstIndex].reshigh +"\n",
+					 attachments: [
+						 {
+							 fallback: "N/A",
+							 color: "#4286f4",
+							 title: message[firstIndex].name + " Wiki Page",
+							 text: "Click on the title link for more information about " + message[firstIndex].name,
+							 author_name: "Fire Emblem Wiki",
+							 author_link: "http://feheroes.wiki/",
+							 title_link: "http://feheroes.wiki/" + urlName
+						 }
+					 ]
+				}//end toReturn
+			}//end if message=1
+			else{
+				var possibleChar=message.length;
+				var listChar=listToString(message);
+				var toReturn={
+					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" 
+					+ "Did you mean one of these Characters? \n"
+					+ listChar 
+				}
+			}
+			
 			callback(toReturn);
 		}
 		else {
 			var toReturn = {
-				text: "I could not find " + object+ ", please check your spelling and try again."
+				text: "I could not find " + object + ", please check your spelling and try again."
 			}
 			callback(toReturn);
 		}
@@ -68,3 +80,22 @@ function lookUp(object, callback){
 	});
 }
 
+function listToString(list){
+
+	var listString=list[firstIndex].name;
+
+	if (list.length > 5){
+		for(i=secondIndex; i<5; i++){
+			listString+="\n"+list[i].name;
+		}//end while
+	}//end if > 5
+		
+	else{
+		for(i=secondIndex; i < list.length;i++){
+			listString+= "\n" + list[i].name;
+			
+		}
+	}//end else
+	return listString;
+}
+	
