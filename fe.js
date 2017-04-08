@@ -16,8 +16,8 @@ var commandEnums = {
 }
 
 function init(characterLookup,weaponLookup) {
-    characterLookupObj = characterLookup;
-	weaponLookupObj = weaponLookup;
+    characterLookupObj = characterLookup,
+	weaponLookupObj = weaponLookup
 }
 
 function execute(parsedLine, callback) {
