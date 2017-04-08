@@ -11,7 +11,7 @@ var characterLookupObj;
 var weaponLookupObj;
 
 var commandEnums = {
-    CHARACTERLOOKUP: 'CHARACTER'
+    CHARACTERLOOKUP: 'CHARACTER',
 	WEAPONLOOKUP: 'WEAPON'
 }
 
