@@ -55,6 +55,7 @@ logger.init(database);
 parser.init();
 cLookUp.init(database);
 vLookUp.init(database);
+fe.init(cLookup,vLookup);
 
 /*database.getLogs(function (result) {
     console.log(result);
