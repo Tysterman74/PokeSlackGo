@@ -44,7 +44,7 @@ function characterLookup(parsedLine, callback) {
 
 function weaponLookup(parsedLine, callback){
 	var name = parsedLine.data;
-	weaponLookupObj.lookUp(name,function(result)){
+	weaponLookupObj.lookUp(name,function(result){
 		callback(result);
 	});
 }
