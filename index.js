@@ -197,7 +197,7 @@ app.post('/down', function (req, res) {
 */
 app.post('/fe-heroes', function (req, res) {
     //var parsedLine = parser.fullParse(hook)
-    var line = req.body.command + req.body.text;
+    var line = req.body.command + " " + req.body.text;
     var parsedLine = parser.fullParse(line);
     console.log("Parsed Line", parsedLine);
     fe.execute(parsedLine, function (result) {
