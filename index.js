@@ -13,6 +13,7 @@ var feCalc = require('./fecalc');
 var cLookUp = require('./characterlookup');
 var vLookUp = require('./weaponlookup');
 var fe = require('./fe');
+var request = require('request');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -195,7 +196,23 @@ app.post('/down', function (req, res) {
  trigger_word: 'fe-heroes' }
 */
 app.post('/fe-heroes', function (req, res) {
-    var reply = slack.respond(req.body, function (hook) {
+    //var parsedLine = parser.fullParse(hook)
+    var line = req.body.command + req.body.text;
+    var parsedLine = parser.fullParse(line);
+    fe.execute(parsedLine, function (result) {
+        request({
+            method: 'POST',
+            uri: req.body.response_url,
+            json: true,
+            body: result
+        }, function (error, response, body) {
+            console.log("Error", error);
+            console.log("Response", response);
+            console.log("Body", body);
+        });
+    });
+    
+    /*var reply = slack.respond(req.body, function (hook) {
         console.log(req.body);
         //res.json({ text: "Test" });
         //res.json(hook);
@@ -203,7 +220,7 @@ app.post('/fe-heroes', function (req, res) {
         fe.execute(parsedLine, function (result) {
             res.json(result);
         });
-    });
+    });*/
 });
 
 const r1 = readline.createInterface({
