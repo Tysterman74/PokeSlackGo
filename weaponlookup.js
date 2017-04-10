@@ -22,8 +22,7 @@ module.exports = {
 
 var db;//database variable
 var startIndex=0; //index that starts everything
-var secondIndex=1;
-
+var secondIndex=1; //second index in list
 
 function init(database){
 	db=database;
@@ -37,6 +36,7 @@ function lookUp(object, callback){
 	{
 		var statsString=statToString(message.stats);
 		var toReturn ={
+			response_type: "in_channel",
 			text:"Here's what the weapon I found! \n"  
 			+ message.name + "\n"
 			+ "Color Type: " + message.color + " "  + message.type +"\n"
@@ -55,7 +55,7 @@ function lookUp(object, callback){
 	}//end if message=1
 	else{
 		var toReturn={
-			//text:"there are " + message + " possible weapons." + object
+			response_type: "in_channel",
 			text: "I could not find " + object + ". \n"
 			+ "Check your spelling and try again!"
 			
