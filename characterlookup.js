@@ -36,6 +36,7 @@ function lookUp(object, callback){
 				{
 				var urlName = message[firstIndex].name.replace(" ","_");
 				var toReturn = {
+					response_type: "in_channel",
 					text:"Here's what I found on " + message[firstIndex].name + ": \n"
 						+ "Color: " + message[firstIndex].color +"\n"
 						+ "Movement Type: " + message[firstIndex].type +"\n \n"
