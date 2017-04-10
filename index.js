@@ -197,13 +197,15 @@ app.post('/down', function (req, res) {
 */
 app.post('/fe-heroes', function (req, res) {
     //var parsedLine = parser.fullParse(hook)
-    console.log("Response", res);
     var line = req.body.command + req.body.text;
     var parsedLine = parser.fullParse(line);
     console.log("Parsed Line", parsedLine);
     fe.execute(parsedLine, function (result) {
         console.log("Posting back to: " + req.body.response_url);
-        request({
+        res.location(req.body.response_url)
+            .status(200)
+            .send(result);
+        /*request({
             method: 'POST',
             uri: req.body.response_url,
             json: true,
@@ -212,7 +214,7 @@ app.post('/fe-heroes', function (req, res) {
             console.log("Error", error);
             console.log("Response", response);
             console.log("Body", body);
-        });
+        });*/
     });
     
     /*var reply = slack.respond(req.body, function (hook) {
