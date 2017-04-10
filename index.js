@@ -127,12 +127,6 @@ app.post('/logger', function (req, res) {
         //};
     });
     
-    //res.json(reply);
-    //sendSlackMessage("Hallo");
-    //console.log("the req is:",req);
-    //console.log("req", req);
-    //console.log("headers", req.headers);
-    //console.log(req.body);
 });
 
 app.post('/pokemon', function (req, res) {
@@ -196,25 +190,12 @@ app.post('/down', function (req, res) {
  trigger_word: 'fe-heroes' }
 */
 app.post('/fe-heroes', function (req, res) {
-    //var parsedLine = parser.fullParse(hook)
     var line = req.body.command + " " + req.body.text;
     var parsedLine = parser.fullParse(line);
-    console.log("Parsed Line", parsedLine);
     fe.execute(parsedLine, function (result) {
-        console.log("Posting back to: " + req.body.response_url);
         res.location(req.body.response_url)
             .status(200)
             .send(result);
-        /*request({
-            method: 'POST',
-            uri: req.body.response_url,
-            json: true,
-            body: result
-        }, function (error, response, body) {
-            console.log("Error", error);
-            console.log("Response", response);
-            console.log("Body", body);
-        });*/
     });
     
     /*var reply = slack.respond(req.body, function (hook) {
