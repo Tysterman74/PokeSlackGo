@@ -63,6 +63,7 @@ function lookUp(object, callback){
 				var possibleChar=message.length;
 				var listChar=listToString(message);
 				var toReturn={
+					response_type: "in_channel",
 					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" 
 					+ "Did you mean one of these Characters? \n"
 					+ listChar 
@@ -73,6 +74,7 @@ function lookUp(object, callback){
 		}
 		else {
 			var toReturn = {
+				response_type: "in_channel",
 				text: "I could not find " + object + ", please check your spelling and try again."
 			}
 			callback(toReturn);
