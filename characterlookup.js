@@ -65,7 +65,7 @@ function lookUp(object, callback){
 				var toReturn={
 					response_type: "in_channel",
 					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" 
-					+ "Did you mean one of these Characters? \n"
+					+ "Did you mean one of these Characters? \n",
 					fallback:"unable to show possible characters",
 					callback_id:"possibleCharacters",
 					color:"#42b0f4",
