@@ -66,7 +66,7 @@ function lookUp(object, callback){
 					response_type: "in_channel",
 					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" ,
 					attachments:[{
-						"Did you mean one of these Characters? \n",
+					text: "Did you mean one of these Characters? \n",
 					fallback:"unable to show possible characters",
 					callback_id:"possibleCharacters",
 					color:"#42b0f4",
