@@ -69,7 +69,7 @@ function lookUp(object, callback){
 					fallback:"unable to show possible characters",
 					callback_id:"possibleCharacters",
 					color:"#42b0f4",
-					attachment_type:"default"
+					attachment_type:"default",
 					actions: [
 					{
 						name: message[firstIndex].name,
