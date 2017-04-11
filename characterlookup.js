@@ -64,7 +64,7 @@ function lookUp(object, callback){
 				var listChar=listToString(message);
 				var toReturn={
 					response_type: "in_channel",
-					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" 
+					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" ,
 					attachments:[{
 						"Did you mean one of these Characters? \n",
 					fallback:"unable to show possible characters",
