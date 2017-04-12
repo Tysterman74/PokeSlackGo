@@ -114,19 +114,19 @@ function listToString(list){
 function actionsArray (possList){
 	var actions =[
 	{
-		name: message[firstIndex].name,
-		text: message[firstIndex].name,
+		name: possList[firstIndex].name,
+		text: possList[firstIndex].name,
 		type: "button",
-		value: "fe character " + message[firstIndex].name
+		value: "fe character " + possList[firstIndex].name
 	}
 	];
 	for (i=secondIndex;i<5;i++){
 			actions.push(
 			[{
-				name: message[i].name,
-				text: message[i].name,
+				name: possList[i].name,
+				text: possList[i].name,
 				type: "button",
-				value: "fe character " + message[i].name
+				value: "fe character " + possList[i].name
 				
 			}]
 			);
