@@ -192,6 +192,7 @@ app.post('/down', function (req, res) {
  trigger_word: 'fe-heroes' }
 */
 app.post('/fe-heroes', function (req, res) {
+    console.log(req);
     var line = req.body.command + " " + req.body.text;
     var parsedLine = parser.fullParse(line);
     fe.execute(parsedLine, function (result) {
