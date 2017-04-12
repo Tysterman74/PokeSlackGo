@@ -56,7 +56,6 @@ logger.init(database);
 parser.init();
 cLookUp.init(database);
 vLookUp.init(database);
-fe.init(cLookUp);
 
 fe.init(cLookUp,vLookUp);
 
