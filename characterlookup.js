@@ -62,7 +62,7 @@ function lookUp(object, callback){
 			else{
 				var possibleChar=message.length;
 				var listChar=listToString(message);
-				var listAction=actionsArray(message);
+				var listAction=actionsArray(listChar);
 				console.log(listAction);
 				var toReturn={
 					response_type: "ephereal",
@@ -115,19 +115,19 @@ function listToString(list){
 function actionsArray (possList){
 	var actions =[
 	{
-		name: possList[firstIndex].name,
-		text: possList[firstIndex].name,
+		name: possList[firstIndex],
+		text: possList[firstIndex],
 		type: "button",
-		value: "fe character " + possList[firstIndex].name
+		value: "fe character " + possList[firstIndex]
 	}
 	];
 	for (i=secondIndex;i<5;i++){
 			actions+=
 			[{
-				name: possList[i].name,
-				text: possList[i].name,
+				name: possList[i],
+				text: possList[i],
 				type: "button",
-				value: "fe character " + possList[i].name
+				value: "fe character " + possList[i]
 				
 			}]
 			;
