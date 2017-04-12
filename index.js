@@ -207,6 +207,7 @@ app.post('/fe-heroes', function (req, res) {
     //var line = req.body.command + " " + req.body.text;
     var parsedLine = parser.fullParse(line);
     fe.execute(parsedLine, function (result) {
+        console.log("responseurl", requestBody.response_url);
         if (req.body.payload)
             result.replace_original = true;
 
