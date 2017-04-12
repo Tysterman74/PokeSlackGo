@@ -62,6 +62,7 @@ function lookUp(object, callback){
 			else{
 				var possibleChar=message.length;
 				var listChar=listToString(message);
+				var listAction=actionsArray(listChar);
 				var toReturn={
 					response_type: "ephereal",
 					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" ,
@@ -72,14 +73,9 @@ function lookUp(object, callback){
 					color:"#42b0f4",
 					attachment_type:"default",
 					actions: [
-					{
-						name: message[firstIndex].name,
-						text: message[firstIndex].name,
-						type: "button",
-						value: "fe character " + message[firstIndex].name
-					}
-					]	 
-					}]
+						listAction
+					]//end actions
+					}]//end attachments
 				}
 			}
 			
@@ -115,4 +111,26 @@ function listToString(list){
 	return listString;
 }
 
+function actionsArray (possList){
+	var actions =[
+	{
+		name: message[firstIndex].name,
+		text: message[firstIndex].name,
+		type: "button",
+		value: "fe character " + message[firstIndex].name
+	}
+	];
+	for (i=secondIndex;i<5;i++){
+			actions.push(
+			[{
+				name: message[i].name,
+				text: message[i].name,
+				type: "button",
+				value: "fe character " + message[i].name
+				
+			}]
+			);
+	}
+	return actions;
+}
 
