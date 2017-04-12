@@ -63,6 +63,7 @@ function lookUp(object, callback){
 				var possibleChar=message.length;
 				var listChar=listToString(message);
 				var listAction=actionsArray(message);
+				console.log(listAction);
 				var toReturn={
 					response_type: "ephereal",
 					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" ,
