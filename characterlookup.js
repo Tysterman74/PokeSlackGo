@@ -73,9 +73,8 @@ function lookUp(object, callback){
 					callback_id:"possibleCharacters",
 					color:"#42b0f4",
 					attachment_type:"default",
-					actions: [
-						listAction
-					]//end actions
+					actions: listAction
+					//end actions
 					}]//end attachments
 				}
 			}
@@ -124,6 +123,7 @@ function actionsArray (possList){
 				value: "fe character " + possList[i].name
 			}
 			);
+			console.log(actions[i]);
 			//console.log(actions[i]);
 	}
 	//console.log(actions);
