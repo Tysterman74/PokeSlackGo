@@ -65,18 +65,18 @@ function lookUp(object, callback){
 				var listAction=actionsArray(message);
 				//console.log(listAction);
 				var toReturn={
-					//response_type: "ephereal",
-					//text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" ,
-					//attachments:[{
-					//text: "Did you mean one of these Characters? \n",
-					//fallback:"unable to show possible characters",
-					//callback_id:"possibleCharacters",
-					//color:"#42b0f4",
-					//attachment_type:"default",
+					response_type: "ephereal",
+					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" ,
+					attachments:[{
+					text: "Did you mean one of these Characters? \n",
+					fallback:"unable to show possible characters",
+					callback_id:"possibleCharacters",
+					color:"#42b0f4",
+					attachment_type:"default",
 					actions: [
 						listAction
 					]//end actions
-					//}]//end attachments
+					}]//end attachments
 				}
 			}
 			
