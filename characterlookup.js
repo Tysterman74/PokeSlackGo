@@ -65,18 +65,18 @@ function lookUp(object, callback){
 				var listAction=actionsArray(message);
 				//console.log(listAction);
 				var toReturn={
-					response_type: "ephereal",
-					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" ,
-					attachments:[{
-					text: "Did you mean one of these Characters? \n",
-					fallback:"unable to show possible characters",
-					callback_id:"possibleCharacters",
-					color:"#42b0f4",
-					attachment_type:"default",
+					//response_type: "ephereal",
+					//text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" ,
+					//attachments:[{
+					//text: "Did you mean one of these Characters? \n",
+					//fallback:"unable to show possible characters",
+					//callback_id:"possibleCharacters",
+					//color:"#42b0f4",
+					//attachment_type:"default",
 					actions: [
 						listAction
 					]//end actions
-					}]//end attachments
+					//}]//end attachments
 				}
 			}
 			
@@ -113,29 +113,20 @@ function listToString(list){
 }
 
 function actionsArray (possList){
-	var actions =[
-	{
-		name: possList[firstIndex].name,
-		text: possList[firstIndex].name,
-		type: "button",
-		value: "fe character " + possList[firstIndex].name
-	}
-	];
-
-	for (i=secondIndex;i<5;i++){
+	var actions =[];
+	//console.log(actions);
+	for (i=firstIndex;i<5;i++){
 			actions.push(
-			[{
+			{
 				name: possList[i].name,
 				text: possList[i].name,
 				type: "button",
 				value: "fe character " + possList[i].name
-				
-				
-			}]
+			}
 			);
-
+			//console.log(actions[i]);
 	}
-
+	//console.log(actions);
 	return actions;
 }
 
