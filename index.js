@@ -14,6 +14,7 @@ var cLookUp = require('./characterlookup');
 var vLookUp = require('./weaponlookup');
 var fe = require('./fe');
 var request = require('request');
+var qs = require('qs');
 
 var slack = new Slack('https://hooks.slack.com/services/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', null);
 var app = express();
@@ -192,11 +193,24 @@ app.post('/down', function (req, res) {
  trigger_word: 'fe-heroes' }
 */
 app.post('/fe-heroes', function (req, res) {
-    console.log(req.body);
-    var line = req.body.command + " " + req.body.text;
+    var requestBody;
+    var line;
+    if (req.body.payload) {
+        requestBody = qs.parse(req.body.payload);
+        line = "fe character " + requestBody.actions[0].value;
+    }
+    else {
+        requestBody = req.body;
+        line = req.body.command + " " + req.body.text;
+    }
+    console.log("Line", line);
+    //var line = req.body.command + " " + req.body.text;
     var parsedLine = parser.fullParse(line);
     fe.execute(parsedLine, function (result) {
-        res.location(req.body.response_url)
+        if (req.body.payload)
+            result.replace_original = true;
+
+        res.location(requestBody.response_url)
             .status(200)
             .send(result);
     });
