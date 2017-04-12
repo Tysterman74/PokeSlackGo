@@ -121,7 +121,7 @@ function actionsArray (possList){
 	}
 	];
 	for (i=secondIndex;i<5;i++){
-			actions.push(
+			actions+=
 			[{
 				name: possList[i].name,
 				text: possList[i].name,
@@ -129,7 +129,7 @@ function actionsArray (possList){
 				value: "fe character " + possList[i].name
 				
 			}]
-			);
+			;
 	}
 	return actions;
 }
