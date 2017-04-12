@@ -196,7 +196,8 @@ app.post('/fe-heroes', function (req, res) {
     var requestBody;
     var line;
     if (req.body.payload) {
-        requestBody = qs.parse(req.body.payload);
+        //requestBody = qs.parse(req.body.payload);
+        requestBody = JSON.parse(req.body.payload);
         console.log("reqbody", requestBody);
         line = "fe character " + requestBody.actions[0].value;
     }
