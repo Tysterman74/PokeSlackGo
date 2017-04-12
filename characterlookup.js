@@ -62,8 +62,8 @@ function lookUp(object, callback){
 			else{
 				var possibleChar=message.length;
 				var listChar=listToString(message);
-				var listAction=actionsArray(listChar);
-				console.log(listAction);
+				var listAction=actionsArray(message);
+				//console.log(listAction);
 				var toReturn={
 					response_type: "ephereal",
 					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" ,
@@ -115,23 +115,27 @@ function listToString(list){
 function actionsArray (possList){
 	var actions =[
 	{
-		name: possList[firstIndex],
-		text: possList[firstIndex],
+		name: possList[firstIndex].name,
+		text: possList[firstIndex].name,
 		type: "button",
-		value: "fe character " + possList[firstIndex]
+		value: "fe character " + possList[firstIndex].name
 	}
 	];
+
 	for (i=secondIndex;i<5;i++){
-			actions+=
+			actions.push(
 			[{
-				name: possList[i],
-				text: possList[i],
+				name: possList[i].name,
+				text: possList[i].name,
 				type: "button",
-				value: "fe character " + possList[i]
+				value: "fe character " + possList[i].name
+				
 				
 			}]
-			;
+			);
+
 	}
+
 	return actions;
 }
 
