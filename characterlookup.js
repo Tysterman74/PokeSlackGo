@@ -63,7 +63,7 @@ function lookUp(object, callback){
 				var possibleChar=message.length;
 				var listChar=listToString(message);
 				var toReturn={
-					response_type: "in_channel",
+					response_type: "ephereal",
 					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" ,
 					attachments:[{
 					text: "Did you mean one of these Characters? \n",
@@ -76,7 +76,7 @@ function lookUp(object, callback){
 						name: message[firstIndex].name,
 						text: message[firstIndex].name,
 						type: "button",
-						value: message[firstIndex].name
+						value: "fe character " + message[firstIndex].name
 					}
 					]	 
 					}]
@@ -114,4 +114,5 @@ function listToString(list){
 	}//end else
 	return listString;
 }
-	
+
+
