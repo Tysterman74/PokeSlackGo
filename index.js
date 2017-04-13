@@ -57,7 +57,6 @@ logger.init(database);
 parser.init();
 cLookUp.init(database);
 vLookUp.init(database);
-fe.init(cLookUp);
 
 fe.init(cLookUp,vLookUp);
 
@@ -248,11 +247,11 @@ function debugFlow() {
             console.log("exiting");
         } else {
             //INSERT HERE THE LOGIC TO TEST
-		// var pObject = parser.fullParse(line);
+		 var pObject = parser.fullParse(line);
 		//console.log(pObject);
-		// vLookUp.lookUp(pObject.data, function(result){
-			// sendSlackJson(result);
-		// });
+		 cLookUp.lookUp(pObject.data, function(result){
+			 console.log(result);
+		});
 		
         }
         r1.prompt(); 

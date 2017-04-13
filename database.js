@@ -259,19 +259,32 @@ function getAllLocations(callback) {
 //          reshigh: int
 //      }
 function queryCharacter(name, callback) {
-    db.query("SELECT * FROM Character Where Name ILIKE '%"+name+"%'", function (error, result) {
-        if (error) {
-            console.log(error);
-            callback("ERROR");
+    db.query("SELECT COUNT(name) AS CCount FROM Character WHERE name ILIKE '"+name+"'", function (err, res) {
+        var COUNT_INDEX = 0;
+
+        var characterCount = res.rows[COUNT_INDEX].ccount;
+        var query = "";
+        if (characterCount == 1) {
+            query = "SELECT * FROM Character WHERE name ILIKE '"+name+"'";
         }
         else {
-            if (result.rows.length > 0) {
-                callback(result.rows);
+            query = "SELECT *, name <-> '" +name+ "' AS dist FROM Character WHERE name ILIKE '%"+name+"%' ORDER BY dist";
+        }
+
+        db.query(query, function (error, result) {
+            if (error) {
+                console.log(error);
+                callback("ERROR");
             }
             else {
-                callback("DNE");
+                if (result.rows.length > 0) {
+                    callback(result.rows);
+                }
+                else {
+                    callback("DNE");
+                }
             }
-        }
+        });
     });
 }
 
