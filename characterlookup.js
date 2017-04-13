@@ -64,7 +64,7 @@ function lookUp(object, callback){
 				var listChar=listToString(message);
 				var listAction=actionsArray(message);
 				var toReturn={
-					response_type: "ephereal",
+					response_type: "in_channel",
 					text: "There are " + possibleChar + " possible characters for *" + object + "*. Here are the top results. \n" ,
 					attachments:[{
 					text: "Did you mean one of these Characters? \n",
