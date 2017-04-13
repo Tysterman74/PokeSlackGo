@@ -195,20 +195,16 @@ app.post('/fe-heroes', function (req, res) {
     var requestBody;
     var line;
     if (req.body.payload) {
-        //requestBody = qs.parse(req.body.payload);
         requestBody = JSON.parse(req.body.payload);
-        console.log("reqbody", requestBody);
-        line = "fe character " + requestBody.actions[0].value;
+        //line = "fe character " + requestBody.actions[0].value;
+        line = requestBody.actions[0].value;
     }
     else {
         requestBody = req.body;
         line = req.body.command + " " + req.body.text;
     }
-    console.log("Line", line);
-    //var line = req.body.command + " " + req.body.text;
     var parsedLine = parser.fullParse(line);
     fe.execute(parsedLine, function (result) {
-        console.log("responseurl", requestBody.response_url);
         if (req.body.payload)
             result.replace_original = true;
 
