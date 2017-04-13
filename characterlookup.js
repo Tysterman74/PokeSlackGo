@@ -63,7 +63,6 @@ function lookUp(object, callback){
 				var possibleChar=message.length;
 				var listChar=listToString(message);
 				var listAction=actionsArray(message);
-				//console.log(listAction);
 				var toReturn={
 					response_type: "ephereal",
 					text: "There are " + possibleChar + " possible characters for *" + object + "*. Here are the top results. \n" ,
@@ -114,7 +113,7 @@ function listToString(list){
 function actionsArray (possList){
 	var actions =[];
 	if (possList.length>5){
-	//console.log(actions);
+
 		for (i=firstIndex;i<5;i++){
 			actions.push(
 			{
@@ -124,8 +123,7 @@ function actionsArray (possList){
 				value: "fe character " + possList[i].name
 			}
 			);
-			//console.log(actions[i]);
-			//console.log(actions[i]);
+
 		}//end loop
 	}//end if length>5
 	else{
@@ -138,12 +136,10 @@ function actionsArray (possList){
 				value: "fe character " + possList[i].name
 			}
 			);
-			console.log(actions[i]);
-			//console.log(actions[i]);
 		}//end loop
 	
 	}//end else
-	//console.log(actions);
+
 	return actions;
 }
 
