@@ -206,18 +206,7 @@ app.post('/fe-heroes', function (req, res) {
     var parsedLine = parser.fullParse(line);
     fe.execute(parsedLine, function (result) {
         if (req.body.payload) {
-            result.replace_original = false;
-            ///do request
-            //xoxp-44412212455-44363516563-166862049348-145a22bc31653f8cbb41dc70462623c4
-            //request('https://slack.com/api/chat.delete')
-            request.post({
-                uri: 'https://slack.com/oauth/authorize?client_id=44412212455.166821598946&scope=chat%3Awrite%3Abot',
-                method: 'GET',
-            }, function (error, response, body) {
-                console.log("Error", error);
-                console.log("Response", response);
-                console.log("Body", body);
-            });
+            result.replace_original = true;
         }
 
         res.location(requestBody.response_url)
