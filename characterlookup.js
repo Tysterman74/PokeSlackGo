@@ -62,11 +62,19 @@ function lookUp(object, callback){
 			else{
 				var possibleChar=message.length;
 				var listChar=listToString(message);
+				var listAction=actionsArray(message);
 				var toReturn={
-					response_type: "in_channel",
-					text: "There are " + possibleChar + " possible characters for *" + object + "*. \n" 
-					+ "Did you mean one of these Characters? \n"
-					+ listChar 
+					response_type: "ephereal",
+					text: "There are " + possibleChar + " possible characters for *" + object + "*. Here are the top results. \n" ,
+					attachments:[{
+					text: "Did you mean one of these Characters? \n",
+					fallback:"unable to show possible characters",
+					callback_id:"possibleCharacters",
+					color:"#42b0f4",
+					attachment_type:"default",
+					actions: listAction
+					//end actions
+					}]//end attachments
 				}
 			}
 			
@@ -101,4 +109,37 @@ function listToString(list){
 	}//end else
 	return listString;
 }
+
+function actionsArray (possList){
+	var actions =[];
+	if (possList.length>5){
+
+		for (i=firstIndex;i<5;i++){
+			actions.push(
+			{
+				name: possList[i].name,
+				text: possList[i].name,
+				type: "button",
+				value: "fe character " + possList[i].name
+			}
+			);
+
+		}//end loop
+	}//end if length>5
+	else{
+		for (i=firstIndex;i<possList.length;i++){
+			actions.push(
+			{
+				name: possList[i].name,
+				text: possList[i].name,
+				type: "button",
+				value: "fe character " + possList[i].name
+			}
+			);
+		}//end loop
 	
+	}//end else
+
+	return actions;
+}
+

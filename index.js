@@ -191,6 +191,7 @@ app.post('/down', function (req, res) {
  trigger_word: 'fe-heroes' }
 */
 app.post('/fe-heroes', function (req, res) {
+    console.log(req.body);
     var line = req.body.command + " " + req.body.text;
     var parsedLine = parser.fullParse(line);
     fe.execute(parsedLine, function (result) {
@@ -229,11 +230,11 @@ function debugFlow() {
             console.log("exiting");
         } else {
             //INSERT HERE THE LOGIC TO TEST
-		// var pObject = parser.fullParse(line);
+		 var pObject = parser.fullParse(line);
 		//console.log(pObject);
-		// vLookUp.lookUp(pObject.data, function(result){
-			// sendSlackJson(result);
-		// });
+		 cLookUp.lookUp(pObject.data, function(result){
+			 console.log(result);
+		});
 		
         }
         r1.prompt(); 
