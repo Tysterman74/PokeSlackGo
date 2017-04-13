@@ -205,8 +205,10 @@ app.post('/fe-heroes', function (req, res) {
     }
     var parsedLine = parser.fullParse(line);
     fe.execute(parsedLine, function (result) {
-        if (req.body.payload)
+        if (req.body.payload) {
             result.replace_original = true;
+            result.response_type= "in_channel";
+        }
 
         res.location(requestBody.response_url)
             .status(200)
