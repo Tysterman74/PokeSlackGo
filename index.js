@@ -207,6 +207,23 @@ app.post('/fe-heroes', function (req, res) {
     fe.execute(parsedLine, function (result) {
         if (req.body.payload) {
             result.replace_original = false;
+            ///do request
+            //xoxp-44412212455-44363516563-166862049348-145a22bc31653f8cbb41dc70462623c4
+            //request('https://slack.com/api/chat.delete')
+            request({
+                uri: 'https://slack.com/api/chat.delete',
+                method: 'POST',
+                body: {
+                    token: 'xoxp-44412212455-44363516563-166862049348-145a22bc31653f8cbb41dc70462623c4',
+                    ts: requestBody.message_ts,
+                    channel: requestBody.channel.id,
+                    as_user: true
+                }
+            }, function (error, response, body) {
+                console.log("Error", error);
+                console.log("Response", response);
+                console.log("Body", body);
+            });
         }
 
         res.location(requestBody.response_url)
