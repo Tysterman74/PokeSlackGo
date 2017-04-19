@@ -43,7 +43,7 @@ pg.connect(RUNNING_PRODUCTION ? process.env.DATABASE_URL : "postgres://ubxahnokh
 
 });
 //bender.run();
-
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -116,6 +116,10 @@ Query Location
 /*bender.on('start',function() {
 	bender.postMessageToChannel('general', 'Bite my shiny metal ass!');
 });*/
+
+app.get("*", function (req, res) {
+    res.sendfile('./public/index.html');
+});
 
 app.post('/logger', function (req, res) {
     var reply = slack.respond(req.body, function (hook) {

@@ -16,7 +16,8 @@
 	"mathjs": "^3.10.0",
 	"underscore": "^1.8.3",
 	"request": "^2.81.0",
-	"qs": "^6.4.0"
+	"qs": "^6.4.0",
+	"angular": "^1.6.4"
   },
   "scripts": {
     "start": "node index.js"
